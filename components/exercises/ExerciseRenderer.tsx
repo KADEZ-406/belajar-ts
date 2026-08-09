@@ -20,6 +20,7 @@ export function ExerciseRenderer({
 }: ExerciseRendererProps) {
   const [selectedOption, setSelectedOption] = useState<any>(null);
   const [showFixHint, setShowFixHint] = useState(false);
+  const [showConceptGuide, setShowConceptGuide] = useState(false);
   const [editorState, setEditorState] = useState<{ output: string; code: string } | null>(null);
   const [arrangedItems, setArrangedItems] = useState<string[]>(
     exercise.type === "arrange_code" ? [...exercise.codeSnippets] : []
@@ -112,15 +113,34 @@ export function ExerciseRenderer({
 
   return (
     <div className="space-y-6">
-      {/* Pelajari Dulu (Guided explanation before challenge in Learn Mode) */}
-      {!isExamMode && (
-        <div className="card-duo p-6 bg-sky-50 border-2 border-sky-200 rounded-2xl space-y-2 shadow-xs">
-          <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#1cb0f6]">
-            <BookOpen className="w-4 h-4" /> Pelajari Dulu:
-          </div>
-          <p className="text-base font-semibold text-slate-800 leading-relaxed">
-            {exercise.conceptGuide || "Perhatikan aturan sintaks dan tata cara penulisan kode di bawah sebelum kamu mencoba kuis."}
-          </p>
+      {/* Pelajari Dulu Toggle Button & Collapsible Card (ONLY in Learn Mode) */}
+      {!isExamMode && exercise.conceptGuide && (
+        <div className="space-y-2">
+          {showConceptGuide ? (
+            <div className="card-duo p-5 bg-sky-50 border-2 border-sky-200 rounded-2xl space-y-2 shadow-xs animate-in fade-in duration-200">
+              <div className="flex items-center justify-between border-b border-sky-200/60 pb-2">
+                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#1cb0f6]">
+                  <BookOpen className="w-4 h-4" /> Pelajari Dulu:
+                </div>
+                <button
+                  onClick={() => setShowConceptGuide(false)}
+                  className="text-xs font-bold text-slate-400 hover:text-slate-600"
+                >
+                  Sembunyikan
+                </button>
+              </div>
+              <p className="text-sm md:text-base font-semibold text-slate-800 leading-relaxed">
+                {exercise.conceptGuide}
+              </p>
+            </div>
+          ) : (
+            <button
+              onClick={() => setShowConceptGuide(true)}
+              className="text-xs font-extrabold text-[#1cb0f6] hover:underline flex items-center gap-1.5 px-3.5 py-2 bg-sky-50 rounded-xl border border-sky-200 shadow-2xs"
+            >
+              <BookOpen className="w-4 h-4" /> Pelajari Dulu?
+            </button>
+          )}
         </div>
       )}
 
