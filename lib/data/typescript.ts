@@ -66,8 +66,7 @@ Keuntungan utama:
                 id: "ts_ex_3",
                 type: "code_challenge",
                 prompt: "Tulis perintah console.log yang mencetak teks 'Halo TypeScript!'",
-                starterCode: `// Tulis kode kamu di sini
-console.log("Halo TypeScript!");`,
+                starterCode: `// Tulis kode kamu di bawah ini\n`,
                 expectedOutput: "Halo TypeScript!",
                 explanation: "Bagus. Perintah console.log() menampilkan keluaran teks.",
                 xpReward: 15,
@@ -201,7 +200,8 @@ function tambah(a: number, b: number): number {
                 type: "code_challenge",
                 prompt: "Buat fungsi kaliDua(x: number): number yang mengembalikan nilai x * 2.",
                 starterCode: `function kaliDua(x: number): number {
-  return x * 2;
+  // Tulis logika fungsi di sini
+  return 0;
 }
 
 console.log(kaliDua(21));`,

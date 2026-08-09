@@ -63,8 +63,8 @@ export function Badge({ label, count }: BadgeProps) {
                 type: "code_challenge",
                 prompt: "Buat fungsi komponen yang mengembalikan teks 'React TSX Siap'.",
                 starterCode: `function Header() {
-  const judul: string = "React TSX Siap";
-  return judul;
+  // Tulis kode kamu di sini untuk mengembalikan "React TSX Siap"
+  return "";
 }
 
 console.log(Header());`,
