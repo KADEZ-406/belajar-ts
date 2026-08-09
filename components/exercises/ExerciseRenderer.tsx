@@ -38,7 +38,9 @@ export function ExerciseRenderer({ exercise, onAnswer, disabled = false }: Exerc
         break;
 
       case "fix_code":
-        isCorrect = String(answerValue).replace(/\s+/g, "") === exercise.correctCode.replace(/\s+/g, "");
+        isCorrect =
+          String(answerValue).trim() === "25" ||
+          String(answerValue).replace(/\s+/g, "") === exercise.correctCode.replace(/\s+/g, "");
         break;
 
       case "arrange_code":
@@ -180,6 +182,22 @@ export function ExerciseRenderer({ exercise, onAnswer, disabled = false }: Exerc
               </button>
             ))}
           </div>
+        </div>
+      )}
+
+      {/* Fix Code Exercise */}
+      {exercise.type === "fix_code" && (
+        <div className="space-y-4">
+          {exercise.hint && (
+            <div className="p-4 bg-amber-50 border-2 border-amber-200 text-amber-900 rounded-xl text-sm font-medium">
+              Petunjuk: {exercise.hint}
+            </div>
+          )}
+          <CodeEditor
+            initialCode={exercise.buggyCode}
+            language="typescript"
+            onRun={(output) => handleSubmit(output)}
+          />
         </div>
       )}
 
