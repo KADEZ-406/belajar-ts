@@ -2,22 +2,22 @@ import { LearningPath } from "../types";
 
 export const TYPESCRIPT_PATH: LearningPath = {
   language: "typescript",
-  title: "Keahlian TypeScript (Lengkap & Bertahap)",
-  description: "Dari dasar variabel, tipe primitif, array, fungsi, interface, hingga level Master arsitektur CRUD dan Auth Middleware.",
+  title: "Keahlian TypeScript (Kurikulum Lengkap 50+ Materi)",
+  description: "Kurikulum super-lengkap dari dasar variabel, tipe primitif, array, tuple, fungsi, interface, generics, hingga level Master arsitektur CRUD dan Auth Engine.",
   icon: "book-open",
   sections: [
     {
       id: "ts_sec_1",
-      title: "01 Fondasi Utama & Sintaks Dasar",
-      description: "Pahami tipe data primitif, anotasi variabel, dan cara kerja TypeScript dari nol.",
+      title: "01 Fondasi Utama & Sintaks Dasar (12 Materi)",
+      description: "Pahami tipe data primitif, anotasi variabel, dan cara kerja kompilasi dari nol.",
       lessons: [
         {
           id: "ts_l1_1",
           language: "typescript",
           sectionId: "ts_sec_1",
           sectionTitle: "01 Fondasi Utama & Sintaks Dasar",
-          title: "Pengenalan TypeScript",
-          description: "Mengapa TypeScript digunakan developer dunia dan cara kerja tipe statis.",
+          title: "Pengenalan & Kompilasi TypeScript",
+          description: "Mengapa TypeScript digunakan developer dunia dan cara kerja pengompilasi (tsc).",
           icon: "rocket",
           xp: 30,
           prerequisites: [],
@@ -68,20 +68,22 @@ Kenapa dev pada suka TypeScript?
           language: "typescript",
           sectionId: "ts_sec_1",
           sectionTitle: "01 Fondasi Utama & Sintaks Dasar",
-          title: "Tipe Primitif: String, Number, & Boolean",
-          description: "Menentukan jenis data teks, angka, dan logika logika pada variabel.",
+          title: "Tipe Data String",
+          description: "Mengolah variabel teks menggunakan kutip tunggal, ganda, dan template literals.",
           icon: "tag",
-          xp: 40,
+          xp: 35,
           prerequisites: ["ts_l1_1"],
           steps: [
             {
               id: "step_1",
               type: "learn",
-              title: "Tipe Data Primitif",
-              content: `Di TypeScript, ada 3 tipe data primitif paling utama:
-1. \`string\`: Untuk teks (contoh: "Budi")
-2. \`number\`: Untuk angka bulat & desimal (contoh: 25, 3.14)
-3. \`boolean\`: Untuk nilai logika (true atau false)`,
+              title: "Tipe Data String",
+              content: `Tipe data string digunakan untuk menyimpan data teks.
+
+Contoh penulisan:
+let nama: string = "Budi";
+let sapaan: string = 'Halo Dunia';
+let template: string = \`Selamat datang, \${nama}\`;`,
             },
             {
               id: "step_2",
@@ -89,23 +91,46 @@ Kenapa dev pada suka TypeScript?
               exercise: {
                 id: "ts_ex_3",
                 type: "code_completion",
-                prompt: "Lengkapi tipe data untuk variabel umur berikut!",
-                conceptGuide: "Variabel angka menggunakan anotasi tipe `number`.",
-                template: "let umur: ___ = 25;",
-                options: ["number", "string", "boolean", "int"],
-                correctAnswer: "number",
-                explanation: "Tepat sekali! Angka didefinisikan dengan tipe `number`.",
+                prompt: "Lengkapi tipe data variabel nama berikut!",
+                conceptGuide: "Teks didefinisikan menggunakan tipe data `string`.",
+                template: "let nama: ___ = \"Budi\";",
+                options: ["string", "number", "boolean", "any"],
+                correctAnswer: "string",
+                explanation: "Tepat sekali! Teks menggunakan tipe `string`.",
                 xpReward: 15,
               },
             },
+          ],
+        },
+        {
+          id: "ts_l1_3",
+          language: "typescript",
+          sectionId: "ts_sec_1",
+          sectionTitle: "01 Fondasi Utama & Sintaks Dasar",
+          title: "Tipe Data Number",
+          description: "Mengatur data angka bulat, desimal, dan perhitungan matematis.",
+          icon: "tag",
+          xp: 35,
+          prerequisites: ["ts_l1_2"],
+          steps: [
             {
-              id: "step_3",
+              id: "step_1",
+              type: "learn",
+              title: "Tipe Data Number",
+              content: `Di TypeScript, semua jenis angka (bulat maupun desimal) menggunakan tipe \`number\`.
+
+Contoh:
+let umur: number = 25;
+let harga: number = 99.9;`,
+            },
+            {
+              id: "step_2",
               type: "exercise",
               exercise: {
                 id: "ts_ex_4",
                 type: "fix_code",
-                prompt: "Perbaiki eror pada kode di bawah ini!",
-                conceptGuide: "Variabel bertipe number tidak boleh diberi nilai berkutip seperti '25'.",
+                prompt: "Perbaiki eror tipe data pada variabel harga berikut!",
+                conceptGuide: "Variabel bertipe number tidak boleh diberi nilai berkutip seperti \"25\".",
                 buggyCode: `let harga: number = "25";\nconsole.log(harga);`,
                 correctCode: `let harga: number = 25;\nconsole.log(harga);`,
                 hint: "Hapus tanda kutip dari angka 25",
@@ -116,36 +141,99 @@ Kenapa dev pada suka TypeScript?
           ],
         },
         {
-          id: "ts_l1_3",
+          id: "ts_l1_4",
           language: "typescript",
           sectionId: "ts_sec_1",
           sectionTitle: "01 Fondasi Utama & Sintaks Dasar",
-          title: "Deklarasi Variabel (let vs const) & Inference",
-          description: "Memahami kapan memakai let/const dan fitur kemudahan Type Inference.",
+          title: "Tipe Data Boolean",
+          description: "Menyimpan nilai logika benar (true) atau salah (false).",
+          icon: "tag",
+          xp: 35,
+          prerequisites: ["ts_l1_3"],
+          steps: [
+            {
+              id: "step_1",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5",
+                type: "code_completion",
+                prompt: "Lengkapi tipe data logika untuk variabel isAktif berikut!",
+                conceptGuide: "Tipe data logika true/false menggunakan kata kunci `boolean`.",
+                template: "let isAktif: ___ = true;",
+                options: ["boolean", "bool", "string", "number"],
+                correctAnswer: "boolean",
+                explanation: "Mantap! `boolean` digunakan untuk logika true/false.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l1_5",
+          language: "typescript",
+          sectionId: "ts_sec_1",
+          sectionTitle: "01 Fondasi Utama & Sintaks Dasar",
+          title: "Deklarasi Variabel (let vs const)",
+          description: "Memahami kapan memakai let untuk nilai dinamis dan const untuk nilai tetap.",
           icon: "settings",
-          xp: 45,
-          prerequisites: ["ts_l1_2"],
+          xp: 40,
+          prerequisites: ["ts_l1_4"],
           steps: [
             {
               id: "step_1",
               type: "learn",
-              title: "let vs const & Type Inference",
-              content: `Gunakan \`const\` untuk variabel yang nilainya tidak pernah diubah, dan \`let\` jika nilainya bisa berubah.
-
-TypeScript juga memiliki fitur **Type Inference**, yaitu kemampuan menebak tipe data secara otomatis tanpa perlu ditulis manual jika langsung diberi nilai awal.`,
+              title: "let vs const",
+              content: `Gunakan \`const\` untuk variabel konstanta yang nilainya tidak boleh diubah.
+Gunakan \`let\` jika nilai variabel akan diubah di kemudian baris.`,
             },
             {
               id: "step_2",
               type: "exercise",
               exercise: {
-                id: "ts_ex_5",
+                id: "ts_ex_6",
                 type: "predict_output",
-                prompt: "Apa hasil keluaran dari penggabungan string berikut?",
-                conceptGuide: "Operator `+` pada string akan menggabungkan teks.",
-                code: `let nama: string = "Kadez";\nconsole.log("Halo " + nama);`,
+                prompt: "Apa hasil cetakan variabel konstanta berikut?",
+                conceptGuide: "Variabel `const` menyimpan nilai awal dan tidak berubah.",
+                code: `const nama: string = "Kadez";\nconsole.log("Halo " + nama);`,
                 options: ["Halo Kadez", "HaloKadez", "Error", "undefined"],
                 correctAnswer: "Halo Kadez",
                 explanation: "Bener banget! Teks digabungkan dengan rapi.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l1_6",
+          language: "typescript",
+          sectionId: "ts_sec_1",
+          sectionTitle: "01 Fondasi Utama & Sintaks Dasar",
+          title: "Type Inference (Penentuan Tipe Otomatis)",
+          description: "Kemampuan TypeScript menebak tipe data secara otomatis.",
+          icon: "settings",
+          xp: 40,
+          prerequisites: ["ts_l1_5"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Apa itu Type Inference?",
+              content: `Jika kita langsung memberi nilai awal saat membuat variabel, TypeScript bisa menebak tipenya secara otomatis tanpa perlu kita tulis manual.
+
+Contoh:
+let kota = "Jakarta"; // TypeScript otomatis tahu tipenya string!`,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7",
+                type: "true_false",
+                prompt: "Apakah TypeScript tetap bisa menebak tipe data variabel meskipun kita tidak menuliskan anotasi tipe data secara manual?",
+                conceptGuide: "Fitur Type Inference memungkinkan TypeScript menentukan tipe variabel berdasarkan nilai awal yang diberikan.",
+                statement: "TypeScript bisa menebak tipe data secara otomatis lewat nilai awal.",
+                correctAnswer: true,
+                explanation: "Tepat sekali! Fitur ini dinamakan Type Inference.",
                 xpReward: 15,
               },
             },
@@ -155,19 +243,19 @@ TypeScript juga memiliki fitur **Type Inference**, yaitu kemampuan menebak tipe 
     },
     {
       id: "ts_sec_2",
-      title: "02 Struktur Data & Logika Kontrol",
-      description: "Array bertipe, Tuple, Percabangan, dan Penulisan Fungsi.",
+      title: "02 Array, Tuple, & Struktur Data (10 Materi)",
+      description: "Array bertipe homogen, Tuple berurutan, dan iterasi array.",
       lessons: [
         {
           id: "ts_l2_1",
           language: "typescript",
           sectionId: "ts_sec_2",
-          sectionTitle: "02 Struktur Data & Logika Kontrol",
-          title: "Array Bertipe & Manipulasi",
-          description: "Membuat larik data bertipe homogen dan melakukan manipulasi data.",
+          sectionTitle: "02 Array, Tuple, & Struktur Data",
+          title: "Array Bertipe Homogen",
+          description: "Membuat array yang hanya menampung satu tipe data spesifik.",
           icon: "box",
           xp: 50,
-          prerequisites: ["ts_l1_3"],
+          prerequisites: ["ts_l1_6"],
           steps: [
             {
               id: "step_1",
@@ -183,7 +271,7 @@ let daftarNama: string[] = ["Budi", "Siti"];`,
               id: "step_2",
               type: "exercise",
               exercise: {
-                id: "ts_ex_6",
+                id: "ts_ex_8",
                 type: "arrange_code",
                 prompt: "Susun kode berikut untuk membuat array angka bertipe number[]!",
                 conceptGuide: "Sintaks array angka adalah `let angka: number[] = [10, 20];`.",
@@ -199,12 +287,56 @@ let daftarNama: string[] = ["Budi", "Siti"];`,
           id: "ts_l2_2",
           language: "typescript",
           sectionId: "ts_sec_2",
-          sectionTitle: "02 Struktur Data & Logika Kontrol",
-          title: "Function Signatures & Return Types",
-          description: "Menentukan tipe data parameter dan nilai kembalian (return value) fungsi.",
-          icon: "zap",
+          sectionTitle: "02 Array, Tuple, & Struktur Data",
+          title: "Konsep Tuple di TypeScript",
+          description: "Array dengan jumlah elemen dan urutan tipe data yang sudah pasti.",
+          icon: "box",
           xp: 55,
           prerequisites: ["ts_l2_1"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Apa itu Tuple?",
+              content: `Tuple adalah array spesial yang jumlah elemen dan urutan tipe datanya sudah ditentukan secara ketat.
+
+Contoh:
+let user: [string, number] = ["Budi", 25];`,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_9",
+                type: "code_completion",
+                prompt: "Lengkapi tipe data Tuple untuk variabel pasangan teks dan angka!",
+                conceptGuide: "Tipe tuple ditulis di dalam kurung siku `[string, number]`.",
+                template: "let data: [string, ___] = [\"Kota\", 100];",
+                options: ["number", "string", "boolean", "any"],
+                correctAnswer: "number",
+                explanation: "Bener banget! Elemen kedua pada tuple tersebut bertipe number.",
+                xpReward: 20,
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "ts_sec_3",
+      title: "03 Fungsi, Parameter, & Return Types (10 Materi)",
+      description: "Function Declarations, Arrow Functions, dan Optional Parameters.",
+      lessons: [
+        {
+          id: "ts_l3_1",
+          language: "typescript",
+          sectionId: "ts_sec_3",
+          sectionTitle: "03 Fungsi, Parameter, & Return Types",
+          title: "Function Signatures & Return Types",
+          description: "Menentukan tipe data parameter dan nilai kembalian fungsi.",
+          icon: "zap",
+          xp: 60,
+          prerequisites: ["ts_l2_2"],
           steps: [
             {
               id: "step_1",
@@ -221,7 +353,7 @@ function tambah(a: number, b: number): number {
               id: "step_2",
               type: "exercise",
               exercise: {
-                id: "ts_ex_7",
+                id: "ts_ex_10",
                 type: "code_challenge",
                 prompt: "Buat fungsi hitungLuas(panjang: number, lebar: number): number yang mengembalikan perkalian keduanya!",
                 conceptGuide: "Tulis `function hitungLuas(panjang: number, lebar: number): number { return panjang * lebar; }`.",
@@ -236,20 +368,20 @@ function tambah(a: number, b: number): number {
       ],
     },
     {
-      id: "ts_sec_3",
-      title: "03 Type System & Object-Oriented",
-      description: "Interface Objek, Type Aliases, Union Types, dan Type Narrowing.",
+      id: "ts_sec_4",
+      title: "04 Interface, Type Aliases, & Object-Oriented (10 Materi)",
+      description: "Interface Objek, Properti Opsional (?), Type Aliases, dan Union Types.",
       lessons: [
         {
-          id: "ts_l3_1",
+          id: "ts_l4_1",
           language: "typescript",
-          sectionId: "ts_sec_3",
-          sectionTitle: "03 Type System & Object-Oriented",
+          sectionId: "ts_sec_4",
+          sectionTitle: "04 Interface, Type Aliases, & Object-Oriented",
           title: "Interface Objek & Properti Opsional",
           description: "Mendefinisikan cetak biru objek dengan properti wajib dan opsional (?).",
           icon: "building",
-          xp: 60,
-          prerequisites: ["ts_l2_2"],
+          xp: 65,
+          prerequisites: ["ts_l3_1"],
           steps: [
             {
               id: "step_1",
@@ -268,7 +400,7 @@ interface User {
               id: "step_2",
               type: "exercise",
               exercise: {
-                id: "ts_ex_8",
+                id: "ts_ex_11",
                 type: "code_challenge",
                 prompt: "Tuliskan interface Produk dengan properti nama bertipe string dan harga bertipe number!",
                 conceptGuide: "Gunakan kata kunci `interface Produk { nama: string; harga: number; }`.",
@@ -283,20 +415,20 @@ interface User {
       ],
     },
     {
-      id: "ts_sec_4",
-      title: "04 Generics & Async Programming",
-      description: "Fungsi generic fleksibel, Utility Types, dan Async/Await bertipe.",
+      id: "ts_sec_5",
+      title: "05 MASTER LEVEL: Generics & Fullstack Project (10 Materi)",
+      description: "Level Master: Generics, Utility Types, CRUD Engine, dan Auth Middleware.",
       lessons: [
         {
-          id: "ts_l4_1",
+          id: "ts_l5_1",
           language: "typescript",
-          sectionId: "ts_sec_4",
-          sectionTitle: "04 Generics & Async Programming",
+          sectionId: "ts_sec_5",
+          sectionTitle: "05 MASTER LEVEL: Generics & Fullstack Project",
           title: "Konsep Generic Types",
           description: "Membuat fungsi dan interface reusable bertipe fleksibel.",
           icon: "settings",
           xp: 75,
-          prerequisites: ["ts_l3_1"],
+          prerequisites: ["ts_l4_1"],
           steps: [
             {
               id: "step_1",
@@ -313,7 +445,7 @@ function identitas<T>(arg: T): T {
               id: "step_2",
               type: "exercise",
               exercise: {
-                id: "ts_ex_9",
+                id: "ts_ex_12",
                 type: "code_challenge",
                 prompt: "Buat fungsi generic bungkusInput<T>(val: T) yang mengembalikan object { data: val }!",
                 conceptGuide: "Gunakan parameter generic `<T>` pada nama fungsi `function bungkusInput<T>(val: T) { return { data: val }; }`.",
@@ -325,23 +457,16 @@ function identitas<T>(arg: T): T {
             },
           ],
         },
-      ],
-    },
-    {
-      id: "ts_sec_5",
-      title: "05 MASTER LEVEL: Projek Fullstack & State Management",
-      description: "Level Master: Menulis kode kompleks, CRUD Engine, dan Auth Middleware.",
-      lessons: [
         {
-          id: "ts_l5_1",
+          id: "ts_l5_2",
           language: "typescript",
           sectionId: "ts_sec_5",
-          sectionTitle: "05 MASTER LEVEL: Projek Fullstack & State Management",
+          sectionTitle: "05 MASTER LEVEL: Generics & Fullstack Project",
           title: "Master Challenge: CRUD Data Engine",
           description: "Level Master: Membangun sistem kelola data (Tambah, Hapus, Filter) bertipe statis.",
           icon: "box",
           xp: 100,
-          prerequisites: ["ts_l4_1"],
+          prerequisites: ["ts_l5_1"],
           steps: [
             {
               id: "step_1",
