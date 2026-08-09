@@ -1,26 +1,143 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --primary: #58cc02;
+    --primary-dark: #46a302;
+    --secondary: #1cb0f6;
+    --secondary-dark: #1899d6;
+    --tertiary: #4b4b4b;
+    --background: #ffffff;
+    --surface: #ffffff;
+    --on-surface: #4b4b4b;
+    --border: #e5e7eb;
+    --muted: #b0b0b0;
+    --error: #ff4b4b;
+    --error-dark: #ea2b2b;
+    --warning: #ff9600;
+    --warning-dark: #e08400;
+    --accent-yellow: #ffc800;
+    --accent-yellow-dark: #e5b400;
+    --accent-purple: #a855f7;
+    --accent-purple-dark: #9333ea;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--tertiary);
+    font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Custom 3D Tactile Buttons matching Duolingo / design.md style */
+.btn-3d {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  border-radius: 12px;
+  transition: all 0.1s ease;
+  user-select: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.95rem;
 }
+
+.btn-3d:active {
+  transform: translateY(3px);
+  box-shadow: none !important;
+}
+
+/* Primary Green Button */
+.btn-primary-3d {
+  background-color: #58cc02;
+  color: #ffffff;
+  border-bottom: 4px solid #46a302;
+  box-shadow: 0 4px 0 #46a302;
+}
+.btn-primary-3d:hover {
+  background-color: #61df02;
+}
+
+/* Secondary Sky Blue Button */
+.btn-secondary-3d {
+  background-color: #1cb0f6;
+  color: #ffffff;
+  border-bottom: 4px solid #1899d6;
+  box-shadow: 0 4px 0 #1899d6;
+}
+.btn-secondary-3d:hover {
+  background-color: #24bafc;
+}
+
+/* White / Outline Button */
+.btn-outline-3d {
+  background-color: #ffffff;
+  color: #4b4b4b;
+  border: 2px solid #e5e7eb;
+  border-bottom: 4px solid #e5e7eb;
+  box-shadow: 0 2px 0 #e5e7eb;
+}
+.btn-outline-3d:hover {
+  background-color: #f7f9fa;
+  border-color: #d1d5db;
+}
+
+/* Danger / Red Button */
+.btn-danger-3d {
+  background-color: #ff4b4b;
+  color: #ffffff;
+  border-bottom: 4px solid #ea2b2b;
+  box-shadow: 0 4px 0 #ea2b2b;
+}
+
+/* Orange / Streak Button */
+.btn-warning-3d {
+  background-color: #ff9600;
+  color: #ffffff;
+  border-bottom: 4px solid #e08400;
+  box-shadow: 0 4px 0 #e08400;
+}
+
+/* Yellow / XP Button */
+.btn-yellow-3d {
+  background-color: #ffc800;
+  color: #4b4b4b;
+  border-bottom: 4px solid #e5b400;
+  box-shadow: 0 4px 0 #e5b400;
+}
+
+/* Custom Card Container */
+.card-duo {
+  background-color: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 4px 0 #e5e7eb;
+  transition: all 0.2s ease;
+}
+
+.card-duo-interactive:hover {
+  transform: translateY(-2px);
+  border-color: #1cb0f6;
+  box-shadow: 0 6px 0 #1cb0f6;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
