@@ -13,6 +13,7 @@ export interface BaseExercise {
   id: string;
   type: ExerciseType;
   prompt: string;
+  conceptGuide?: string;
   explanation: string;
   xpReward: number;
   initialCode?: string;

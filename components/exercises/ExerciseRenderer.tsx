@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Exercise } from "@/lib/domain/lesson/lesson.types";
 import { CodeEditor } from "@/components/code-editor/CodeEditor";
-import { HelpCircle, GripVertical, Lightbulb } from "lucide-react";
+import { HelpCircle, GripVertical, Lightbulb, BookOpen } from "lucide-react";
 
 interface ExerciseRendererProps {
   exercise: Exercise;
