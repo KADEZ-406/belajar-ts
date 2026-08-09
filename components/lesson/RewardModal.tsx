@@ -20,7 +20,6 @@ export function RewardModal({
   onContinue,
 }: RewardModalProps) {
   useEffect(() => {
-    // Trigger festive confetti burst
     confetti({
       particleCount: 80,
       spread: 70,
@@ -41,27 +40,27 @@ export function RewardModal({
         {/* Title */}
         <div>
           <h2 className="text-3xl font-black text-[#4b4b4b] uppercase tracking-wide">
-            Lesson Complete!
+            Pelajaran Selesai!
           </h2>
           <p className="text-sm font-bold text-slate-400 mt-1">
-            Awesome progress! Keep up the momentum.
+            Pencapaian luar biasa! Pertahankan semangat belajar kamu.
           </p>
         </div>
 
-        {/* Rewards Grid */}
+        {/* Rewards Cards */}
         <div className="grid grid-cols-2 gap-4">
           {/* XP Card */}
           <div className="card-duo p-4 bg-amber-50 border-2 border-amber-200 rounded-2xl flex flex-col items-center">
             <Star className="w-7 h-7 fill-amber-400 text-amber-500 mb-1" />
-            <span className="text-xs font-extrabold uppercase text-amber-600">Total XP</span>
+            <span className="text-xs font-extrabold uppercase text-amber-600">Total Poin</span>
             <span className="text-2xl font-black text-amber-600">+{xpEarned} XP</span>
           </div>
 
           {/* Streak Card */}
           <div className="card-duo p-4 bg-orange-50 border-2 border-orange-200 rounded-2xl flex flex-col items-center">
             <Flame className="w-7 h-7 fill-orange-500 text-orange-500 mb-1" />
-            <span className="text-xs font-extrabold uppercase text-orange-600">Streak</span>
-            <span className="text-2xl font-black text-orange-600">{streakDays} Days</span>
+            <span className="text-xs font-extrabold uppercase text-orange-600">Streak Harian</span>
+            <span className="text-2xl font-black text-orange-600">{streakDays} Hari</span>
           </div>
         </div>
 
@@ -69,7 +68,7 @@ export function RewardModal({
         <div className="card-duo p-4 bg-slate-50 border-2 border-slate-200 rounded-2xl space-y-2 text-left">
           <div className="flex items-center justify-between text-xs font-bold text-[#4b4b4b]">
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-[#58cc02]" /> Perfect Answers
+              <CheckCircle2 className="w-4 h-4 text-[#58cc02]" /> Jawaban Benar
             </span>
             <span className="font-extrabold">{correctAnswers} / {totalExercises}</span>
           </div>
@@ -86,7 +85,7 @@ export function RewardModal({
           onClick={onContinue}
           className="btn-3d btn-primary-3d w-full py-4 text-lg tracking-wider flex items-center justify-center gap-2"
         >
-          Continue
+          Lanjutkan
           <ArrowRight className="w-5 h-5" />
         </button>
       </div>

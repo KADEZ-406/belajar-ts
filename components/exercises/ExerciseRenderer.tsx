@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Exercise } from "@/lib/domain/lesson/lesson.types";
 import { CodeEditor } from "@/components/code-editor/CodeEditor";
-import { Check, X, HelpCircle, GripVertical } from "lucide-react";
+import { HelpCircle, GripVertical } from "lucide-react";
 
 interface ExerciseRendererProps {
   exercise: Exercise;
@@ -53,7 +53,6 @@ export function ExerciseRenderer({ exercise, onAnswer, disabled = false }: Exerc
     onAnswer(isCorrect, exercise.xpReward);
   };
 
-  // Move item up/down in Arrange Code
   const moveSnippet = (index: number, direction: "up" | "down") => {
     const newItems = [...arrangedItems];
     const targetIndex = direction === "up" ? index - 1 : index + 1;
@@ -64,13 +63,34 @@ export function ExerciseRenderer({ exercise, onAnswer, disabled = false }: Exerc
     setArrangedItems(newItems);
   };
 
+  const getExerciseLabel = (type: string) => {
+    switch (type) {
+      case "multiple_choice":
+        return "Latihan Pilihan Ganda";
+      case "code_completion":
+        return "Latihan Melengkapi Kode";
+      case "predict_output":
+        return "Latihan Prediksi Hasil";
+      case "fix_code":
+        return "Latihan Perbaiki Kode";
+      case "true_false":
+        return "Latihan Benar atau Salah";
+      case "arrange_code":
+        return "Latihan Menyusun Kode";
+      case "code_challenge":
+        return "Tantangan Koding";
+      default:
+        return "Latihan Koding";
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Exercise Question Prompt Header */}
-      <div className="card-duo p-6 bg-white border-2 border-slate-200 rounded-2xl shadow-sm">
+      <div className="card-duo p-6 bg-white border-2 border-slate-200 rounded-2xl shadow-xs">
         <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#1cb0f6] mb-2">
           <HelpCircle className="w-4 h-4" />
-          {exercise.type.replace("_", " ")} Exercise
+          {getExerciseLabel(exercise.type)}
         </div>
         <h3 className="text-xl md:text-2xl font-extrabold text-[#4b4b4b] leading-tight">
           {exercise.prompt}
@@ -116,7 +136,7 @@ export function ExerciseRenderer({ exercise, onAnswer, disabled = false }: Exerc
               <React.Fragment key={i}>
                 {part}
                 {i < arr.length - 1 && (
-                  <span className="inline-block mx-1 px-3 py-1 bg-sky-500/20 text-sky-400 border border-sky-400/40 rounded-lg font-bold">
+                  <span className="inline-block mx-1 px-3 py-1 bg-sky-950 text-sky-400 border border-sky-800 rounded-lg font-bold">
                     {selectedOption || "_____"}
                   </span>
                 )}
@@ -175,14 +195,14 @@ export function ExerciseRenderer({ exercise, onAnswer, disabled = false }: Exerc
             onClick={() => handleSubmit(true)}
             className="btn-3d btn-primary-3d py-5 text-xl tracking-wider"
           >
-            TRUE
+            BENAR
           </button>
           <button
             disabled={disabled}
             onClick={() => handleSubmit(false)}
             className="btn-3d btn-danger-3d py-5 text-xl tracking-wider"
           >
-            FALSE
+            SALAH
           </button>
         </div>
       )}
@@ -190,8 +210,8 @@ export function ExerciseRenderer({ exercise, onAnswer, disabled = false }: Exerc
       {/* Arrange Code Exercise */}
       {exercise.type === "arrange_code" && (
         <div className="space-y-4">
-          <p className="text-sm font-bold text-slate-500 uppercase tracking-wider">
-            Reorder snippets into correct execution order:
+          <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+            Urutkan potongan kode di bawah ini dengan benar:
           </p>
           <div className="space-y-2">
             {arrangedItems.map((snippet, idx) => (
@@ -227,7 +247,7 @@ export function ExerciseRenderer({ exercise, onAnswer, disabled = false }: Exerc
             disabled={disabled}
             className="btn-3d btn-secondary-3d w-full py-3 mt-4"
           >
-            Submit Order
+            Kirim Urutan Kode
           </button>
         </div>
       )}

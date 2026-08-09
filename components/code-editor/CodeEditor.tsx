@@ -34,13 +34,12 @@ export function CodeEditor({
 
   const handleRunCode = () => {
     setIsExecuting(true);
-    setOutput("Running code...");
+    setOutput("Menjalankan kode...");
 
     setTimeout(() => {
       let simulatedOutput = "";
       try {
         if (language === "python") {
-          // Parse basic python print statements
           const matches = [...code.matchAll(/print\((.*?)\)/g)];
           if (matches.length > 0) {
             simulatedOutput = matches
@@ -49,7 +48,6 @@ export function CodeEditor({
                 if ((expr.startsWith('"') && expr.endsWith('"')) || (expr.startsWith("'") && expr.endsWith("'"))) {
                   return expr.slice(1, -1);
                 }
-                // Evaluate simple numeric expressions
                 try {
                   return String(eval(expr));
                 } catch {
@@ -58,21 +56,20 @@ export function CodeEditor({
               })
               .join("\n");
           } else {
-            simulatedOutput = "Code executed cleanly (No stdout output).";
+            simulatedOutput = "Kode berhasil dijalankan (tanpa cetakan stdout).";
           }
         } else {
-          // JS/TS console.log parsing
           const logs: string[] = [];
           const customConsole = {
             log: (...args: any[]) => logs.push(args.map((a) => (typeof a === "object" ? JSON.stringify(a) : String(a))).join(" ")),
-            error: (...args: any[]) => logs.push("Error: " + args.join(" ")),
+            error: (...args: any[]) => logs.push("Kesalahan: " + args.join(" ")),
           };
           const execFn = new Function("console", code);
           execFn(customConsole);
-          simulatedOutput = logs.join("\n") || "Code executed cleanly.";
+          simulatedOutput = logs.join("\n") || "Kode berhasil dijalankan.";
         }
       } catch (err: any) {
-        simulatedOutput = `Runtime Error: ${err.message || err}`;
+        simulatedOutput = `Kesalahan Eksekusi: ${err.message || err}`;
       }
 
       setOutput(simulatedOutput);
@@ -98,7 +95,7 @@ export function CodeEditor({
           <span className="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
           <span className="w-3 h-3 rounded-full bg-green-500 inline-block"></span>
           <span className="ml-2 text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
-            {language} Editor
+            Editor {language}
           </span>
         </div>
 
@@ -109,7 +106,7 @@ export function CodeEditor({
             className="flex items-center gap-1.5 px-3 py-1 bg-slate-700 hover:bg-slate-600 rounded-lg text-xs font-bold text-slate-200 transition-colors"
           >
             <RotateCcw className="w-3.5 h-3.5" />
-            Reset
+            Atur Ulang
           </button>
           <button
             onClick={handleRunCode}
@@ -117,21 +114,19 @@ export function CodeEditor({
             className="btn-3d btn-primary-3d text-xs px-4 py-1.5 flex items-center gap-1.5"
           >
             <Play className="w-3.5 h-3.5 fill-current" />
-            {isExecuting ? "Executing..." : "Run Code"}
+            {isExecuting ? "Menjalankan..." : "Jalankan Kode"}
           </button>
         </div>
       </div>
 
       {/* Code Textarea Area */}
       <div className="relative font-mono text-sm flex min-h-[160px] bg-slate-950">
-        {/* Line Numbers */}
         <div className="select-none py-3 px-3 text-right bg-slate-900/60 text-slate-500 border-r border-slate-800 text-xs leading-6 min-w-[40px]">
           {lines.map((_, i) => (
             <div key={i}>{i + 1}</div>
           ))}
         </div>
 
-        {/* Code Input */}
         <textarea
           value={code}
           onChange={(e) => setCode(e.target.value)}
@@ -148,24 +143,24 @@ export function CodeEditor({
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-400">
               <Terminal className="w-4 h-4 text-sky-400" />
-              Console Output
+              Keluaran Konsol
             </div>
 
             {isMatch !== null && (
               <div
-                className={`flex items-center gap-1.5 text-xs font-bold px-2.5 py-0.5 rounded-full ${
+                className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-lg ${
                   isMatch
-                    ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-                    : "bg-red-500/20 text-red-400 border border-red-500/30"
+                    ? "bg-emerald-950 text-emerald-400 border border-emerald-800"
+                    : "bg-red-950 text-red-400 border border-red-800"
                 }`}
               >
                 {isMatch ? (
                   <>
-                    <CheckCircle2 className="w-3.5 h-3.5" /> Output Correct!
+                    <CheckCircle2 className="w-3.5 h-3.5" /> Hasil Sesuai!
                   </>
                 ) : (
                   <>
-                    <AlertCircle className="w-3.5 h-3.5" /> Output Mismatch
+                    <AlertCircle className="w-3.5 h-3.5" /> Hasil Belum Sesuai
                   </>
                 )}
               </div>

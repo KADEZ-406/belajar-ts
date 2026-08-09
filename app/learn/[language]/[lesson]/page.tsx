@@ -7,7 +7,7 @@ import { Language } from "@/lib/domain/lesson/lesson.types";
 import { useGamification } from "@/lib/application/GamificationContext";
 import { ExerciseRenderer } from "@/components/exercises/ExerciseRenderer";
 import { RewardModal } from "@/components/lesson/RewardModal";
-import { X, Heart, Star, ArrowRight, CheckCircle2, AlertCircle, Sparkles } from "lucide-react";
+import { X, Heart, ArrowRight, CheckCircle2, AlertCircle, Sparkles } from "lucide-react";
 
 export default function LessonPlayerPage() {
   const params = useParams();
@@ -28,9 +28,9 @@ export default function LessonPlayerPage() {
   if (!lesson) {
     return (
       <div className="max-w-md mx-auto my-20 p-8 text-center card-duo bg-white space-y-4">
-        <h2 className="text-xl font-bold">Lesson Not Found</h2>
+        <h2 className="text-xl font-bold">Pelajaran Tidak Ditemukan</h2>
         <button onClick={() => router.push("/learn")} className="btn-3d btn-primary-3d px-6 py-2">
-          Back to Learn
+          Kembali ke Alur Belajar
         </button>
       </div>
     );
@@ -44,7 +44,7 @@ export default function LessonPlayerPage() {
     if (isCorrect) {
       setFeedback({
         isCorrect: true,
-        message: "Excellent! You got it right!",
+        message: "Luar biasa! Jawaban kamu tepat!",
       });
       setCorrectAnswersCount((prev) => prev + 1);
       setEarnedXP((prev) => prev + xpReward);
@@ -52,7 +52,7 @@ export default function LessonPlayerPage() {
     } else {
       setFeedback({
         isCorrect: false,
-        message: "Not quite right. Give it another try or check the explanation!",
+        message: "Kurang tepat. Coba periksa kembali logika atau penjelasan materi!",
       });
       deductHeart();
     }
@@ -63,7 +63,6 @@ export default function LessonPlayerPage() {
     if (currentStepIndex + 1 < steps.length) {
       setCurrentStepIndex((prev) => prev + 1);
     } else {
-      // Completed all steps in this lesson
       completeLesson(lesson.id, lesson.language);
       setIsCompleted(true);
     }
@@ -83,19 +82,18 @@ export default function LessonPlayerPage() {
       {/* Top Header Bar with Progress Indicator */}
       <header className="bg-white border-b-2 border-slate-200 px-4 sm:px-8 py-4 sticky top-0 z-30">
         <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
-          {/* Close Button */}
           <button
             onClick={() => router.push("/learn")}
             className="p-2 rounded-xl text-slate-400 hover:bg-slate-100 hover:text-slate-700 transition-colors"
-            title="Exit Lesson"
+            title="Keluar Pelajaran"
           >
             <X className="w-6 h-6 stroke-[3]" />
           </button>
 
-          {/* Progress Bar & Dots */}
+          {/* Progress Bar */}
           <div className="flex-1 max-w-md space-y-1.5">
             <div className="flex justify-between items-center text-xs font-bold text-slate-400 uppercase tracking-wider">
-              <span>Step {currentStepIndex + 1} of {steps.length}</span>
+              <span>Langkah {currentStepIndex + 1} dari {steps.length}</span>
               <span>{progressPercentage}%</span>
             </div>
 
@@ -107,8 +105,8 @@ export default function LessonPlayerPage() {
             </div>
           </div>
 
-          {/* Hearts Display */}
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border-2 border-red-200 bg-red-50 text-red-500 font-extrabold text-sm">
+          {/* Hearts Display (Clean Label, NO pill badge) */}
+          <div className="flex items-center gap-1.5 text-red-500 font-extrabold text-sm">
             <Heart className="w-5 h-5 fill-red-500 text-red-500" />
             <span>{user.hearts}</span>
           </div>
@@ -119,8 +117,8 @@ export default function LessonPlayerPage() {
       <main className="flex-1 max-w-3xl mx-auto w-full px-4 py-8 space-y-6">
         {currentStep.type === "learn" ? (
           <div className="card-duo p-8 bg-white border-2 border-slate-200 rounded-3xl space-y-6">
-            <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-[#1cb0f6] bg-sky-50 px-3 py-1 rounded-full w-fit">
-              <Sparkles className="w-4 h-4" /> Concept Overview
+            <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-[#1cb0f6]">
+              <Sparkles className="w-4 h-4" /> Ringkasan Konsep
             </div>
 
             <h2 className="text-2xl md:text-3xl font-black text-[#4b4b4b]">
@@ -135,7 +133,7 @@ export default function LessonPlayerPage() {
               onClick={handleNextStep}
               className="btn-3d btn-primary-3d w-full py-4 text-lg tracking-wider flex items-center justify-center gap-2"
             >
-              Got it, Next Step
+              Paham, Langkah Selanjutnya
               <ArrowRight className="w-5 h-5" />
             </button>
           </div>
@@ -168,7 +166,7 @@ export default function LessonPlayerPage() {
               )}
               <div>
                 <h4 className="font-extrabold text-lg">
-                  {feedback.isCorrect ? "Correct!" : "Keep Trying!"}
+                  {feedback.isCorrect ? "Benar!" : "Coba Lagi!"}
                 </h4>
                 <p className="text-sm font-medium">{feedback.message}</p>
               </div>
@@ -180,7 +178,7 @@ export default function LessonPlayerPage() {
                 feedback.isCorrect ? "btn-primary-3d" : "btn-danger-3d"
               }`}
             >
-              Continue
+              Lanjutkan
             </button>
           </div>
         </footer>

@@ -9,24 +9,23 @@ export function Navbar() {
   const pathname = usePathname();
   const { user } = useGamification();
 
-  // Hide main navbar during lesson session for distraction-free learning
   if (pathname.startsWith("/learn/") && pathname.split("/").length > 3) {
     return null;
   }
 
   const navItems = [
-    { href: "/learn", label: "Learn", icon: BookOpen },
-    { href: "/practice", label: "Practice", icon: Dumbbell },
-    { href: "/leaderboard", label: "Leaderboard", icon: Trophy },
-    { href: "/achievements", label: "Badges", icon: Award },
+    { href: "/learn", label: "Belajar", icon: BookOpen },
+    { href: "/practice", label: "Latihan", icon: Dumbbell },
+    { href: "/leaderboard", label: "Peringkat", icon: Trophy },
+    { href: "/achievements", label: "Lencana", icon: Award },
   ];
 
   return (
     <header className="sticky top-0 z-40 bg-white border-b-2 border-slate-200 px-4 lg:px-8 py-3">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Brand Logo */}
-        <Link href="/dashboard" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 rounded-xl bg-[#58cc02] border-b-4 border-[#46a302] flex items-center justify-center text-white font-extrabold text-xl shadow-sm transition-transform group-hover:scale-105">
+        <Link href="/dashboard" className="flex items-center gap-2.5 group">
+          <div className="w-10 h-10 rounded-xl bg-[#58cc02] border-b-4 border-[#46a302] flex items-center justify-center text-white font-extrabold text-xl shadow-xs transition-transform group-hover:scale-105">
             <Code2 className="w-6 h-6 stroke-[3]" />
           </div>
           <span className="text-2xl font-black tracking-tight text-[#4b4b4b] font-sans">
@@ -56,40 +55,31 @@ export function Navbar() {
           })}
         </nav>
 
-        {/* Gamification Stats & Profile Pill */}
-        <div className="flex items-center gap-3">
-          {/* Streak Pill */}
-          <div
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border-2 border-orange-200 bg-orange-50 text-orange-600 font-extrabold text-sm shadow-xs"
-            title="Current Daily Streak"
-          >
-            <Flame className="w-5 h-5 fill-orange-500 text-orange-500 animate-pulse" />
-            <span>{user.streak}</span>
+        {/* Gamification Stats Display (Clean Text Labels, NO pill badges) */}
+        <div className="flex items-center gap-4">
+          {/* Streak */}
+          <div className="flex items-center gap-1.5 text-xs font-black text-orange-600" title="Streak Belajar Harian">
+            <Flame className="w-5 h-5 fill-orange-500 text-orange-500" />
+            <span>{user.streak} Hari</span>
           </div>
 
-          {/* Hearts Pill */}
-          <div
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border-2 border-red-200 bg-red-50 text-red-500 font-extrabold text-sm shadow-xs"
-            title="Remaining Hearts"
-          >
+          {/* Nyawa / Hearts */}
+          <div className="flex items-center gap-1.5 text-xs font-black text-red-500" title="Sisa Nyawa">
             <Heart className="w-5 h-5 fill-red-500 text-red-500" />
             <span>{user.hearts}</span>
           </div>
 
-          {/* XP Pill */}
-          <div
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border-2 border-amber-200 bg-amber-50 text-amber-600 font-extrabold text-sm shadow-xs"
-            title="Total Experience Points"
-          >
+          {/* XP */}
+          <div className="flex items-center gap-1.5 text-xs font-black text-amber-600" title="Total Poin Pengalaman">
             <Star className="w-5 h-5 fill-amber-400 text-amber-500" />
             <span>{user.xp} XP</span>
           </div>
 
-          {/* Profile Avatar */}
+          {/* Profil */}
           <Link
             href="/profile"
-            className="flex items-center gap-2 ml-1 pl-2 border-l-2 border-slate-200 hover:opacity-85 transition-opacity"
-            title="View Profile"
+            className="flex items-center gap-2 ml-1 pl-3 border-l-2 border-slate-200 hover:opacity-85 transition-opacity"
+            title="Lihat Profil"
           >
             <img
               src={user.avatar}
@@ -100,7 +90,7 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Nav Bar anchored at bottom for smaller devices */}
+      {/* Mobile Nav Bar */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t-2 border-slate-200 px-4 py-2 flex justify-around">
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -125,7 +115,7 @@ export function Navbar() {
           }`}
         >
           <User className="w-5 h-5" />
-          <span className="text-[10px] uppercase tracking-wider">Profile</span>
+          <span className="text-[10px] uppercase tracking-wider">Profil</span>
         </Link>
       </div>
     </header>

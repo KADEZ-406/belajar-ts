@@ -2,36 +2,36 @@ import { LearningPath } from "../types";
 
 export const TYPESCRIPT_PATH: LearningPath = {
   language: "typescript",
-  title: "TypeScript Mastery",
-  description: "Learn type safety, interfaces, generics, and async programming with TypeScript.",
-  icon: "📘",
+  title: "Keahlian TypeScript",
+  description: "Pelajari tipe data, antarmuka, generik, dan pemrograman asinkron dengan TypeScript.",
+  icon: "book-open",
   sections: [
     {
       id: "ts_sec_1",
-      title: "01 Fundamentals & Setup",
-      description: "Understand why TypeScript exists and how type annotations make code robust.",
+      title: "01 Dasar dan Persiapan",
+      description: "Pahami alasan penggunaan TypeScript dan cara anotasi tipe data membuat kode lebih aman.",
       lessons: [
         {
           id: "ts_lesson_1",
           language: "typescript",
           sectionId: "ts_sec_1",
-          sectionTitle: "01 Fundamentals & Setup",
-          title: "Introduction to TypeScript",
-          description: "Discover what static typing is and write your first TypeScript code.",
-          icon: "🚀",
+          sectionTitle: "01 Dasar dan Persiapan",
+          title: "Pengenalan TypeScript",
+          description: "Pahami konsep tipe data statis dan tulis kode TypeScript pertama kamu.",
+          icon: "rocket",
           xp: 45,
           prerequisites: [],
           steps: [
             {
               id: "step_1",
               type: "learn",
-              title: "What is TypeScript?",
-              content: `TypeScript is a **strongly typed superset of JavaScript** developed by Microsoft. 
+              title: "Apa itu TypeScript?",
+              content: `TypeScript adalah superset dari JavaScript yang dilengkapi dengan tipe data statis.
 
-Key benefits:
-- **Catch errors at compile time** before running the code.
-- **Auto-completion & IntelliSense** in editors.
-- **Self-documenting code** with clear type annotations.`,
+Keuntungan utama:
+1. Mendeteksi kesalahan saat kompilasi sebelum kode dijalankan.
+2. Fitur melengkapi kode otomatis pada editor.
+3. Kode lebih mudah dibaca dan dipahami dengan anotasi tipe data yang jelas.`,
             },
             {
               id: "step_2",
@@ -39,10 +39,10 @@ Key benefits:
               exercise: {
                 id: "ts_ex_1",
                 type: "true_false",
-                prompt: "TypeScript code can be executed directly in web browsers without transpiling.",
-                statement: "Browsers execute TypeScript natively.",
+                prompt: "Kode TypeScript dapat dijalankan langsung di peramban web tanpa kompilasi terlebih dahulu.",
+                statement: "Peramban menjalankan TypeScript secara langsung.",
                 correctAnswer: false,
-                explanation: "False! TypeScript must be compiled/transpiled into standard JavaScript before browsers or Node.js can execute it.",
+                explanation: "Salah. TypeScript harus dikompilasi menjadi JavaScript standar terlebih dahulu sebelum dijalankan oleh peramban.",
                 xpReward: 5,
               },
             },
@@ -52,10 +52,10 @@ Key benefits:
               exercise: {
                 id: "ts_ex_2",
                 type: "multiple_choice",
-                prompt: "Which tool transpiles TypeScript code to JavaScript?",
-                options: ["tsc (TypeScript Compiler)", "npm", "Python", "V8 Engine"],
+                prompt: "Alat apa yang digunakan untuk mengompilasi kode TypeScript ke JavaScript?",
+                options: ["tsc (TypeScript Compiler)", "npm", "Python", "Mesin V8"],
                 correctAnswer: 0,
-                explanation: "The official TypeScript compiler command is `tsc`.",
+                explanation: "Kompiler resmi TypeScript dijalankan dengan perintah tsc.",
                 xpReward: 5,
               },
             },
@@ -65,11 +65,11 @@ Key benefits:
               exercise: {
                 id: "ts_ex_3",
                 type: "code_challenge",
-                prompt: "Write a console.log statement that prints 'Hello TypeScript!'",
-                starterCode: `// Write your code here
-console.log("Hello TypeScript!");`,
-                expectedOutput: "Hello TypeScript!",
-                explanation: "Great job! `console.log()` outputs message to stdout.",
+                prompt: "Tulis perintah console.log yang mencetak teks 'Halo TypeScript!'",
+                starterCode: `// Tulis kode kamu di sini
+console.log("Halo TypeScript!");`,
+                expectedOutput: "Halo TypeScript!",
+                explanation: "Bagus. Perintah console.log() menampilkan keluaran teks.",
                 xpReward: 15,
               },
             },
@@ -79,24 +79,22 @@ console.log("Hello TypeScript!");`,
           id: "ts_lesson_2",
           language: "typescript",
           sectionId: "ts_sec_1",
-          sectionTitle: "01 Fundamentals & Setup",
-          title: "Primitive Types & Annotations",
-          description: "Learn how to annotate string, number, boolean, and array types.",
-          icon: "🏷️",
+          sectionTitle: "01 Dasar dan Persiapan",
+          title: "Tipe Primitif dan Anotasi",
+          description: "Pelajari cara menentukan tipe string, number, boolean, dan array.",
+          icon: "tag",
           xp: 50,
           prerequisites: ["ts_lesson_1"],
           steps: [
             {
               id: "step_1",
               type: "learn",
-              title: "Type Annotations",
-              content: `In TypeScript, you add type annotations after variable names using a colon \`:\`.
+              title: "Anotasi Tipe Data",
+              content: `Di TypeScript, anotasi tipe data ditambahkan setelah nama variabel menggunakan titik dua (:).
 
-\`\`\`typescript
-const username: string = "Kadez";
+const nama: string = "Kadez";
 const level: number = 7;
-const isOnline: boolean = true;
-\`\`\``,
+const statusAktif: boolean = true;`,
             },
             {
               id: "step_2",
@@ -104,11 +102,11 @@ const isOnline: boolean = true;
               exercise: {
                 id: "ts_ex_4",
                 type: "code_completion",
-                prompt: "Complete the type annotation for `score`.",
-                template: 'const score: _____ = 100;',
+                prompt: "Lengkapi anotasi tipe data untuk nilai variabel nilaiSkor.",
+                template: 'const nilaiSkor: _____ = 100;',
                 options: ["string", "number", "boolean", "any"],
                 correctAnswer: "number",
-                explanation: "Numeric values like `100` must be typed as `number`.",
+                explanation: "Nilai angka seperti 100 menggunakan tipe data number.",
                 xpReward: 5,
               },
             },
@@ -118,13 +116,13 @@ const isOnline: boolean = true;
               exercise: {
                 id: "ts_ex_5",
                 type: "predict_output",
-                prompt: "What will this TypeScript code output?",
-                code: `const language: string = "TypeScript";
-const score: number = 10;
-console.log(language + " Level " + score);`,
+                prompt: "Apakah hasil keluaran dari kode TypeScript berikut?",
+                code: `const bahasa: string = "TypeScript";
+const skor: number = 10;
+console.log(bahasa + " Level " + skor);`,
                 options: ["TypeScript Level 10", "TypeScript10", "TypeError", "NaN"],
                 correctAnswer: "TypeScript Level 10",
-                explanation: "String concatenation coerces the number into string representation.",
+                explanation: "Penggabungan string mengubah angka menjadi format teks.",
                 xpReward: 5,
               },
             },
@@ -134,11 +132,11 @@ console.log(language + " Level " + score);`,
               exercise: {
                 id: "ts_ex_6",
                 type: "fix_code",
-                prompt: "Fix the type mismatch error in this variable assignment.",
-                buggyCode: `let age: number = "25";\nconsole.log(age);`,
-                correctCode: `let age: number = 25;\nconsole.log(age);`,
-                hint: "Change string \"25\" to numeric literal 25.",
-                explanation: "TypeScript prevents assigning a string to a variable typed as number.",
+                prompt: "Perbaiki kesalahan ketidakcocokan tipe data pada variabel umur.",
+                buggyCode: `let umur: number = "25";\nconsole.log(umur);`,
+                correctCode: `let umur: number = 25;\nconsole.log(umur);`,
+                hint: "Ubah string \"25\" menjadi angka 25.",
+                explanation: "TypeScript mencegah pengisian string ke variabel bertipe number.",
                 xpReward: 15,
               },
             },
@@ -148,31 +146,29 @@ console.log(language + " Level " + score);`,
     },
     {
       id: "ts_sec_2",
-      title: "02 Functions & Types",
-      description: "Define typed parameters, return values, arrow functions, and optional parameters.",
+      title: "02 Fungsi dan Tipe Data",
+      description: "Definisikan parameter fungsi, nilai kembalian, dan fungsi panah.",
       lessons: [
         {
           id: "ts_lesson_3",
           language: "typescript",
           sectionId: "ts_sec_2",
-          sectionTitle: "02 Functions & Types",
-          title: "Typed Functions",
-          description: "Specify argument types and explicit return types for functions.",
-          icon: "⚙️",
+          sectionTitle: "02 Fungsi dan Tipe Data",
+          title: "Fungsi Bertipe",
+          description: "Tentukan tipe data parameter dan tipe nilai kembalian fungsi.",
+          icon: "settings",
           xp: 50,
           prerequisites: ["ts_lesson_2"],
           steps: [
             {
               id: "step_1",
               type: "learn",
-              title: "Function Signatures",
-              content: `Specify parameter types inside parentheses, and the return type after the parameter list:
+              title: "Deklarasi Fungsi",
+              content: `Tentukan tipe parameter di dalam kurung, dan tipe nilai kembalian setelah kurung parameter:
 
-\`\`\`typescript
-function add(a: number, b: number): number {
+function tambah(a: number, b: number): number {
   return a + b;
-}
-\`\`\``,
+}`,
             },
             {
               id: "step_2",
@@ -180,20 +176,20 @@ function add(a: number, b: number): number {
               exercise: {
                 id: "ts_ex_7",
                 type: "arrange_code",
-                prompt: "Arrange the code blocks to form a valid typed function `greet`.",
+                prompt: "Susun baris kode agar membentuk fungsi sapaan yang benar.",
                 codeSnippets: [
-                  "function greet(name: string): string {",
-                  "  return 'Hello ' + name;",
+                  "function sapa(nama: string): string {",
+                  "  return 'Halo ' + nama;",
                   "}",
-                  "console.log(greet('Kadez'));",
+                  "console.log(sapa('Kadez'));",
                 ],
                 correctOrder: [
-                  "function greet(name: string): string {",
-                  "  return 'Hello ' + name;",
+                  "function sapa(nama: string): string {",
+                  "  return 'Halo ' + nama;",
                   "}",
-                  "console.log(greet('Kadez'));",
+                  "console.log(sapa('Kadez'));",
                 ],
-                explanation: "Functions must be declared before calling them, returning a string value.",
+                explanation: "Fungsi didefinisikan terlebih dahulu sebelum dipanggil.",
                 xpReward: 15,
               },
             },
@@ -203,62 +199,15 @@ function add(a: number, b: number): number {
               exercise: {
                 id: "ts_ex_8",
                 type: "code_challenge",
-                prompt: "Write a function `doubleNumber(x: number): number` that returns `x * 2`.",
-                starterCode: `function doubleNumber(x: number): number {
+                prompt: "Buat fungsi kaliDua(x: number): number yang mengembalikan nilai x * 2.",
+                starterCode: `function kaliDua(x: number): number {
   return x * 2;
 }
 
-console.log(doubleNumber(21));`,
+console.log(kaliDua(21));`,
                 expectedOutput: "42",
-                explanation: "21 * 2 equals 42!",
+                explanation: "21 dikali 2 menghasilkan nilai 42.",
                 xpReward: 15,
-              },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      id: "ts_sec_3",
-      title: "03 Interfaces & Objects",
-      description: "Model structured object schemas with interfaces and custom type aliases.",
-      lessons: [
-        {
-          id: "ts_lesson_4",
-          language: "typescript",
-          sectionId: "ts_sec_3",
-          sectionTitle: "03 Interfaces & Objects",
-          title: "Interfaces & Type Aliases",
-          description: "Create contract specifications for complex objects.",
-          icon: "🏗️",
-          xp: 60,
-          prerequisites: ["ts_lesson_3"],
-          steps: [
-            {
-              id: "step_1",
-              type: "learn",
-              title: "Defining Interfaces",
-              content: `Use the \`interface\` keyword to define structural types for objects:
-
-\`\`\`typescript
-interface User {
-  id: number;
-  name: string;
-  isAdmin?: boolean; // Optional property
-}
-\`\`\``,
-            },
-            {
-              id: "step_2",
-              type: "exercise",
-              exercise: {
-                id: "ts_ex_9",
-                type: "multiple_choice",
-                prompt: "Which symbol makes an interface property optional in TypeScript?",
-                options: ["?", "!", "*", "&"],
-                correctAnswer: 0,
-                explanation: "The `?` modifier marks a property as optional (value can be undefined).",
-                xpReward: 5,
               },
             },
           ],

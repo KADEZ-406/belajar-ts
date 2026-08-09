@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { LEARNING_PATHS } from "@/lib/data/lessons";
 import { Language, LessonStatus } from "@/lib/domain/lesson/lesson.types";
 import { useGamification } from "@/lib/application/GamificationContext";
-import { Lock, Play, Star } from "lucide-react";
+import { Lock, Play, Star, BookOpen, Atom, FileCode, Rocket, Tag, Settings, Box, Building, Zap } from "lucide-react";
 
 function LearnPathContent() {
   const searchParams = useSearchParams();
@@ -26,15 +26,45 @@ function LearnPathContent() {
     return "LOCKED";
   };
 
+  const getPathIcon = (lang: Language) => {
+    switch (lang) {
+      case "typescript":
+        return <BookOpen className="w-8 h-8 text-[#1cb0f6]" />;
+      case "tsx":
+        return <Atom className="w-8 h-8 text-purple-600" />;
+      case "python":
+        return <FileCode className="w-8 h-8 text-[#58cc02]" />;
+    }
+  };
+
+  const getLessonIcon = (iconName: string) => {
+    switch (iconName) {
+      case "rocket":
+        return <Rocket className="w-6 h-6 text-sky-500" />;
+      case "tag":
+        return <Tag className="w-6 h-6 text-[#58cc02]" />;
+      case "settings":
+        return <Settings className="w-6 h-6 text-purple-500" />;
+      case "box":
+        return <Box className="w-6 h-6 text-[#1cb0f6]" />;
+      case "building":
+        return <Building className="w-6 h-6 text-amber-500" />;
+      case "zap":
+        return <Zap className="w-6 h-6 text-[#58cc02]" />;
+      default:
+        return <BookOpen className="w-6 h-6 text-slate-600" />;
+    }
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
       {/* Page Header */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
         <h1 className="text-3xl sm:text-4xl font-black text-[#4b4b4b] uppercase tracking-tight">
-          Choose Your Learning Path
+          Pilih Alur Pemrograman Kamu
         </h1>
         <p className="text-slate-500 font-bold text-sm">
-          Select a programming language and master it step-by-step.
+          Pilih bahasa pemrograman dan kuasai materi secara bertahap.
         </p>
       </div>
 
@@ -46,7 +76,7 @@ function LearnPathContent() {
             selectedLang === "typescript" ? "btn-secondary-3d" : "btn-outline-3d"
           }`}
         >
-          <span>📘</span> TypeScript
+          <BookOpen className="w-4 h-4" /> TypeScript
         </button>
 
         <button
@@ -55,7 +85,7 @@ function LearnPathContent() {
             selectedLang === "tsx" ? "btn-secondary-3d" : "btn-outline-3d"
           }`}
         >
-          <span>⚛️</span> TSX / React
+          <Atom className="w-4 h-4" /> TSX / React
         </button>
 
         <button
@@ -64,15 +94,15 @@ function LearnPathContent() {
             selectedLang === "python" ? "btn-secondary-3d" : "btn-outline-3d"
           }`}
         >
-          <span>🐍</span> Python
+          <FileCode className="w-4 h-4" /> Python
         </button>
       </div>
 
       {/* Learning Path Hero Card */}
       <div className="card-duo p-6 sm:p-8 bg-white border-2 border-slate-200 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex items-center gap-5">
-          <div className="w-16 h-16 rounded-2xl bg-sky-100 border-b-4 border-sky-300 text-[#1cb0f6] flex items-center justify-center text-4xl font-bold shrink-0">
-            {currentPath.icon}
+          <div className="w-16 h-16 rounded-2xl bg-sky-100 border-b-4 border-sky-300 flex items-center justify-center shrink-0">
+            {getPathIcon(selectedLang)}
           </div>
           <div>
             <h2 className="text-2xl font-black text-[#4b4b4b]">{currentPath.title}</h2>
@@ -82,7 +112,7 @@ function LearnPathContent() {
 
         <div className="px-5 py-3 bg-slate-50 rounded-2xl border border-slate-200 text-center shrink-0">
           <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">
-            Path Progress
+            Kemajuan Alur
           </span>
           <span className="text-2xl font-black text-[#1cb0f6]">
             {user.languageProgress[selectedLang] || 0}%
@@ -122,7 +152,9 @@ function LearnPathContent() {
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-3">
-                        <span className="text-2xl">{lesson.icon}</span>
+                        <div className="p-2 bg-slate-100 rounded-xl">
+                          {getLessonIcon(lesson.icon)}
+                        </div>
                         <div>
                           <h4 className="font-extrabold text-base text-[#4b4b4b] leading-snug">
                             {lesson.title}
@@ -133,17 +165,13 @@ function LearnPathContent() {
                         </div>
                       </div>
 
-                      {/* Status Badge */}
-                      <span
-                        className={`text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full border shrink-0 ${
-                          isCompleted
-                            ? "bg-emerald-100 text-emerald-700 border-emerald-300"
-                            : isAvailable
-                            ? "bg-sky-100 text-sky-700 border-sky-300"
-                            : "bg-slate-200 text-slate-500 border-slate-300"
-                        }`}
-                      >
-                        {status}
+                      {/* Clean Text Status (NO pill badges) */}
+                      <span className="text-[10px] font-extrabold uppercase text-slate-500 shrink-0">
+                        {status === "COMPLETED"
+                          ? "Selesai"
+                          : status === "AVAILABLE" || status === "IN_PROGRESS"
+                          ? "Tersedia"
+                          : "Terkunci"}
                       </span>
                     </div>
 
@@ -154,7 +182,7 @@ function LearnPathContent() {
 
                       {isLocked ? (
                         <div className="flex items-center gap-1 text-xs font-bold text-slate-400">
-                          <Lock className="w-4 h-4" /> Locked
+                          <Lock className="w-4 h-4" /> Terkunci
                         </div>
                       ) : (
                         <Link
@@ -164,7 +192,7 @@ function LearnPathContent() {
                           }`}
                         >
                           <Play className="w-3.5 h-3.5 fill-current" />
-                          {isCompleted ? "Review" : "Start"}
+                          {isCompleted ? "Ulangi" : "Mulai"}
                         </Link>
                       )}
                     </div>
@@ -181,7 +209,7 @@ function LearnPathContent() {
 
 export default function LearnPathPage() {
   return (
-    <Suspense fallback={<div className="p-8 text-center font-bold">Loading paths...</div>}>
+    <Suspense fallback={<div className="p-8 text-center font-bold">Memuat alur belajar...</div>}>
       <LearnPathContent />
     </Suspense>
   );

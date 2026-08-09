@@ -2,33 +2,32 @@ import { LearningPath } from "../types";
 
 export const TSX_PATH: LearningPath = {
   language: "tsx",
-  title: "TSX & React Core",
-  description: "Master React component creation, props interface design, state management, and hooks with TSX.",
-  icon: "⚛️",
+  title: "Inti TSX dan React",
+  description: "Kuasai pembuatan komponen React, antarmuka props, pengelolaan state, dan hooks dengan TSX.",
+  icon: "atom",
   sections: [
     {
       id: "tsx_sec_1",
-      title: "01 JSX & Component Basics",
-      description: "Understand TSX syntax, functional components, and typed props.",
+      title: "01 Komponen dan Sintaks JSX",
+      description: "Pahami sintaks TSX, komponen fungsi, dan tipe data props.",
       lessons: [
         {
           id: "tsx_lesson_1",
           language: "tsx",
           sectionId: "tsx_sec_1",
-          sectionTitle: "01 JSX & Component Basics",
-          title: "Introduction to TSX Components",
-          description: "Combine HTML-like JSX markup with full TypeScript type checking.",
-          icon: "⚡",
+          sectionTitle: "01 Komponen dan Sintaks JSX",
+          title: "Pengenalan Komponen TSX",
+          description: "Gabungkan sintaks tampilan JSX dengan pemeriksaan tipe data TypeScript.",
+          icon: "zap",
           xp: 45,
           prerequisites: [],
           steps: [
             {
               id: "step_1",
               type: "learn",
-              title: "What is TSX?",
-              content: `**TSX** is TypeScript with JSX (JavaScript XML) syntax. It allows writing HTML structure inside React TypeScript files (\`.tsx\`).
+              title: "Apa itu TSX?",
+              content: `TSX adalah TypeScript yang dilengkapi sintaks JSX. TSX memungkinkan penulisan elemen tampilan di dalam berkas TypeScript (.tsx).
 
-\`\`\`tsx
 interface BadgeProps {
   label: string;
   count: number;
@@ -40,8 +39,7 @@ export function Badge({ label, count }: BadgeProps) {
       <span>{label}</span>: {count}
     </div>
   );
-}
-\`\`\``,
+}`,
             },
             {
               id: "step_2",
@@ -49,11 +47,11 @@ export function Badge({ label, count }: BadgeProps) {
               exercise: {
                 id: "tsx_ex_1",
                 type: "code_completion",
-                prompt: "Complete the prop interface type definition for `ButtonProps`.",
-                template: "interface ButtonProps {\n  title: ____;\n  disabled?: boolean;\n}",
+                prompt: "Lengkapi tipe data antarmuka props untuk ButtonProps.",
+                template: "interface ButtonProps {\n  judul: ____;\n  nonaktif?: boolean;\n}",
                 options: ["string", "number", "void", "any"],
                 correctAnswer: "string",
-                explanation: "Button titles are textual data typed as `string`.",
+                explanation: "Judul tombol menggunakan tipe data string.",
                 xpReward: 5,
               },
             },
@@ -63,15 +61,15 @@ export function Badge({ label, count }: BadgeProps) {
               exercise: {
                 id: "tsx_ex_2",
                 type: "code_challenge",
-                prompt: "Define a component render logic returning 'React TSX Ready'.",
+                prompt: "Buat fungsi komponen yang mengembalikan teks 'React TSX Siap'.",
                 starterCode: `function Header() {
-  const title: string = "React TSX Ready";
-  return title;
+  const judul: string = "React TSX Siap";
+  return judul;
 }
 
 console.log(Header());`,
-                expectedOutput: "React TSX Ready",
-                explanation: "Functional components evaluate JSX or primitive values.",
+                expectedOutput: "React TSX Siap",
+                explanation: "Komponen fungsi mengembalikan elemen tampilan atau teks.",
                 xpReward: 15,
               },
             },
@@ -81,23 +79,21 @@ console.log(Header());`,
           id: "tsx_lesson_2",
           language: "tsx",
           sectionId: "tsx_sec_1",
-          sectionTitle: "01 JSX & Component Basics",
-          title: "useState with Types",
-          description: "Use typed state hooks in React components.",
-          icon: "🔄",
+          sectionTitle: "01 Komponen dan Sintaks JSX",
+          title: "useState Bertipe",
+          description: "Gunakan hook pengelolaan state bertipe data pada komponen React.",
+          icon: "repeat",
           xp: 50,
           prerequisites: ["tsx_lesson_1"],
           steps: [
             {
               id: "step_1",
               type: "learn",
-              title: "Typing useState Hook",
-              content: `React infers state types automatically, but generics can be explicitly specified:
+              title: "Tipe Data pada Hook useState",
+              content: `React dapat mengenali tipe data state secara otomatis, namun tipe generik juga dapat ditentukan secara eksplisit:
 
-\`\`\`tsx
-const [count, setCount] = useState<number>(0);
-const [user, setUser] = useState<User | null>(null);
-\`\`\``,
+const [jumlah, setJumlah] = useState<number>(0);
+const [pengguna, setPengguna] = useState<User | null>(null);`,
             },
             {
               id: "step_2",
@@ -105,7 +101,7 @@ const [user, setUser] = useState<User | null>(null);
               exercise: {
                 id: "tsx_ex_3",
                 type: "multiple_choice",
-                prompt: "How do you specify an explicit generic type for `useState`?",
+                prompt: "Bagaimana cara menentukan tipe data eksplisit pada useState?",
                 options: [
                   "useState<number>(0)",
                   "useState(0): number",
@@ -113,7 +109,7 @@ const [user, setUser] = useState<User | null>(null);
                   "useState.type(number)",
                 ],
                 correctAnswer: 0,
-                explanation: "Generics use angle bracket syntax `<Type>` in TypeScript.",
+                explanation: "Tipe data generik menggunakan tanda kurung siku siku <Tipe>.",
                 xpReward: 5,
               },
             },

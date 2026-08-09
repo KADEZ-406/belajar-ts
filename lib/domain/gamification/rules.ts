@@ -17,15 +17,15 @@ export interface LevelInfo {
 }
 
 export const LEVEL_TABLE: LevelInfo[] = [
-  { level: 1, title: "Beginner", minXP: 0, maxXP: 250 },
-  { level: 2, title: "Novice", minXP: 250, maxXP: 600 },
-  { level: 3, title: "Coder", minXP: 600, maxXP: 1100 },
-  { level: 4, title: "Developer", minXP: 1100, maxXP: 1800 },
-  { level: 5, title: "Builder", minXP: 1800, maxXP: 2600 },
-  { level: 6, title: "Advanced", minXP: 2600, maxXP: 3600 },
-  { level: 7, title: "Expert", minXP: 3600, maxXP: 5000 },
+  { level: 1, title: "Pemula", minXP: 0, maxXP: 250 },
+  { level: 2, title: "Pendatang Baru", minXP: 250, maxXP: 600 },
+  { level: 3, title: "Programmer", minXP: 600, maxXP: 1100 },
+  { level: 4, title: "Pengembang", minXP: 1100, maxXP: 1800 },
+  { level: 5, title: "Pembuat", minXP: 1800, maxXP: 2600 },
+  { level: 6, title: "Tingkat Lanjut", minXP: 2600, maxXP: 3600 },
+  { level: 7, title: "Ahli", minXP: 3600, maxXP: 5000 },
   { level: 8, title: "Master", minXP: 5000, maxXP: 7000 },
-  { level: 9, title: "Architect", minXP: 7000, maxXP: 10000 },
+  { level: 9, title: "Arsitek", minXP: 7000, maxXP: 10000 },
   { level: 10, title: "Grandmaster", minXP: 10000, maxXP: 15000 },
 ];
 

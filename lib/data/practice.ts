@@ -3,78 +3,78 @@ import { PracticeChallenge } from "../types";
 export const PRACTICE_CHALLENGES: PracticeChallenge[] = [
   {
     id: "ts_sum_array",
-    title: "Sum of Numbers",
+    title: "Jumlahkan Deret Angka",
     language: "typescript",
     difficulty: "Easy",
-    description: "Write a function `sumArray(numbers: number[]): number` that returns the total sum of all numbers in the array.",
+    description: "Buat fungsi sumArray(numbers: number[]): number yang mengembalikan hasil penjumlahan seluruh angka dalam array.",
     starterCode: `function sumArray(numbers: number[]): number {
-  // Your code here
+  // Tulis kode kamu di sini
   return 0;
 }
 
 console.log(sumArray([1, 2, 3, 4]));`,
     expectedOutput: "10",
     xpReward: 15,
-    hint: "Use array.reduce() or a simple for loop to accumulate the sum.",
+    hint: "Gunakan array.reduce() atau perulangan for untuk menjumlahkan nilai.",
   },
   {
     id: "ts_reverse_string",
-    title: "Reverse String",
+    title: "Balikkan Teks",
     language: "typescript",
     difficulty: "Easy",
-    description: "Write a function `reverseStr(str: string): string` that returns the reversed version of the string.",
+    description: "Buat fungsi reverseStr(str: string): string yang mengembalikan teks dalam urutan terbalik.",
     starterCode: `function reverseStr(str: string): string {
-  // Your code here
+  // Tulis kode kamu di sini
   return "";
 }
 
 console.log(reverseStr("CodeQuest"));`,
     expectedOutput: "tseuQedoC",
     xpReward: 15,
-    hint: "Convert to an array with .split(''), reverse it, and .join('') back together.",
+    hint: "Ubah teks menjadi array dengan .split(''), balikkan dengan .reverse(), lalu gabungkan dengan .join('').",
   },
   {
     id: "ts_filter_even",
-    title: "Filter Even Numbers",
+    title: "Filter Angka Genap",
     language: "typescript",
     difficulty: "Medium",
-    description: "Write a function `getEvens(arr: number[]): number[]` that returns only even numbers.",
+    description: "Buat fungsi getEvens(arr: number[]): number[] yang hanya mengembalikan angka genap.",
     starterCode: `function getEvens(arr: number[]): number[] {
-  // Your code here
+  // Tulis kode kamu di sini
   return [];
 }
 
 console.log(getEvens([1, 2, 3, 4, 5, 6]));`,
     expectedOutput: "[2, 4, 6]",
     xpReward: 25,
-    hint: "Use `arr.filter(n => n % 2 === 0)`.",
+    hint: "Gunakan arr.filter(n => n % 2 === 0).",
   },
   {
     id: "tsx_button_component",
-    title: "Interactive Counter Props",
+    title: "Props Komponen Counter",
     language: "tsx",
     difficulty: "Easy",
-    description: "Create a React component interface for `CounterProps` with `count: number` and `onIncrement: () => void`.",
+    description: "Buat tipe antarmuka React CounterProps dengan count: number dan onIncrement: () => void.",
     starterCode: `interface CounterProps {
   count: number;
   onIncrement: () => void;
 }
 
 function Counter({ count, onIncrement }: CounterProps) {
-  return <button onClick={onIncrement}>Count: {count}</button>;
+  return <button onClick={onIncrement}>Hitungan: {count}</button>;
 }
 
-console.log("Component Defined Successfully");`,
-    expectedOutput: "Component Defined Successfully",
+console.log("Komponen Berhasil Didefinisikan");`,
+    expectedOutput: "Komponen Berhasil Didefinisikan",
     xpReward: 20,
-    hint: "Define explicit prop types for TypeScript React components.",
+    hint: "Definisikan tipe props yang jelas untuk komponen React TypeScript.",
   },
   {
     id: "python_fizzbuzz",
     title: "Python FizzBuzz",
     language: "python",
     difficulty: "Easy",
-    description: "Write a Python function `fizzbuzz(n)` that returns 'Fizz' for multiples of 3, 'Buzz' for multiples of 5, 'FizzBuzz' for both, or the number as string.",
+    description: "Buat fungsi Python fizzbuzz(n) yang mengembalikan 'Fizz' untuk kelipatan 3, 'Buzz' untuk kelipatan 5, 'FizzBuzz' untuk keduanya, atau angka dalam bentuk string.",
     starterCode: `def fizzbuzz(n):
     if n % 15 == 0:
         return "FizzBuzz"
@@ -91,23 +91,23 @@ print(fizzbuzz(10))`,
 Fizz
 Buzz`,
     xpReward: 20,
-    hint: "Check divisible by 15 first using modulo `%` operator.",
+    hint: "Periksa keterbagian dengan angka 15 terlebih dahulu menggunakan operator modulo %.",
   },
   {
     id: "python_palindrome",
-    title: "Palindrome Checker",
+    title: "Cek Kata Palindrom",
     language: "python",
     difficulty: "Medium",
-    description: "Write a Python function `is_palindrome(s)` that checks if a string reads the same backwards.",
+    description: "Buat fungsi Python is_palindrome(s) untuk memeriksa apakah teks dibaca sama dari depan maupun belakang.",
     starterCode: `def is_palindrome(s: str) -> bool:
     cleaned = s.lower().replace(" ", "")
     return cleaned == cleaned[::-1]
 
-print(is_palindrome("racecar"))
+print(is_palindrome("katak"))
 print(is_palindrome("codequest"))`,
     expectedOutput: `True
 False`,
     xpReward: 25,
-    hint: "Use Python string slicing `s[::-1]` to reverse a string.",
+    hint: "Gunakan pemotongan string Python s[::-1] untuk membalikkan string.",
   },
 ];

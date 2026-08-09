@@ -3,12 +3,11 @@
 import React from "react";
 import { LEADERBOARD_DATA } from "@/lib/data/leaderboard";
 import { useGamification } from "@/lib/application/GamificationContext";
-import { Trophy, Flame, Star, Crown, Award } from "lucide-react";
+import { Trophy, Flame, Star, Crown, Medal } from "lucide-react";
 
 export default function LeaderboardPage() {
   const { user } = useGamification();
 
-  // Merge live current user XP into leaderboard list
   const entries = LEADERBOARD_DATA.map((entry) => {
     if (entry.isCurrentUser) {
       return {
@@ -20,14 +19,12 @@ export default function LeaderboardPage() {
     return entry;
   }).sort((a, b) => b.xp - a.xp);
 
-  // Recalculate ranks after sorting
   const rankedEntries = entries.map((item, index) => ({
     ...item,
     rank: index + 1,
   }));
 
   const top3 = rankedEntries.slice(0, 3);
-  const rest = rankedEntries.slice(3);
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-8">
@@ -37,19 +34,20 @@ export default function LeaderboardPage() {
           <Trophy className="w-10 h-10 fill-white" />
         </div>
         <h1 className="text-3xl sm:text-4xl font-black uppercase tracking-tight">
-          Weekly Leaderboard
+          Papan Peringkat Mingguan
         </h1>
         <p className="text-amber-100 text-sm font-bold max-w-md mx-auto">
-          Top coders this week! Gain XP from lessons & challenges to climb the ranks.
+          Programmer teratas minggu ini. Dapatkan XP dari pelajaran dan tantangan koding untuk naik peringkat.
         </p>
       </div>
 
-      {/* Podium Top 3 Coders */}
+      {/* Podium Top 3 Coders (Using Lucide Icons, NO emoticons) */}
       <div className="grid grid-cols-3 gap-4 items-end pt-6 pb-2">
         {/* Rank 2 (Silver) */}
         {top3[1] && (
           <div className="card-duo p-4 bg-slate-100 border-2 border-slate-300 rounded-2xl text-center space-y-2">
-            <span className="text-2xl font-black text-slate-400">🥈</span>
+            <Medal className="w-8 h-8 text-slate-400 mx-auto" />
+            <span className="text-xs font-black text-slate-500 uppercase block">Peringkat 2</span>
             <img
               src={top3[1].avatar}
               alt={top3[1].username}
@@ -60,11 +58,11 @@ export default function LeaderboardPage() {
           </div>
         )}
 
-        {/* Rank 1 (Gold) - Higher Podium */}
+        {/* Rank 1 (Gold) */}
         {top3[0] && (
           <div className="card-duo p-6 bg-amber-50 border-4 border-amber-300 rounded-3xl text-center space-y-3 shadow-md -translate-y-4">
-            <Crown className="w-8 h-8 text-amber-500 mx-auto animate-bounce" />
-            <span className="text-3xl font-black text-amber-500">🥇</span>
+            <Crown className="w-9 h-9 text-amber-500 mx-auto" />
+            <span className="text-xs font-black text-amber-600 uppercase block">Juara 1</span>
             <img
               src={top3[0].avatar}
               alt={top3[0].username}
@@ -78,7 +76,8 @@ export default function LeaderboardPage() {
         {/* Rank 3 (Bronze) */}
         {top3[2] && (
           <div className="card-duo p-4 bg-amber-900/10 border-2 border-amber-800/30 rounded-2xl text-center space-y-2">
-            <span className="text-2xl font-black text-amber-800">🥉</span>
+            <Medal className="w-8 h-8 text-amber-700 mx-auto" />
+            <span className="text-xs font-black text-amber-800 uppercase block">Peringkat 3</span>
             <img
               src={top3[2].avatar}
               alt={top3[2].username}
@@ -90,7 +89,7 @@ export default function LeaderboardPage() {
         )}
       </div>
 
-      {/* Full Leaderboard Table */}
+      {/* Full Leaderboard Table (Clean Labels, NO pill badges) */}
       <div className="card-duo p-4 bg-white border-2 border-slate-200 rounded-3xl space-y-2">
         {rankedEntries.map((entry) => {
           const isUser = entry.isCurrentUser;
@@ -99,22 +98,12 @@ export default function LeaderboardPage() {
               key={entry.id}
               className={`p-4 rounded-2xl flex items-center justify-between transition-all ${
                 isUser
-                  ? "bg-sky-50 border-2 border-[#1cb0f6] ring-4 ring-sky-100"
+                  ? "bg-sky-50 border-2 border-[#1cb0f6]"
                   : "bg-white border border-slate-100 hover:bg-slate-50"
               }`}
             >
               <div className="flex items-center gap-4">
-                <span
-                  className={`w-8 font-black text-center text-sm ${
-                    entry.rank === 1
-                      ? "text-amber-500"
-                      : entry.rank === 2
-                      ? "text-slate-400"
-                      : entry.rank === 3
-                      ? "text-amber-800"
-                      : "text-slate-500"
-                  }`}
-                >
+                <span className="w-8 font-black text-center text-sm text-slate-600">
                   #{entry.rank}
                 </span>
 
@@ -128,14 +117,14 @@ export default function LeaderboardPage() {
                   <h4 className="font-extrabold text-sm text-[#4b4b4b] flex items-center gap-2">
                     {entry.username}
                     {isUser && (
-                      <span className="text-[10px] font-black uppercase px-2 py-0.5 bg-[#1cb0f6] text-white rounded-full">
-                        You
+                      <span className="text-[10px] font-black uppercase text-[#1cb0f6]">
+                        (Kamu)
                       </span>
                     )}
                   </h4>
                   <span className="text-xs font-bold text-slate-400 flex items-center gap-1">
                     <Flame className="w-3.5 h-3.5 text-orange-500 fill-orange-500" />
-                    {entry.streak} Day Streak
+                    Streak {entry.streak} Hari
                   </span>
                 </div>
               </div>

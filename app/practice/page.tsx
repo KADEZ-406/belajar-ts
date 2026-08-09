@@ -5,7 +5,7 @@ import { PRACTICE_CHALLENGES } from "@/lib/data/practice";
 import { Language, PracticeChallenge } from "@/lib/domain/lesson/lesson.types";
 import { CodeEditor } from "@/components/code-editor/CodeEditor";
 import { useGamification } from "@/lib/application/GamificationContext";
-import { Dumbbell, Star, Lightbulb, CheckCircle2, ShieldAlert } from "lucide-react";
+import { Dumbbell, Star, Lightbulb, CheckCircle2 } from "lucide-react";
 
 export default function PracticePage() {
   const [selectedLang, setSelectedLang] = useState<Language | "all">("all");
@@ -27,6 +27,19 @@ export default function PracticePage() {
     addXP(challenge.xpReward);
   };
 
+  const getDifficultyLabel = (diff: string) => {
+    switch (diff) {
+      case "Easy":
+        return "Mudah";
+      case "Medium":
+        return "Sedang";
+      case "Hard":
+        return "Sulit";
+      default:
+        return diff;
+    }
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
       {/* Header Banner */}
@@ -37,13 +50,10 @@ export default function PracticePage() {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-2xl md:text-3xl font-black">Practice Arena</h1>
-              <span className="px-3 py-0.5 rounded-full bg-emerald-500 text-white font-extrabold text-xs uppercase tracking-wider">
-                No Heart Penalties
-              </span>
+              <h1 className="text-2xl md:text-3xl font-black">Arena Latihan Koding</h1>
             </div>
             <p className="text-purple-200 text-sm font-medium mt-1">
-              Sharpen your coding skills risk-free! Unlimited tries, zero streak loss.
+              Asah kemampuan koding tanpa risiko! Uji coba sepuasnya tanpa takut kehilangan nyawa atau streak.
             </p>
           </div>
         </div>
@@ -53,7 +63,7 @@ export default function PracticePage() {
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 card-duo p-4 bg-white border-2 border-slate-200 rounded-2xl">
         {/* Language Filter */}
         <div className="flex items-center gap-2">
-          <span className="text-xs font-black uppercase text-slate-400">Language:</span>
+          <span className="text-xs font-black uppercase text-slate-400">Bahasa:</span>
           {(["all", "typescript", "tsx", "python"] as const).map((lang) => (
             <button
               key={lang}
@@ -64,14 +74,14 @@ export default function PracticePage() {
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
-              {lang}
+              {lang === "all" ? "Semua" : lang}
             </button>
           ))}
         </div>
 
         {/* Difficulty Filter */}
         <div className="flex items-center gap-2">
-          <span className="text-xs font-black uppercase text-slate-400">Difficulty:</span>
+          <span className="text-xs font-black uppercase text-slate-400">Tingkat:</span>
           {(["all", "Easy", "Medium", "Hard"] as const).map((diff) => (
             <button
               key={diff}
@@ -82,7 +92,7 @@ export default function PracticePage() {
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
-              {diff}
+              {diff === "all" ? "Semua" : getDifficultyLabel(diff)}
             </button>
           ))}
         </div>
@@ -93,9 +103,9 @@ export default function PracticePage() {
         <div className="card-duo p-6 md:p-8 bg-white border-2 border-slate-200 rounded-3xl space-y-6">
           <div className="flex items-center justify-between border-b border-slate-200 pb-4">
             <div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-black uppercase tracking-wider px-2.5 py-0.5 bg-purple-100 text-purple-700 rounded-full">
-                  {activeChallenge.language} • {activeChallenge.difficulty}
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-extrabold text-slate-500 uppercase">
+                  {activeChallenge.language} : {getDifficultyLabel(activeChallenge.difficulty)}
                 </span>
                 <span className="flex items-center gap-1 text-xs font-extrabold text-amber-500">
                   <Star className="w-4 h-4 fill-amber-400" /> +{activeChallenge.xpReward} XP
@@ -112,7 +122,7 @@ export default function PracticePage() {
               }}
               className="btn-3d btn-outline-3d px-4 py-2 text-xs"
             >
-              Back to Challenges
+              Kembali ke Daftar
             </button>
           </div>
 
@@ -131,7 +141,7 @@ export default function PracticePage() {
               onClick={() => setShowHint(true)}
               className="text-xs font-extrabold text-amber-600 hover:underline inline-flex items-center gap-1"
             >
-              <Lightbulb className="w-4 h-4" /> Need a Hint?
+              <Lightbulb className="w-4 h-4" /> Butuh Petunjuk?
             </button>
           )}
 
@@ -151,7 +161,7 @@ export default function PracticePage() {
             <div className="p-4 bg-emerald-100 border-2 border-emerald-400 text-emerald-900 rounded-2xl flex items-center justify-between">
               <div className="flex items-center gap-2 font-black text-lg">
                 <CheckCircle2 className="w-6 h-6 text-[#58cc02]" />
-                Challenge Solved! +{activeChallenge.xpReward} XP Awarded!
+                Tantangan Selesai! +{activeChallenge.xpReward} XP Berhasil Didapatkan!
               </div>
               <button
                 onClick={() => {
@@ -160,7 +170,7 @@ export default function PracticePage() {
                 }}
                 className="btn-3d btn-primary-3d px-6 py-2 text-xs"
               >
-                Next Challenge
+                Tantangan Selanjutnya
               </button>
             </div>
           )}
@@ -174,21 +184,9 @@ export default function PracticePage() {
               className="card-duo card-duo-interactive p-6 bg-white border-2 border-slate-200 rounded-3xl flex flex-col justify-between space-y-4"
             >
               <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 bg-slate-100 text-slate-600 rounded-full border border-slate-200">
-                    {c.language}
-                  </span>
-                  <span
-                    className={`text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full ${
-                      c.difficulty === "Easy"
-                        ? "bg-emerald-100 text-emerald-700"
-                        : c.difficulty === "Medium"
-                        ? "bg-amber-100 text-amber-700"
-                        : "bg-red-100 text-red-700"
-                    }`}
-                  >
-                    {c.difficulty}
-                  </span>
+                <div className="flex items-center justify-between text-xs font-bold text-slate-500">
+                  <span className="uppercase">{c.language}</span>
+                  <span>{getDifficultyLabel(c.difficulty)}</span>
                 </div>
 
                 <h3 className="text-xl font-black text-[#4b4b4b]">{c.title}</h3>
@@ -204,7 +202,7 @@ export default function PracticePage() {
                   onClick={() => setActiveChallenge(c)}
                   className="btn-3d btn-secondary-3d px-4 py-2 text-xs"
                 >
-                  Solve Challenge
+                  Selesaikan Tantangan
                 </button>
               </div>
             </div>
