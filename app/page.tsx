@@ -8,11 +8,6 @@ export default function LandingPage() {
       <section className="relative py-16 md:py-24 px-6 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Left Column: Messaging */}
         <div className="space-y-6 text-center lg:text-left">
-          <div className="flex items-center justify-center lg:justify-start gap-2 text-[#58cc02] font-extrabold text-xs tracking-wider uppercase">
-            <Sparkles className="w-4 h-4 fill-[#58cc02]" />
-            Platform Belajar Pemrograman Interaktif
-          </div>
-
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-[#4b4b4b] leading-[1.1] tracking-tight font-sans">
             Belajar pemrograman dengan <span className="text-[#58cc02]">bermain</span>, berlatih, dan membuat karya.
           </h1>

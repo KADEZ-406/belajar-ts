@@ -65,27 +65,19 @@ export default function DashboardPage() {
           {/* Continue Learning Card */}
           <div className="card-duo p-6 md:p-8 bg-white border-2 border-slate-200 rounded-3xl space-y-6 shadow-xs">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-black uppercase tracking-wider text-[#1cb0f6]">
-                Lanjutkan Belajar
-              </span>
-              <span className="text-xs font-bold text-slate-400">Pelajaran 2 dari 10</span>
+              <h3 className="text-xl font-black text-[#4b4b4b]">
+                Lanjutkan Belajar: Variabel dan Tipe Data Primitif
+              </h3>
+              <span className="text-xs font-bold text-slate-400 shrink-0">Pelajaran 2 dari 10</span>
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-sky-100 border-b-4 border-sky-300 text-[#1cb0f6] flex items-center justify-center shrink-0">
-                <Tag className="w-7 h-7" />
+              <div className="w-12 h-12 rounded-2xl bg-sky-100 border-b-4 border-sky-300 text-[#1cb0f6] flex items-center justify-center shrink-0">
+                <Tag className="w-6 h-6" />
               </div>
-              <div>
-                <span className="text-xs font-extrabold text-slate-400 uppercase tracking-wider">
-                  Alur TypeScript
-                </span>
-                <h3 className="text-2xl font-black text-[#4b4b4b] leading-tight">
-                  Variabel dan Tipe Data Primitif
-                </h3>
-                <p className="text-sm font-medium text-slate-500 mt-1">
-                  Kuasai string, number, boolean, dan anotasi tipe data pada TypeScript.
-                </p>
-              </div>
+              <p className="text-sm font-medium text-slate-500">
+                Kuasai string, number, boolean, dan anotasi tipe data pada TypeScript.
+              </p>
             </div>
 
             <Link

@@ -88,10 +88,6 @@ export function ExerciseRenderer({ exercise, onAnswer, disabled = false }: Exerc
     <div className="space-y-6">
       {/* Exercise Question Prompt Header */}
       <div className="card-duo p-6 bg-white border-2 border-slate-200 rounded-2xl shadow-xs">
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#1cb0f6] mb-2">
-          <HelpCircle className="w-4 h-4" />
-          {getExerciseLabel(exercise.type)}
-        </div>
         <h3 className="text-xl md:text-2xl font-extrabold text-[#4b4b4b] leading-tight">
           {exercise.prompt}
         </h3>

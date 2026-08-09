@@ -117,10 +117,6 @@ export default function LessonPlayerPage() {
       <main className="flex-1 max-w-3xl mx-auto w-full px-4 py-8 space-y-6">
         {currentStep.type === "learn" ? (
           <div className="card-duo p-8 bg-white border-2 border-slate-200 rounded-3xl space-y-6">
-            <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-[#1cb0f6]">
-              <Sparkles className="w-4 h-4" /> Ringkasan Konsep
-            </div>
-
             <h2 className="text-2xl md:text-3xl font-black text-[#4b4b4b]">
               {currentStep.title}
             </h2>
