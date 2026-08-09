@@ -7,7 +7,7 @@ import { Language } from "@/lib/domain/lesson/lesson.types";
 interface CodeEditorProps {
   initialCode: string;
   language: Language;
-  onRun?: (output: string) => void;
+  onRun?: (output: string, code: string) => void;
   expectedOutput?: string;
   readOnly?: boolean;
 }
@@ -64,7 +64,13 @@ export function CodeEditor({
             log: (...args: any[]) => logs.push(args.map((a) => (typeof a === "object" ? JSON.stringify(a) : String(a))).join(" ")),
             error: (...args: any[]) => logs.push("Kesalahan: " + args.join(" ")),
           };
-          const execFn = new Function("console", code);
+
+          // Sanitize TypeScript type annotations for browser execution
+          let executableCode = code
+            .replace(/interface\s+\w+[\s\S]*?\}/g, "")
+            .replace(/:\s*(number|string|boolean|any|void|string\[\]|number\[\]|\w+)\b/g, "");
+
+          const execFn = new Function("console", executableCode);
           execFn(customConsole);
           simulatedOutput = logs.join("\n") || "Kode berhasil dijalankan.";
         }
@@ -81,7 +87,7 @@ export function CodeEditor({
       }
 
       if (onRun) {
-        onRun(simulatedOutput);
+        onRun(simulatedOutput, code);
       }
     }, 400);
   };

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Exercise } from "@/lib/domain/lesson/lesson.types";
 import { CodeEditor } from "@/components/code-editor/CodeEditor";
-import { HelpCircle, GripVertical } from "lucide-react";
+import { HelpCircle, GripVertical, Lightbulb } from "lucide-react";
 
 interface ExerciseRendererProps {
   exercise: Exercise;
@@ -13,11 +13,12 @@ interface ExerciseRendererProps {
 
 export function ExerciseRenderer({ exercise, onAnswer, disabled = false }: ExerciseRendererProps) {
   const [selectedOption, setSelectedOption] = useState<any>(null);
+  const [showFixHint, setShowFixHint] = useState(false);
   const [arrangedItems, setArrangedItems] = useState<string[]>(
     exercise.type === "arrange_code" ? [...exercise.codeSnippets] : []
   );
 
-  const handleSubmit = (answerValue: any) => {
+  const handleSubmit = (answerValue: any, currentCode?: string) => {
     let isCorrect = false;
 
     switch (exercise.type) {
@@ -38,9 +39,12 @@ export function ExerciseRenderer({ exercise, onAnswer, disabled = false }: Exerc
         break;
 
       case "fix_code":
+        const codeStr = currentCode || "";
+        const hasQuotes = codeStr.includes('"25"') || codeStr.includes("'25'");
         isCorrect =
-          String(answerValue).trim() === "25" ||
-          String(answerValue).replace(/\s+/g, "") === exercise.correctCode.replace(/\s+/g, "");
+          !hasQuotes &&
+          (String(answerValue).trim() === "25" ||
+            codeStr.replace(/\s+/g, "") === exercise.correctCode.replace(/\s+/g, ""));
         break;
 
       case "arrange_code":
@@ -189,14 +193,23 @@ export function ExerciseRenderer({ exercise, onAnswer, disabled = false }: Exerc
       {exercise.type === "fix_code" && (
         <div className="space-y-4">
           {exercise.hint && (
-            <div className="p-4 bg-amber-50 border-2 border-amber-200 text-amber-900 rounded-xl text-sm font-medium">
-              Petunjuk: {exercise.hint}
-            </div>
+            showFixHint ? (
+              <div className="p-4 bg-amber-50 border-2 border-amber-200 text-amber-900 rounded-xl text-sm font-medium">
+                Petunjuk: {exercise.hint}
+              </div>
+            ) : (
+              <button
+                onClick={() => setShowFixHint(true)}
+                className="text-xs font-extrabold text-amber-600 hover:underline flex items-center gap-1"
+              >
+                <Lightbulb className="w-4 h-4" /> Butuh Petunjuk?
+              </button>
+            )
           )}
           <CodeEditor
             initialCode={exercise.buggyCode}
             language="typescript"
-            onRun={(output) => handleSubmit(output)}
+            onRun={(output: string, code: string) => handleSubmit(output, code)}
           />
         </div>
       )}
