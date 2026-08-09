@@ -75,18 +75,26 @@ export function Navbar() {
             <span>{user.xp} XP</span>
           </div>
 
-          {/* Profil */}
-          <Link
-            href="/profile"
-            className="flex items-center gap-2 ml-1 pl-3 border-l-2 border-slate-200 hover:opacity-85 transition-opacity"
-            title="Lihat Profil"
-          >
-            <img
-              src={user.avatar}
-              alt={user.username}
-              className="w-9 h-9 rounded-full bg-slate-100 border-2 border-[#1cb0f6] p-0.5 object-cover"
-            />
-          </Link>
+          {/* Profil & Auth */}
+          <div className="flex items-center gap-2 ml-1 pl-3 border-l-2 border-slate-200">
+            <Link
+              href="/auth"
+              className="text-xs font-black uppercase text-[#1cb0f6] hover:underline px-2 py-1"
+            >
+              Masuk
+            </Link>
+            <Link
+              href="/profile"
+              title="Lihat Profil"
+              className="hover:opacity-85 transition-opacity"
+            >
+              <img
+                src={user.avatar}
+                alt={user.username}
+                className="w-9 h-9 rounded-full bg-slate-100 border-2 border-[#1cb0f6] p-0.5 object-cover"
+              />
+            </Link>
+          </div>
         </div>
       </div>
 
