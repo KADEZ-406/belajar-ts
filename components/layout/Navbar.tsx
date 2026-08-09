@@ -14,9 +14,19 @@ export function Navbar() {
 
   const isLoggedIn = Boolean(session?.user);
 
+  // Hide Navbar completely inside active lesson player
   if (pathname.startsWith("/learn/") && pathname.split("/").length > 3) {
     return null;
   }
+
+  const isAuthOrOnboardingRoute =
+    pathname === "/" ||
+    pathname === "/auth" ||
+    pathname === "/onboarding" ||
+    pathname === "/placement-test" ||
+    pathname === "/skill-assessment";
+
+  const showFullNavbar = isLoggedIn && !isAuthOrOnboardingRoute;
 
   const navItems = [
     { href: "/learn", label: "Belajar", icon: BookOpen },
@@ -29,7 +39,7 @@ export function Navbar() {
     <header className="sticky top-0 z-40 bg-white border-b-2 border-slate-200 px-4 lg:px-8 py-3">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Brand Logo */}
-        <Link href="/dashboard" className="flex items-center gap-2.5 group">
+        <Link href={showFullNavbar ? "/dashboard" : "/"} className="flex items-center gap-2.5 group">
           <div className="w-10 h-10 rounded-xl bg-[#58cc02] border-b-4 border-[#46a302] flex items-center justify-center text-white font-extrabold text-xl shadow-xs transition-transform group-hover:scale-105">
             <Code2 className="w-6 h-6 stroke-[3]" />
           </div>
@@ -38,8 +48,8 @@ export function Navbar() {
           </span>
         </Link>
 
-        {/* Desktop Navigation Links (ONLY when Logged In) */}
-        {isLoggedIn && (
+        {/* Desktop Navigation Links (ONLY when Logged In and on Main App Pages) */}
+        {showFullNavbar && (
           <nav className="hidden md:flex items-center gap-1">
             {navItems.map((item) => {
               const Icon = item.icon;
@@ -64,7 +74,7 @@ export function Navbar() {
 
         {/* Gamification Stats & Auth Display */}
         <div className="flex items-center gap-4">
-          {isLoggedIn ? (
+          {showFullNavbar ? (
             <>
               {/* Streak */}
               <div className="flex items-center gap-1.5 text-xs font-black text-orange-600" title="Streak Belajar Harian">
@@ -98,20 +108,22 @@ export function Navbar() {
               </Link>
             </>
           ) : (
-            <div className="flex items-center gap-2">
-              <Link
-                href="/auth"
-                className="btn-3d btn-primary-3d px-5 py-2 text-xs uppercase tracking-wider font-black"
-              >
-                Masuk / Daftar
-              </Link>
-            </div>
+            pathname !== "/auth" && (
+              <div className="flex items-center gap-2">
+                <Link
+                  href="/auth"
+                  className="btn-3d btn-primary-3d px-5 py-2 text-xs uppercase tracking-wider font-black"
+                >
+                  Masuk / Daftar
+                </Link>
+              </div>
+            )
           )}
         </div>
       </div>
 
-      {/* Mobile Nav Bar (ONLY when Logged In) */}
-      {isLoggedIn && (
+      {/* Mobile Nav Bar (ONLY when Logged In and on Main App Pages) */}
+      {showFullNavbar && (
         <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t-2 border-slate-200 px-4 py-2 flex justify-around">
           {navItems.map((item) => {
             const Icon = item.icon;
