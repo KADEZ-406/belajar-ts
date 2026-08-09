@@ -9,6 +9,53 @@ import { ExerciseRenderer } from "@/components/exercises/ExerciseRenderer";
 import { RewardModal } from "@/components/lesson/RewardModal";
 import { X, Heart, ArrowRight, CheckCircle2, AlertCircle, Sparkles } from "lucide-react";
 
+function ConceptContentRenderer({ content }: { content: string }) {
+  const blocks = content.split(/\n\n+/);
+
+  return (
+    <div className="space-y-4">
+      {blocks.map((block, idx) => {
+        const lines = block.trim().split("\n");
+        const isCodeBlock =
+          block.startsWith("```") ||
+          lines.every((line) =>
+            /^\s*(const|let|var|function|interface|type|class|import|export|print|def|return|for|while|if|else|console\.log|#|\/\/|\/\*)/.test(
+              line.trim()
+            )
+          ) ||
+          (lines.length > 0 &&
+            lines.some((line) =>
+              /:\s*(string|number|boolean|any|void)|=>|=|print\(/.test(line)
+            ));
+
+        if (isCodeBlock) {
+          const codeText = block.replace(/```[a-z]*/g, "").trim();
+          return (
+            <div
+              key={idx}
+              className="card-duo overflow-hidden bg-slate-900 text-slate-100 border-2 border-slate-700 rounded-2xl p-4 shadow-xs"
+            >
+              <div className="flex items-center gap-2 mb-2 pb-2 border-b border-slate-800 text-xs font-mono font-bold text-slate-400 uppercase tracking-wider">
+                <span className="w-2.5 h-2.5 rounded-full bg-sky-400 inline-block"></span>
+                Contoh Kode
+              </div>
+              <pre className="font-mono text-sm md:text-base text-emerald-400 leading-relaxed overflow-x-auto whitespace-pre">
+                {codeText}
+              </pre>
+            </div>
+          );
+        }
+
+        return (
+          <p key={idx} className="text-[#4b4b4b] font-medium text-base md:text-lg leading-relaxed">
+            {block}
+          </p>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function LessonPlayerPage() {
   const params = useParams();
   const router = useRouter();
@@ -112,7 +159,6 @@ export default function LessonPlayerPage() {
           </div>
         </div>
       </header>
-
       {/* Main Step Content Area */}
       <main className="flex-1 max-w-3xl mx-auto w-full px-4 py-8 space-y-6">
         {currentStep.type === "learn" ? (
@@ -121,9 +167,7 @@ export default function LessonPlayerPage() {
               {currentStep.title}
             </h2>
 
-            <div className="prose prose-slate max-w-none text-[#4b4b4b] font-medium leading-relaxed whitespace-pre-line text-base md:text-lg">
-              {currentStep.content}
-            </div>
+            <ConceptContentRenderer content={currentStep.content || ""} />
 
             <button
               onClick={handleNextStep}

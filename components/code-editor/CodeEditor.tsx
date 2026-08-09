@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Editor from "@monaco-editor/react";
 import { Play, RotateCcw, CheckCircle2, AlertCircle, Terminal } from "lucide-react";
 import { Language } from "@/lib/domain/lesson/lesson.types";
 
@@ -24,7 +25,19 @@ export function CodeEditor({
   const [isExecuting, setIsExecuting] = useState(false);
   const [isMatch, setIsMatch] = useState<boolean | null>(null);
 
-  const lines = code.split("\n");
+  // Map app languages to Monaco Editor supported languages
+  const getMonacoLanguage = (lang: Language) => {
+    switch (lang) {
+      case "typescript":
+        return "typescript";
+      case "tsx":
+        return "typescript";
+      case "python":
+        return "python";
+      default:
+        return "javascript";
+    }
+  };
 
   const handleReset = () => {
     setCode(initialCode);
@@ -65,7 +78,7 @@ export function CodeEditor({
             error: (...args: any[]) => logs.push("Kesalahan: " + args.join(" ")),
           };
 
-          // Sanitize TypeScript type annotations for browser execution
+          // Sanitize TypeScript annotations for browser execution
           let executableCode = code
             .replace(/interface\s+\w+[\s\S]*?\}/g, "")
             .replace(/:\s*(number|string|boolean|any|void|string\[\]|number\[\]|\w+)\b/g, "");
@@ -94,14 +107,14 @@ export function CodeEditor({
 
   return (
     <div className="card-duo overflow-hidden bg-slate-900 text-slate-100 border-2 border-slate-700 rounded-2xl shadow-md">
-      {/* Editor Header Bar */}
+      {/* VS Code Editor Header Bar */}
       <div className="flex items-center justify-between px-4 py-2.5 bg-slate-800 border-b border-slate-700">
         <div className="flex items-center gap-2">
           <span className="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
           <span className="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
           <span className="w-3 h-3 rounded-full bg-green-500 inline-block"></span>
           <span className="ml-2 text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
-            Editor {language}
+            VS Code Editor ({language})
           </span>
         </div>
 
@@ -125,21 +138,29 @@ export function CodeEditor({
         </div>
       </div>
 
-      {/* Code Textarea Area */}
-      <div className="relative font-mono text-sm flex min-h-[160px] bg-slate-950">
-        <div className="select-none py-3 px-3 text-right bg-slate-900/60 text-slate-500 border-r border-slate-800 text-xs leading-6 min-w-[40px]">
-          {lines.map((_, i) => (
-            <div key={i}>{i + 1}</div>
-          ))}
-        </div>
-
-        <textarea
+      {/* Real Monaco VS Code Editor Component */}
+      <div className="relative bg-[#1e1e1e] py-2">
+        <Editor
+          height="180px"
+          language={getMonacoLanguage(language)}
+          theme="vs-dark"
           value={code}
-          onChange={(e) => setCode(e.target.value)}
-          readOnly={readOnly}
-          spellCheck={false}
-          className="w-full py-3 px-4 bg-transparent text-emerald-300 outline-none resize-none font-mono text-sm leading-6 focus:ring-0 border-0"
-          rows={Math.max(6, lines.length)}
+          onChange={(val) => setCode(val || "")}
+          options={{
+            readOnly,
+            minimap: { enabled: false },
+            fontSize: 14,
+            fontFamily: "var(--font-geist-mono), Consolas, Monaco, 'Courier New', monospace",
+            lineNumbers: "on",
+            scrollBeyondLastLine: false,
+            automaticLayout: true,
+            tabSize: 2,
+            quickSuggestions: true,
+            suggestOnTriggerCharacters: true,
+            snippetSuggestions: "inline",
+            wordBasedSuggestions: "currentDocument",
+            padding: { top: 8, bottom: 8 },
+          }}
         />
       </div>
 
