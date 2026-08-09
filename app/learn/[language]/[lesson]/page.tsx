@@ -9,7 +9,7 @@ import { useGamification } from "@/lib/application/GamificationContext";
 import { ExerciseRenderer } from "@/components/exercises/ExerciseRenderer";
 import { RewardModal } from "@/components/lesson/RewardModal";
 import { soundManager } from "@/lib/infrastructure/audio";
-import { X, Heart, ArrowRight, CheckCircle2, AlertCircle, BookOpen, Flame } from "lucide-react";
+import { X, Heart, ArrowRight, CheckCircle2, AlertCircle, BookOpen, Flame, Timer } from "lucide-react";
 
 function ConceptContentRenderer({ content }: { content: string }) {
   const blocks = content.split(/\n\n+/);
@@ -75,6 +75,36 @@ function LessonPlayerContent() {
   const [isCompleted, setIsCompleted] = useState(false);
   const [earnedXP, setEarnedXP] = useState(0);
 
+  const [examTimer, setExamTimer] = useState<number>(45);
+
+  useEffect(() => {
+    if (mode !== "exam" || feedback !== null || isCompleted) return;
+
+    const timer = setInterval(() => {
+      setExamTimer((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          soundManager.playWrongSound();
+          setFeedback({
+            isCorrect: false,
+            message: "Waktu Ujian Habis! Kamu kehabisan waktu untuk soal ini.",
+          });
+          deductHeart();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [mode, currentStepIndex, feedback, isCompleted]);
+
+  useEffect(() => {
+    if (mode === "exam") {
+      setExamTimer(45);
+    }
+  }, [currentStepIndex, mode]);
+
   if (!lesson) {
     return (
       <div className="max-w-md mx-auto my-20 p-8 text-center card-duo bg-white space-y-4">
@@ -110,7 +140,7 @@ function LessonPlayerContent() {
       soundManager.playWrongSound();
       setFeedback({
         isCorrect: false,
-        message: "Kurang tepat. Coba periksa kembali logika atau penjelasan materi!",
+        message: "Kurang tepat. Coba periksa kembali logika kodenya ya!",
       });
       deductHeart();
     }
@@ -159,17 +189,17 @@ function LessonPlayerContent() {
           {/* Progress Bar & Mode Label */}
           <div className="flex-1 max-w-md space-y-1">
             <div className="flex justify-between items-center text-xs font-bold text-slate-500">
-              <span className="flex items-center gap-1.5 font-extrabold text-[#1cb0f6]">
+              <span className="flex items-center gap-1.5 font-extrabold">
                 {mode === "exam" ? (
-                  <>
-                    <Flame className="w-3.5 h-3.5 text-amber-500" />
-                    Mode Ujian
-                  </>
+                  <span className="flex items-center gap-1 text-amber-600 bg-amber-100 px-2.5 py-0.5 rounded-md font-black">
+                    <Timer className="w-3.5 h-3.5 animate-pulse text-amber-600" />
+                    UJIAN: {examTimer}s
+                  </span>
                 ) : (
-                  <>
+                  <span className="text-[#1cb0f6] flex items-center gap-1">
                     <BookOpen className="w-3.5 h-3.5 text-[#1cb0f6]" />
                     Mode Belajar
-                  </>
+                  </span>
                 )}
               </span>
               <span>
@@ -218,6 +248,7 @@ function LessonPlayerContent() {
                 exercise={currentStep.exercise}
                 onAnswer={handleExerciseAnswer}
                 disabled={feedback !== null && feedback.isCorrect}
+                isExamMode={mode === "exam"}
               />
             </div>
           )

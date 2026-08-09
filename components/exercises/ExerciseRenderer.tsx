@@ -9,9 +9,15 @@ interface ExerciseRendererProps {
   exercise: Exercise;
   onAnswer: (isCorrect: boolean, xp: number) => void;
   disabled?: boolean;
+  isExamMode?: boolean;
 }
 
-export function ExerciseRenderer({ exercise, onAnswer, disabled = false }: ExerciseRendererProps) {
+export function ExerciseRenderer({ 
+  exercise, 
+  onAnswer, 
+  disabled = false,
+  isExamMode = false,
+}: ExerciseRendererProps) {
   const [selectedOption, setSelectedOption] = useState<any>(null);
   const [showFixHint, setShowFixHint] = useState(false);
   const [editorState, setEditorState] = useState<{ output: string; code: string } | null>(null);
@@ -35,14 +41,14 @@ export function ExerciseRenderer({ exercise, onAnswer, disabled = false }: Exerc
     setEditorState({ output, code });
     const isCorrect = checkCodeCorrectness(output, code);
     if (isCorrect) {
-      onAnswer(true, exercise.xpReward);
+      onAnswer(true, isExamMode ? exercise.xpReward * 2 : exercise.xpReward);
     }
   };
 
   const handleCodeSubmit = () => {
     if (!editorState) return;
     const isCorrect = checkCodeCorrectness(editorState.output, editorState.code);
-    onAnswer(isCorrect, exercise.xpReward);
+    onAnswer(isCorrect, isExamMode ? exercise.xpReward * 2 : exercise.xpReward);
   };
 
   const handleSubmit = (answerValue: any) => {
@@ -70,7 +76,7 @@ export function ExerciseRenderer({ exercise, onAnswer, disabled = false }: Exerc
         break;
     }
 
-    onAnswer(isCorrect, exercise.xpReward);
+    onAnswer(isCorrect, isExamMode ? exercise.xpReward * 2 : exercise.xpReward);
   };
 
   const moveSnippet = (index: number, direction: "up" | "down") => {
@@ -206,7 +212,7 @@ export function ExerciseRenderer({ exercise, onAnswer, disabled = false }: Exerc
       {/* Fix Code Exercise */}
       {exercise.type === "fix_code" && (
         <div className="space-y-4">
-          {exercise.hint && (
+          {!isExamMode && exercise.hint && (
             showFixHint ? (
               <div className="p-4 bg-amber-50 border-2 border-amber-200 text-amber-900 rounded-xl text-sm font-medium">
                 Petunjuk: {exercise.hint}
