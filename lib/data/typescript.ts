@@ -1482,7 +1482,7 @@ for (let i: number = 1; i <= 3; i++) {
                 type: "code_challenge",
                 prompt: "Gunakan perulangan for i=1 sampai i<=2 untuk mencetak 'Iterasi 1' dan 'Iterasi 2'!",
                 conceptGuide: "Tulis `for (let i: number = 1; i <= 2; i++) { console.log(\"Iterasi \" + i); }`.",
-                starterCode: `for (let i: number = 1; i <= 2; i++) {\n  console.log("Iterasi " + i);\n}\n`,
+                starterCode: `for (let i = 1; i <= 2; i++) {\n  console.log("Iterasi " + i);\n}\n`,
                 expectedOutput: "Iterasi 1\nIterasi 2",
                 explanation: "Sip! Perulangan for standard berhasil dieksekusi.",
                 xpReward: 15,
@@ -2344,7 +2344,7 @@ console.log(hitung()); // 2
               exercise: {
                 id: "ts_ex_5_7_tf",
                 type: "true_false",
-                prompt: "Apakah fungsi yang mengubah variabel global di luar dirinya dikategorikan sebagai Pure Function?",
+                prompt: "Apakah fungsi yang mengubah variabel global di luar dirinya dikategori sebagai Pure Function?",
                 conceptGuide: "Mengubah variabel luar dinamakan side effect.",
                 statement: "Fungsi yang mengubah variabel luar adalah Pure Function.",
                 correctAnswer: false,
@@ -2455,6 +2455,1024 @@ console.log(eksekusi((n) => n * 2, 5)); // 10
                 starterCode: `function jalankan(fn: (a: number) => number, val: number): number {\n  return fn(val);\n}\nconsole.log(jalankan((x) => x * 3, 4));\n`,
                 expectedOutput: "12",
                 explanation: "LUAR BIASA! Kamu resmi menuntaskan seluruh 8 Lesson di Section 05 Fungsi!",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "ts_sec_6",
+      title: "06 Array & Koleksi (7 Lesson)",
+      description: "Array dasar, Mutasi vs Immutability, Map/Filter/Reduce, Search methods, Spread operator, Destructuring, dan Tuple.",
+      lessons: [
+        {
+          id: "ts_l6_1",
+          language: "typescript",
+          sectionId: "ts_sec_6",
+          sectionTitle: "06 Array & Koleksi",
+          title: "Array Dasar & Akses Index",
+          description: "Mendefinisikan array bertipe dan mengakses elemen menggunakan indeks berbasis 0.",
+          icon: "box",
+          xp: 40,
+          prerequisites: ["ts_l5_8"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Array di TypeScript",
+              content: `Array bertipe menyimpan deretan data bertipe sama. Indeks pertama dimulai dari angka 0.
+
+\`\`\`typescript
+const buahs: string[] = ["Apel", "Jeruk"];
+console.log(buahs[0]); // Apel
+\`\`\``,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_6_1_mc",
+                type: "multiple_choice",
+                prompt: "Berapakah indeks elemen pertama di dalam sebuah array JavaScript/TypeScript?",
+                conceptGuide: "Indeks array selalu dimulai dari 0 (zero-indexed).",
+                options: ["0", "1", "-1", "null"],
+                correctAnswer: 0,
+                explanation: "Tepat! Indeks elemen pertama adalah 0.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_6_1_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan dari elemen angka[1] untuk array [10, 20, 30]?",
+                conceptGuide: "Indeks 0 = 10, Indeks 1 = 20.",
+                code: `const angka: number[] = [10, 20, 30];\nconsole.log(angka[1]);`,
+                options: ["20", "10", "30", "Error"],
+                correctAnswer: "20",
+                explanation: "Bener! angka[1] merujuk ke elemen kedua yaitu 20.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_6_1_cc",
+                type: "code_challenge",
+                prompt: "Buat array nama: string[] = ['Budi', 'Siti'] dan cetak elemen pertama nama[0]!",
+                conceptGuide: "Tulis `const nama: string[] = [\"Budi\", \"Siti\"]; console.log(nama[0]);`.",
+                starterCode: `const nama: string[] = ["Budi", "Siti"];\nconsole.log(nama[0]);\n`,
+                expectedOutput: "Budi",
+                explanation: "Sip! Pengaksesan indeks array berjalan lancar.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l6_2",
+          language: "typescript",
+          sectionId: "ts_sec_6",
+          sectionTitle: "06 Array & Koleksi",
+          title: "Array Mutation vs Immutability",
+          description: "Membedakan metode mutasi langsung (push/pop) dengan metode aman immutability.",
+          icon: "box",
+          xp: 40,
+          prerequisites: ["ts_l6_1"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Mutation vs Immutability",
+              content: `- **Mutating Methods**: Mengubah array asli secara langsung (\`push()\`, \`pop()\`, \`shift()\`).
+- **Immutable Methods**: Menghasilkan array baru tanpa mengubah array asli (\`slice()\`, \`concat()\`, \`map()\`).`,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_6_2_tf",
+                type: "true_false",
+                prompt: "Apakah method push() menambahkan elemen ke akhir array dan mengubah array aslinya secara langsung (mutation)?",
+                conceptGuide: "push() menambah elemen dan memutasi array asli.",
+                statement: "push() memutasi array asli secara langsung.",
+                correctAnswer: true,
+                explanation: "Mantap! `push()` memutasi array asal.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_6_2_po",
+                type: "predict_output",
+                prompt: "Apakah panjang array list setelah dipanggil list.push(3)?",
+                conceptGuide: "Array awal 2 item + 1 = 3 item.",
+                code: `const list: number[] = [1, 2];\nlist.push(3);\nconsole.log(list.length);`,
+                options: ["3", "2", "1", "Error"],
+                correctAnswer: "3",
+                explanation: "Bener! Panjang array menjadi 3.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_6_2_cc",
+                type: "code_challenge",
+                prompt: "Buat array list = [1], tambah 2 dengan push(2), lalu cetak list.length!",
+                conceptGuide: "Tulis `const list: number[] = [1]; list.push(2); console.log(list.length);`.",
+                starterCode: `const list: number[] = [1];\nlist.push(2);\nconsole.log(list.length);\n`,
+                expectedOutput: "2",
+                explanation: "Keren! Metode mutasi array berhasil dijalankan.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l6_3",
+          language: "typescript",
+          sectionId: "ts_sec_6",
+          sectionTitle: "06 Array & Koleksi",
+          title: "Functional Array Methods (Map, Filter, Reduce)",
+          description: "Transformasi dan penyaringan data array menggunakan metode fungsi murni.",
+          icon: "box",
+          xp: 40,
+          prerequisites: ["ts_l6_2"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Map, Filter, & Reduce",
+              content: `- **\`map()\`**: Mengubah setiap elemen array menjadi bentuk baru.
+- **\`filter()\`**: Menyaring elemen yang memenuhi kondisi boolean.
+- **\`reduce()\`**: Mengagregasi seluruh elemen array menjadi 1 nilai akhir.`,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_6_3_mc",
+                type: "multiple_choice",
+                prompt: "Method array manakah yang digunakan untuk menyaring elemen berdasarkan kondisi boolean tertentu?",
+                conceptGuide: "filter() mengembalikan array baru berisi elemen yang memenuhi syarat.",
+                options: ["filter()", "map()", "reduce()", "forEach()"],
+                correctAnswer: 0,
+                explanation: "Tepat! `filter()` digunakan untuk menyaring data.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_6_3_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan hasil nums.map(x => x * 2) untuk array [1, 2]?",
+                conceptGuide: "1*2=2, 2*2=4 -> panjang 2.",
+                code: `const nums: number[] = [1, 2];\nconst ganda = nums.map(x => x * 2);\nconsole.log(ganda.length);`,
+                options: ["2", "4", "1", "Error"],
+                correctAnswer: "2",
+                explanation: "Bener! Panjang array ganda tetap 2 elemen.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_6_3_cc",
+                type: "code_challenge",
+                prompt: "Filter array [10, 25, 30] untuk mencari angka > 20 dan cetak panjang array filternya!",
+                conceptGuide: "Tulis `const list: number[] = [10, 25, 30]; const hasil = list.filter(x => x > 20); console.log(hasil.length);`.",
+                starterCode: `const list: number[] = [10, 25, 30];\nconst hasil = list.filter(x => x > 20);\nconsole.log(hasil.length);\n`,
+                expectedOutput: "2",
+                explanation: "Super! Functional array filter bekerja dengan presisi.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l6_4",
+          language: "typescript",
+          sectionId: "ts_sec_6",
+          sectionTitle: "06 Array & Koleksi",
+          title: "Array Search Methods (some, every, find)",
+          description: "Mengecek keberadaan elemen atau mencari data tunggal di dalam array.",
+          icon: "box",
+          xp: 40,
+          prerequisites: ["ts_l6_3"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Pencarian Array",
+              content: `- **\`find()\`**: Mengembalikan elemen PERTAMA yang cocok.
+- **\`some()\`**: True jika minimal SALAH SATU elemen memenuhi syarat.
+- **\`every()\`**: True jika SELURUH elemen memenuhi syarat.`,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_6_4_mc",
+                type: "multiple_choice",
+                prompt: "Method apakah yang mengembalikan elemen tunggal pertama yang memenuhi kriteria pencarian?",
+                conceptGuide: "find() menemukan elemen pertama yang bernilai true.",
+                options: ["find()", "some()", "every()", "filter()"],
+                correctAnswer: 0,
+                explanation: "Tepat! `find()` mengembalikan elemen pertama yang cocok.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_6_4_po",
+                type: "predict_output",
+                prompt: "Apakah hasil cetakan dari nums.some(x => x > 5) untuk array [1, 10]?",
+                conceptGuide: "10 > 5 bernilai true sehingga some() mengembalikan true.",
+                code: `const nums: number[] = [1, 10];\nconsole.log(nums.some(x => x > 5));`,
+                options: ["true", "false", "Error", "undefined"],
+                correctAnswer: "true",
+                explanation: "Bener! Karena 10 > 5, some() mengembalikan true.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_6_4_cc",
+                type: "code_challenge",
+                prompt: "Gunakan find() pada array [5, 12, 8] untuk mencari angka > 10 dan cetak nilainya ke konsol!",
+                conceptGuide: "Tulis `const nums: number[] = [5, 12, 8]; const target = nums.find(x => x > 10); console.log(target);`.",
+                starterCode: `const nums: number[] = [5, 12, 8];\nconst target = nums.find(x => x > 10);\nconsole.log(target);\n`,
+                expectedOutput: "12",
+                explanation: "Keren! Method pencarian array find() bekerja dengan sempurna.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l6_5",
+          language: "typescript",
+          sectionId: "ts_sec_6",
+          sectionTitle: "06 Array & Koleksi",
+          title: "Array Spread Operator (...)",
+          description: "Menggabungkan dan menduplikat array secara imutabel dengan titik tiga (...).",
+          icon: "box",
+          xp: 40,
+          prerequisites: ["ts_l6_4"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Spread Operator (...)",
+              content: `Spread operator (\`...\`) mengekspansi elemen array ke array baru.
+
+\`\`\`typescript
+const a: number[] = [1, 2];
+const b: number[] = [...a, 3, 4];
+console.log(b); // [1, 2, 3, 4]
+\`\`\``,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_6_5_tf",
+                type: "true_false",
+                prompt: "Apakah spread operator (...) memungkinkan kita menggabungkan dua array tanpa mengubah array aslinya?",
+                conceptGuide: "Spread operator membuat copy/gabungan array baru secara imutabel.",
+                statement: "Spread operator menggabungkan array tanpa memutasi array asli.",
+                correctAnswer: true,
+                explanation: "Mantap! Spread operator bersifat imutabel.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_6_5_po",
+                type: "predict_output",
+                prompt: "Apakah panjang array gabungan [...arr1, ...arr2] jika arr1 isi 2 item dan arr2 isi 2 item?",
+                conceptGuide: "2 + 2 = 4.",
+                code: `const a = [1, 2]; const b = [3, 4];\nconst c = [...a, ...b];\nconsole.log(c.length);`,
+                options: ["4", "2", "8", "Error"],
+                correctAnswer: "4",
+                explanation: "Bener! Panjang gabungan array adalah 4.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_6_5_cc",
+                type: "code_challenge",
+                prompt: "Gabungkan array a = [1] dan b = [2] pakai spread operator [...a, ...b] dan cetak panjang array gabungannya!",
+                conceptGuide: "Tulis `const a = [1]; const b = [2]; const c = [...a, ...b]; console.log(c.length);`.",
+                starterCode: `const a = [1];\nconst b = [2];\nconst c = [...a, ...b];\nconsole.log(c.length);\n`,
+                expectedOutput: "2",
+                explanation: "Sip! Spread operator array berhasil dieksekusi.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l6_6",
+          language: "typescript",
+          sectionId: "ts_sec_6",
+          sectionTitle: "06 Array & Koleksi",
+          title: "Array Destructuring",
+          description: "Membongkar elemen array secara langsung ke dalam variabel terpisah.",
+          icon: "box",
+          xp: 40,
+          prerequisites: ["ts_l6_5"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Array Destructuring",
+              content: `\`\`\`typescript
+const koordinat: number[] = [10, 20];
+const [x, y] = koordinat;
+console.log(x); // 10
+\`\`\``,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_6_6_mc",
+                type: "multiple_choice",
+                prompt: "Kurung apakah yang digunakan untuk membongkar elemen variabel pada Array Destructuring?",
+                conceptGuide: "Array destructuring memakai kurung siku [a, b].",
+                options: ["Kurung Siku ([])", "Kurung Kurawal ({})", "Kurung Biasa (())", "Tanda Kutip"],
+                correctAnswer: 0,
+                explanation: "Tepat! Array destructuring memakai kurung siku `[a, b]`.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_6_6_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan variabel pertama a dari destructuring [a, b] = ['X', 'Y']?",
+                conceptGuide: "a mengekstrak elemen pertama 'X'.",
+                code: `const [a, b] = ["X", "Y"];\nconsole.log(a);`,
+                options: ["X", "Y", "Error", "undefined"],
+                correctAnswer: "X",
+                explanation: "Bener! a mendapat nilai 'X'.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_6_6_cc",
+                type: "code_challenge",
+                prompt: "Bongkar array ['Kadez', 25] ke variabel [nama, umur] lalu cetak nama!",
+                conceptGuide: "Tulis `const [nama, umur] = [\"Kadez\", 25]; console.log(nama);`.",
+                starterCode: `const [nama, umur] = ["Kadez", 25];\nconsole.log(nama);\n`,
+                expectedOutput: "Kadez",
+                explanation: "Hebat! Array destructuring berjalan dengan sempurna.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l6_7",
+          language: "typescript",
+          sectionId: "ts_sec_6",
+          sectionTitle: "06 Array & Koleksi",
+          title: "Tuple Types (Fixed Length & Order)",
+          description: "Array spesial dengan jumlah dan urutan tipe data yang sudah pasti.",
+          icon: "box",
+          xp: 40,
+          prerequisites: ["ts_l6_6"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Tuple Types",
+              content: `Tuple mengunci urutan dan tipe data tiap elemen:
+\`\`\`typescript
+const pasangan: [string, number] = ["Kunci", 100];
+console.log(pasangan[0]); // Kunci
+\`\`\``,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_6_7_tf",
+                type: "true_false",
+                prompt: "Apakah Tuple mengunci urutan dan jenis tipe data elemen sesuai definisi posisinya?",
+                conceptGuide: "Tuple mengunci panjang dan urutan tipe data.",
+                statement: "Tuple mengunci urutan dan tipe data elemen.",
+                correctAnswer: true,
+                explanation: "Tepat! Tuple mengunci urutan tipe data.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_6_7_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan elemen kedua (angka) dari tuple [string, number] berikut?",
+                conceptGuide: "Elemen indeks 1 adalah 200.",
+                code: `const t: [string, number] = ["Data", 200];\nconsole.log(t[1]);`,
+                options: ["200", "Data", "Error", "undefined"],
+                correctAnswer: "200",
+                explanation: "Bener! t[1] merujuk ke angka 200.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_6_7_cc",
+                type: "code_challenge",
+                prompt: "Buat tuple data: [string, boolean] = ['Online', true] dan cetak elemen pertama data[0]!",
+                conceptGuide: "Tulis `const data: [string, boolean] = [\"Online\", true]; console.log(data[0]);`.",
+                starterCode: `const data: [string, boolean] = ["Online", true];\nconsole.log(data[0]);\n`,
+                expectedOutput: "Online",
+                explanation: "LUAR BIASA! Kamu resmi menuntaskan seluruh 7 Lesson di Section 06 Array & Koleksi!",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "ts_sec_7",
+      title: "07 Objek & Interface (8 Lesson)",
+      description: "Object Literals, Interface, Type Alias, Union, Intersection, Literal Types, Type Narrowing, dan Index Signature.",
+      lessons: [
+        {
+          id: "ts_l7_1",
+          language: "typescript",
+          sectionId: "ts_sec_7",
+          sectionTitle: "07 Objek & Interface",
+          title: "Object Literals & Inline Type Annotation",
+          description: "Mendefinisikan struktur properti objek langsung secara inline.",
+          icon: "building",
+          xp: 40,
+          prerequisites: ["ts_l6_7"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Inline Object Types",
+              content: `\`\`\`typescript
+const user: { id: number; nama: string } = {
+  id: 1,
+  nama: "Kadez"
+};
+console.log(user.nama);
+\`\`\``,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_1_mc",
+                type: "multiple_choice",
+                prompt: "Simbol apakah yang memisahkan antara properti di dalam definisi tipe objek?",
+                conceptGuide: "Properti objek dipisahkan oleh tanda titik koma (;) atau koma (,).",
+                options: ["Titik koma (;) atau Koma (,)", "Titik dua (:)", "Tanda hubung (-)", "Garis miring (/)"],
+                correctAnswer: 0,
+                explanation: "Tepat! Properti dipisahkan dengan `;` atau `,`.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_1_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan properti nama dari objek berikut?",
+                conceptGuide: "user.nama bernilai 'Siti'.",
+                code: `const u: { nama: string } = { nama: "Siti" };\nconsole.log(u.nama);`,
+                options: ["Siti", "nama", "Error", "undefined"],
+                correctAnswer: "Siti",
+                explanation: "Bener! u.nama mengembalikan string 'Siti'.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_1_cc",
+                type: "code_challenge",
+                prompt: "Buat objek barang: { nama: string; harga: number } = { nama: 'Buku', harga: 5000 } lalu cetak barang.nama!",
+                conceptGuide: "Tulis `const barang: { nama: string; harga: number } = { nama: \"Buku\", harga: 5000 }; console.log(barang.nama);`.",
+                starterCode: `const barang: { nama: string; harga: number } = {\n  nama: "Buku",\n  harga: 5000\n};\nconsole.log(barang.nama);\n`,
+                expectedOutput: "Buku",
+                explanation: "Sip! Inline object type annotation berjalan dengan lancar.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l7_2",
+          language: "typescript",
+          sectionId: "ts_sec_7",
+          sectionTitle: "07 Objek & Interface",
+          title: "Interface Objek (Required & Optional ?)",
+          description: "Membangun cetak biru struktur objek yang dapat digunakan berulang kali.",
+          icon: "building",
+          xp: 40,
+          prerequisites: ["ts_l7_1"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Interface Objek",
+              content: `\`\`\`typescript
+interface UserProfile {
+  id: number;
+  nama: string;
+  email?: string; // Properti opsional
+}
+const p: UserProfile = { id: 1, nama: "Budi" };
+\`\`\``,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_2_mc",
+                type: "multiple_choice",
+                prompt: "Kata kunci apakah yang digunakan untuk membuat cetak biru antarmuka struktur objek?",
+                conceptGuide: "Kata kunci interface digunakan untuk objek cetak biru.",
+                options: ["interface", "class", "type", "struct"],
+                correctAnswer: 0,
+                explanation: "Tepat! Kata kunci `interface` mendefinisikan antarmuka objek.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_2_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan properti id dari objek bertipe interface berikut?",
+                conceptGuide: "item.id bernilai 101.",
+                code: `interface Item { id: number; }\nconst item: Item = { id: 101 };\nconsole.log(item.id);`,
+                options: ["101", "id", "Error", "undefined"],
+                correctAnswer: "101",
+                explanation: "Bener! item.id mengembalikan angka 101.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_2_cc",
+                type: "code_challenge",
+                prompt: "Buat interface Produk { nama: string; harga: number; }. Buat const p: Produk = { nama: 'Laptop', harga: 1500 }; cetak p.nama!",
+                conceptGuide: "Tulis `interface Produk { nama: string; harga: number; } const p: Produk = { nama: \"Laptop\", harga: 1500 }; console.log(p.nama);`.",
+                starterCode: `interface Produk {\n  nama: string;\n  harga: number;\n}\nconst p: Produk = { nama: "Laptop", harga: 1500 };\nconsole.log(p.nama);\n`,
+                expectedOutput: "Laptop",
+                explanation: "Super! Interface objek berhasil dikonfigurasi dan dipanggil.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l7_3",
+          language: "typescript",
+          sectionId: "ts_sec_7",
+          sectionTitle: "07 Objek & Interface",
+          title: "Type Alias (type) vs Interface",
+          description: "Membandingkan type alias dengan interface dan kapan waktu tepat memakainya.",
+          icon: "building",
+          xp: 40,
+          prerequisites: ["ts_l7_2"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Type Alias vs Interface",
+              content: `- **\`interface\`**: Fokus pada struktur OBJEK & pendukung pewarisan (\`extends\`).
+- **\`type\`**: Fleksibel untuk Objek, Primitif, Union, dan Tuple (\`type ID = string | number\`).`,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_3_mc",
+                type: "multiple_choice",
+                prompt: "Fitur manakah yang HANYA bisa dilakukan oleh Type Alias (type) dan TIDAK bisa oleh Interface?",
+                conceptGuide: "Type alias bisa membuat alias untuk tipe data primitif dan Union langsung.",
+                options: [
+                  "Membuat alias tipe data primitif atau Union langsung (type ID = string | number)",
+                  "Mendefinisikan properti objek",
+                  "Digunakan pada variabel",
+                  "Diekspor dari modul",
+                ],
+                correctAnswer: 0,
+                explanation: "Tepat! `type` bisa langsung meng-alias primitif & Union.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_3_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan dari variabel bertipe Type Alias berikut?",
+                conceptGuide: "Tipe ID adalah string.",
+                code: `type ID = string;\nconst myId: ID = "USER-01";\nconsole.log(myId);`,
+                options: ["USER-01", "ID", "Error", "undefined"],
+                correctAnswer: "USER-01",
+                explanation: "Bener! myId bernilai string 'USER-01'.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_3_cc",
+                type: "code_challenge",
+                prompt: "Buat type Status = string. Buat const s: Status = 'Sukses' dan cetak nilainya!",
+                conceptGuide: "Tulis `type Status = string; const s: Status = \"Sukses\"; console.log(s);`.",
+                starterCode: `type Status = string;\nconst s: Status = "Sukses";\nconsole.log(s);\n`,
+                expectedOutput: "Sukses",
+                explanation: "Keren! Type Alias berhasil didefinisikan.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l7_4",
+          language: "typescript",
+          sectionId: "ts_sec_7",
+          sectionTitle: "07 Objek & Interface",
+          title: "Union Types (|)",
+          description: "Memungkinkan variabel memiliki salah satu dari beberapa kemungkinan tipe data.",
+          icon: "building",
+          xp: 40,
+          prerequisites: ["ts_l7_3"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Union Types (|)",
+              content: `Union types dikombinasikan dengan pipa (\`|\`):
+\`\`\`typescript
+let id: string | number;
+id = "ABC"; // Valid
+id = 123;   // Valid
+\`\`\``,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_4_mc",
+                type: "multiple_choice",
+                prompt: "Karakter apakah yang digunakan untuk menghubungkan beberapa tipe data pada Union Types?",
+                conceptGuide: "Union types menggunakan simbol pipa (|).",
+                options: ["Pipa (|)", "Ampersand (&)", "Titik dua (:)", "Koma (,)"],
+                correctAnswer: 0,
+                explanation: "Tepat! Simbol pipa `|` digunakan untuk Union Types.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_4_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan variabel bertipe Union (string | number) diisi angka 50?",
+                conceptGuide: "Angka 50 dicetak.",
+                code: `let val: string | number = 50;\nconsole.log(val);`,
+                options: ["50", "string", "number", "Error"],
+                correctAnswer: "50",
+                explanation: "Bener! Nilai 50 valid di dalam Union type.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_4_cc",
+                type: "code_challenge",
+                prompt: "Buat variabel respon: string | boolean = 'OK' lalu cetak nilainya ke konsol!",
+                conceptGuide: "Tulis `const respon: string | boolean = \"OK\"; console.log(respon);`.",
+                starterCode: `const respon: string | boolean = "OK";\nconsole.log(respon);\n`,
+                expectedOutput: "OK",
+                explanation: "Sip! Union types berhasil memfasilitasi multitipe.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l7_5",
+          language: "typescript",
+          sectionId: "ts_sec_7",
+          sectionTitle: "07 Objek & Interface",
+          title: "Intersection Types (&)",
+          description: "Menggabungkan seluruh properti dari beberapa tipe data menjadi satu tipe baru.",
+          icon: "building",
+          xp: 40,
+          prerequisites: ["ts_l7_4"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Intersection Types (&)",
+              content: `Intersection types menggabungkan properti menggunakan ampersand (\`&\`):
+\`\`\`typescript
+type Nama = { nama: string };
+type Umur = { umur: number };
+type Person = Nama & Umur;
+const p: Person = { nama: "Kadez", umur: 25 };
+\`\`\``,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_5_tf",
+                type: "true_false",
+                prompt: "Apakah Intersection Types (&) mewajibkan objek memiliki SELURUH properti dari tipe-tipe yang digabungkan?",
+                conceptGuide: "Intersection mewajibkan penggabungan seluruh properti.",
+                statement: "Intersection mewajibkan seluruh properti dari tipe yang digabungkan.",
+                correctAnswer: true,
+                explanation: "Mantap! Intersection menggabungkan syarat properti secara total.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_5_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan properti nama dari objek hasil gabungan Intersection berikut?",
+                conceptGuide: "obj.nama bernilai 'Budi'.",
+                code: `type A = { nama: string };\ntype B = { id: number };\nconst obj: A & B = { nama: "Budi", id: 1 };\nconsole.log(obj.nama);`,
+                options: ["Budi", "1", "Error", "undefined"],
+                correctAnswer: "Budi",
+                explanation: "Bener! Properti nama terdefinisi dari tipe A.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_5_cc",
+                type: "code_challenge",
+                prompt: "Buat type A = { x: number } & { y: number }. Buat const p: A = { x: 5, y: 10 }; cetak p.x + p.y!",
+                conceptGuide: "Tulis `type A = { x: number } & { y: number }; const p: A = { x: 5, y: 10 }; console.log(p.x + p.y);`.",
+                starterCode: `type A = { x: number } & { y: number };\nconst p: A = { x: 5, y: 10 };\nconsole.log(p.x + p.y);\n`,
+                expectedOutput: "15",
+                explanation: "Super! Intersection Types (&) berhasil menggabungkan struktur tipe.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l7_6",
+          language: "typescript",
+          sectionId: "ts_sec_7",
+          sectionTitle: "07 Objek & Interface",
+          title: "Literal Types & Const Assertions",
+          description: "Membatasi nilai variabel hanya ke nilai teks/angka spesifik yang diizinkan.",
+          icon: "building",
+          xp: 40,
+          prerequisites: ["ts_l7_5"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Literal Types",
+              content: `\`\`\`typescript
+type Direction = "UTARA" | "SELATAN";
+const arah: Direction = "UTARA"; // Hanya bisa diisi "UTARA" atau "SELATAN"
+\`\`\``,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_6_mc",
+                type: "multiple_choice",
+                prompt: "Manakah contoh penulisan Literal Type yang membatasi nilai string ke nilai spesifik?",
+                conceptGuide: "Literal type menentukan nilai spesifik bertipe string/number.",
+                options: ['type Mode = "DARK" | "LIGHT";', "type Mode = string;", "type Mode = any;", "type Mode = object;"],
+                correctAnswer: 0,
+                explanation: "Tepat! `type Mode = \"DARK\" | \"LIGHT\"` adalah Literal Type.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_6_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan dari variabel bertipe Literal berikut?",
+                conceptGuide: "Nilai literal adalah 'DARK'.",
+                code: `type Theme = "DARK" | "LIGHT";\nconst t: Theme = "DARK";\nconsole.log(t);`,
+                options: ["DARK", "LIGHT", "Error", "undefined"],
+                correctAnswer: "DARK",
+                explanation: "Bener! t bernilai literal 'DARK'.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_6_cc",
+                type: "code_challenge",
+                prompt: "Buat type Role = 'ADMIN' | 'USER'. Buat const r: Role = 'ADMIN' dan cetak nilainya ke konsol!",
+                conceptGuide: "Tulis `type Role = \"ADMIN\" | \"USER\"; const r: Role = \"ADMIN\"; console.log(r);`.",
+                starterCode: `type Role = "ADMIN" | "USER";\nconst r: Role = "ADMIN";\nconsole.log(r);\n`,
+                expectedOutput: "ADMIN",
+                explanation: "Keren! Literal types berhasil membatasi opsi nilai.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l7_7",
+          language: "typescript",
+          sectionId: "ts_sec_7",
+          sectionTitle: "07 Objek & Interface",
+          title: "Type Narrowing (typeof, in, instanceof)",
+          description: "Menyempitkan tipe data Union yang lebih luas menjadi tipe spesifik saat runtime.",
+          icon: "building",
+          xp: 40,
+          prerequisites: ["ts_l7_6"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Type Narrowing",
+              content: `\`\`\`typescript
+function proses(val: string | number) {
+  if (typeof val === "string") {
+    console.log(val.toUpperCase());
+  } else {
+    console.log(val.toFixed(2));
+  }
+}
+\`\`\``,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_7_mc",
+                type: "multiple_choice",
+                prompt: "Operator operator apakah yang paling umum digunakan untuk menyempitkan tipe primitif pada Type Narrowing?",
+                conceptGuide: "typeof memeriksa tipe data primitif saat runtime.",
+                options: ["typeof", "instanceof", "in", "as"],
+                correctAnswer: 0,
+                explanation: "Tepat! `typeof` memeriksa tipe data primitif saat runtime.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_7_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan jika fungsi dipanggil dengan string 'tes'?",
+                conceptGuide: "typeof 'tes' === 'string' -> 'Teks'.",
+                code: `function cek(x: string | number) {\n  if (typeof x === "string") console.log("Teks");\n  else console.log("Angka");\n}\ncek("tes");`,
+                options: ["Teks", "Angka", "Error", "undefined"],
+                correctAnswer: "Teks",
+                explanation: "Bener! Pengecekan typeof 'tes' bernilai string.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_7_cc",
+                type: "code_challenge",
+                prompt: "Buat fungsi printLen(val: string | number). Jika string cetak val.length, jika number cetak val!",
+                conceptGuide: "Tulis `function printLen(val: string | number) { if (typeof val === \"string\") { console.log(val.length); } else { console.log(val); } } printLen(\"Halo\");`.",
+                starterCode: `function printLen(val: string | number) {\n  if (typeof val === "string") {\n    console.log(val.length);\n  } else {\n    console.log(val);\n  }\n}\nprintLen("Halo");\n`,
+                expectedOutput: "4",
+                explanation: "Sip! Type narrowing dengan typeof berjalan lancar.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l7_8",
+          language: "typescript",
+          sectionId: "ts_sec_7",
+          sectionTitle: "07 Objek & Interface",
+          title: "Index Signatures ([key: string]: T)",
+          description: "Mendefinisikan tipe untuk objek dengan nama properti yang fleksibel dan tidak terbatas.",
+          icon: "building",
+          xp: 40,
+          prerequisites: ["ts_l7_7"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Index Signatures",
+              content: `\`\`\`typescript
+interface KamusGaji {
+  [nama: string]: number;
+}
+const gaji: KamusGaji = {
+  Budi: 5000,
+  Siti: 7000
+};
+console.log(gaji.Budi);
+\`\`\``,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_8_mc",
+                type: "multiple_choice",
+                prompt: "Sintaks manakah yang benar untuk mendefinisikan Index Signature dengan nama kunci string dan nilai number?",
+                conceptGuide: "Index Signature menggunakan sintaks `[key: string]: number`.",
+                options: ["[key: string]: number;", "key: string = number;", "interface key(string): number", "map<string, number>"],
+                correctAnswer: 0,
+                explanation: "Tepat! `[key: string]: number;` adalah sintaks Index Signature.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_8_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan nilai gaji['Budi'] dari objek berikut?",
+                conceptGuide: "gaji['Budi'] bernilai 5000.",
+                code: `interface Gaji { [k: string]: number; }\nconst g: Gaji = { Budi: 5000 };\nconsole.log(g.Budi);`,
+                options: ["5000", "Budi", "Error", "undefined"],
+                correctAnswer: "5000",
+                explanation: "Bener! g.Budi mengembalikan 5000.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_7_8_cc",
+                type: "code_challenge",
+                prompt: "Buat interface SkorMap { [nama: string]: number }. Buat const s: SkorMap = { Kadez: 100 }; cetak s.Kadez!",
+                conceptGuide: "Tulis `interface SkorMap { [nama: string]: number; } const s: SkorMap = { Kadez: 100 }; console.log(s.Kadez);`.",
+                starterCode: `interface SkorMap {\n  [nama: string]: number;\n}\nconst s: SkorMap = { Kadez: 100 };\nconsole.log(s.Kadez);\n`,
+                expectedOutput: "100",
+                explanation: "LUAR BIASA! Kamu resmi menuntaskan seluruh 8 Lesson pada Section 07 Objek & Interface!",
                 xpReward: 15,
               },
             },
