@@ -50,8 +50,7 @@ export default function AuthPage() {
       }
       router.push("/onboarding");
     } catch (err: any) {
-      // Demo fallback for smooth offline testing
-      router.push("/onboarding");
+      setError(err?.message || "Gagal melakukan autentikasi. Silakan periksa email dan password kamu.");
     } finally {
       setLoading(false);
     }

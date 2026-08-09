@@ -4,17 +4,11 @@ import React, { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { HelpCircle, CheckCircle2, ArrowRight, Award, Zap } from "lucide-react";
 import { soundManager } from "@/lib/infrastructure/audio";
+import { useGamification } from "@/lib/application/GamificationContext";
+import { Language } from "@/lib/domain/lesson/lesson.types";
 
-function PlacementTestContent() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const lang = searchParams.get("lang") || "typescript";
-
-  const [currentIdx, setCurrentIdx] = useState(0);
-  const [score, setScore] = useState(0);
-  const [selectedOption, setSelectedOption] = useState<number | null>(null);
-
-  const questions = [
+const PLACEMENT_QUESTIONS: Record<Language, Array<{ prompt: string; options: string[]; correctAnswer: number }>> = {
+  typescript: [
     {
       prompt: "Manakah sintaks yang benar untuk mendeklarasikan variabel bertipe string di TypeScript?",
       options: [
@@ -26,12 +20,12 @@ function PlacementTestContent() {
       correctAnswer: 0,
     },
     {
-      prompt: "Apa tipe data default untuk nilai logika benar/salah?",
+      prompt: "Apa kata kunci tipe data untuk nilai logika benar/salah di TypeScript?",
       options: ["boolean", "bool", "bit", "logic"],
       correctAnswer: 0,
     },
     {
-      prompt: "Bagaimana cara mendefinisikan tipe data parameter fungsi?",
+      prompt: "Bagaimana cara mendefinisikan tipe data parameter fungsi di TypeScript?",
       options: [
         "function sapa(nama: string)",
         "function sapa(string: nama)",
@@ -40,7 +34,79 @@ function PlacementTestContent() {
       ],
       correctAnswer: 0,
     },
-  ];
+  ],
+  tsx: [
+    {
+      prompt: "Extension file apakah yang digunakan untuk menulis komponen React dengan TypeScript?",
+      options: [".tsx", ".jsx", ".ts", ".react"],
+      correctAnswer: 0,
+    },
+    {
+      prompt: "Manakah cara yang benar mendefinisikan interface props komponen React TSX?",
+      options: [
+        "interface CardProps { title: string; }",
+        "type CardProps = (title: string)",
+        "const CardProps = { title: string }",
+        "interface CardProps: title string",
+      ],
+      correctAnswer: 0,
+    },
+    {
+      prompt: "Bagaimana cara menentukan tipe state angka pada useState hook di React TSX?",
+      options: [
+        "const [count, setCount] = useState<number>(0);",
+        "const [count, setCount] = useState(number: 0);",
+        "const count: number = useState();",
+        "const useState = number(0);",
+      ],
+      correctAnswer: 0,
+    },
+  ],
+  python: [
+    {
+      prompt: "Bagaimana cara mencetak kalimat 'Halo Python' ke konsol di Python?",
+      options: [
+        "print('Halo Python')",
+        "console.log('Halo Python')",
+        "System.out.println('Halo Python')",
+        "echo 'Halo Python'",
+      ],
+      correctAnswer: 0,
+    },
+    {
+      prompt: "Apakah Python membutuhkan tanda titik koma (;) di akhir setiap baris kode?",
+      options: [
+        "Tidak butuh titik koma",
+        "Wajib titik koma di setiap baris",
+        "Hanya di akhir fungsi",
+        "Wajib titik koma jika ada variabel",
+      ],
+      correctAnswer: 0,
+    },
+    {
+      prompt: "Manakah sintaks penulisan perulangan for yang benar di Python?",
+      options: [
+        "for i in range(5):",
+        "for (int i=0; i<5; i++)",
+        "foreach i in 5",
+        "loop i from 1 to 5",
+      ],
+      correctAnswer: 0,
+    },
+  ],
+};
+
+function PlacementTestContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { savePlacementResult } = useGamification();
+  const lang = (searchParams.get("lang") as Language) || "typescript";
+
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const [score, setScore] = useState(0);
+  const [selectedOption, setSelectedOption] = useState<number | null>(null);
+
+  const questions = PLACEMENT_QUESTIONS[lang] || PLACEMENT_QUESTIONS.typescript;
 
   const handleSelectOption = (idx: number) => {
     setSelectedOption(idx);
@@ -48,15 +114,19 @@ function PlacementTestContent() {
   };
 
   const handleNextQuestion = () => {
-    if (selectedOption === questions[currentIdx].correctAnswer) {
-      setScore((prev) => prev + 1);
-    }
+    const isRight = selectedOption === questions[currentIdx].correctAnswer;
+    const finalScore = score + (isRight ? 1 : 0);
 
     if (currentIdx + 1 < questions.length) {
+      setScore(finalScore);
       setCurrentIdx((prev) => prev + 1);
       setSelectedOption(null);
     } else {
-      const finalScore = score + (selectedOption === questions[currentIdx].correctAnswer ? 1 : 0);
+      let recLevel = "Tingkat Pemula Total (Fondasi Awal)";
+      if (finalScore >= 3) recLevel = "Tingkat Menengah (Pemahaman Bagus)";
+      else if (finalScore === 2) recLevel = "Tingkat Dasar (Pengenalan & Sintaks)";
+
+      savePlacementResult(lang, finalScore, questions.length, recLevel);
       router.push(`/skill-assessment?score=${finalScore}&lang=${lang}`);
     }
   };

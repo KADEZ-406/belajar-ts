@@ -4,18 +4,28 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { BookOpen, Atom, FileCode, Target, Briefcase, GraduationCap, Code, Rocket, Eye, Cpu, Coffee, Zap, ArrowRight, CheckCircle2 } from "lucide-react";
 
+import { useGamification } from "@/lib/application/GamificationContext";
+import { Language } from "@/lib/domain/lesson/lesson.types";
+
 export default function OnboardingPage() {
   const router = useRouter();
+  const { saveOnboarding } = useGamification();
   const [step, setStep] = useState(1);
 
-  const [language, setLanguage] = useState("typescript");
+  const [language, setLanguage] = useState<Language>("typescript");
   const [goal, setGoal] = useState("karir");
   const [skillLevel, setSkillLevel] = useState("pemula");
   const [learningStyle, setLearningStyle] = useState("praktik");
   const [dailyTarget, setDailyTarget] = useState(10);
 
   const handleFinish = () => {
-    // Save onboarding preferences and redirect to Placement Test
+    saveOnboarding({
+      targetLanguage: language,
+      goal,
+      skillLevel,
+      learningStyle,
+      dailyTargetMinutes: dailyTarget,
+    });
     router.push(`/placement-test?lang=${language}`);
   };
 
@@ -59,7 +69,7 @@ export default function OnboardingPage() {
                 return (
                   <button
                     key={item.id}
-                    onClick={() => setLanguage(item.id)}
+                    onClick={() => setLanguage(item.id as Language)}
                     className={`card-duo p-5 rounded-2xl flex items-center justify-between text-left transition-all ${
                       isSelected
                         ? "bg-sky-50 border-2 border-[#1cb0f6] shadow-sm"

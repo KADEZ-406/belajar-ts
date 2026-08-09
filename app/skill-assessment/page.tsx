@@ -6,23 +6,28 @@ import { Trophy, Star, ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
 import confetti from "canvas-confetti";
 import { soundManager } from "@/lib/infrastructure/audio";
 
+import { useGamification } from "@/lib/application/GamificationContext";
+import { Language } from "@/lib/domain/lesson/lesson.types";
+
 function SkillAssessmentContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { savePlacementResult } = useGamification();
   const scoreStr = searchParams.get("score") || "2";
-  const lang = searchParams.get("lang") || "typescript";
+  const lang = (searchParams.get("lang") as Language) || "typescript";
   const score = parseInt(scoreStr, 10);
-
-  React.useEffect(() => {
-    soundManager.playCompleteSound();
-    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-  }, []);
 
   const getRecommendedLevel = () => {
     if (score >= 3) return "Tingkat Menengah (Pemahaman Bagus)";
     if (score === 2) return "Tingkat Dasar (Pengenalan & Sintaks)";
     return "Tingkat Pemula Total (Fondasi Awal)";
   };
+
+  React.useEffect(() => {
+    soundManager.playCompleteSound();
+    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+    savePlacementResult(lang, score, 3, getRecommendedLevel());
+  }, [lang, score, savePlacementResult]);
 
   return (
     <div className="min-h-[85vh] flex items-center justify-center px-4 py-12">
