@@ -19,18 +19,18 @@ export default function LandingPage() {
           {/* Hero CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
             <Link
-              href="/dashboard"
+              href="/auth"
               className="btn-3d btn-primary-3d w-full sm:w-auto px-8 py-4 text-lg tracking-wider flex items-center justify-center gap-2"
             >
-              Mulai Belajar
+              Mulai Sekarang (Gratis)
               <ArrowRight className="w-5 h-5 stroke-[3]" />
             </Link>
 
             <Link
-              href="/learn"
+              href="/auth"
               className="btn-3d btn-secondary-3d w-full sm:w-auto px-8 py-4 text-lg tracking-wider flex items-center justify-center gap-2"
             >
-              Jelajahi Pelajaran
+              Sudah Punya Akun
             </Link>
           </div>
         </div>
