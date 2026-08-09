@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import confetti from "canvas-confetti";
+import { soundManager } from "@/lib/infrastructure/audio";
 import { Star, Flame, Trophy, CheckCircle2, ArrowRight } from "lucide-react";
 
 interface RewardModalProps {
@@ -20,8 +21,9 @@ export function RewardModal({
   onContinue,
 }: RewardModalProps) {
   useEffect(() => {
+    soundManager.playCompleteSound();
     confetti({
-      particleCount: 80,
+      particleCount: 100,
       spread: 70,
       origin: { y: 0.6 },
     });

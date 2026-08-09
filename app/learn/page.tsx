@@ -185,15 +185,26 @@ function LearnPathContent() {
                           <Lock className="w-4 h-4" /> Terkunci
                         </div>
                       ) : (
-                        <Link
-                          href={`/learn/${selectedLang}/${lesson.id}`}
-                          className={`btn-3d px-4 py-2 text-xs flex items-center gap-1.5 ${
-                            isCompleted ? "btn-outline-3d" : "btn-primary-3d"
-                          }`}
-                        >
-                          <Play className="w-3.5 h-3.5 fill-current" />
-                          {isCompleted ? "Ulangi" : "Mulai"}
-                        </Link>
+                        <div className="flex items-center gap-2">
+                          <Link
+                            href={`/learn/${selectedLang}/${lesson.id}?mode=learn`}
+                            className={`btn-3d px-3 py-1.5 text-xs flex items-center gap-1 ${
+                              isCompleted ? "btn-outline-3d" : "btn-primary-3d"
+                            }`}
+                            title="Mode Belajar: Penjelasan materi baru latihan"
+                          >
+                            <BookOpen className="w-3.5 h-3.5" />
+                            Belajar
+                          </Link>
+                          <Link
+                            href={`/learn/${selectedLang}/${lesson.id}?mode=exam`}
+                            className="btn-3d btn-secondary-3d px-3 py-1.5 text-xs flex items-center gap-1"
+                            title="Mode Ujian: Langsung ke tantangan koding"
+                          >
+                            <Zap className="w-3.5 h-3.5" />
+                            Ujian
+                          </Link>
+                        </div>
                       )}
                     </div>
                   </div>

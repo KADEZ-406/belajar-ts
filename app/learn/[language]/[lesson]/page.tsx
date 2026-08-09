@@ -1,13 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import React, { useState, useEffect, Suspense } from "react";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import confetti from "canvas-confetti";
 import { getLessonById, getNextLesson } from "@/lib/data/lessons";
 import { Language } from "@/lib/domain/lesson/lesson.types";
 import { useGamification } from "@/lib/application/GamificationContext";
 import { ExerciseRenderer } from "@/components/exercises/ExerciseRenderer";
 import { RewardModal } from "@/components/lesson/RewardModal";
-import { X, Heart, ArrowRight, CheckCircle2, AlertCircle, Sparkles } from "lucide-react";
+import { soundManager } from "@/lib/infrastructure/audio";
+import { X, Heart, ArrowRight, CheckCircle2, AlertCircle, BookOpen, Flame } from "lucide-react";
 
 function ConceptContentRenderer({ content }: { content: string }) {
   const blocks = content.split(/\n\n+/);
@@ -33,7 +35,7 @@ function ConceptContentRenderer({ content }: { content: string }) {
           return (
             <div
               key={idx}
-              className="card-duo overflow-hidden bg-slate-900 text-slate-100 border-2 border-slate-700 rounded-2xl p-4 shadow-xs"
+              className="card-duo overflow-hidden bg-slate-900 text-slate-100 border-2 border-slate-700 rounded-2xl p-4 shadow-xs animate-in fade-in duration-300"
             >
               <div className="flex items-center gap-2 mb-2 pb-2 border-b border-slate-800 text-xs font-mono font-bold text-slate-400 uppercase tracking-wider">
                 <span className="w-2.5 h-2.5 rounded-full bg-sky-400 inline-block"></span>
@@ -56,14 +58,15 @@ function ConceptContentRenderer({ content }: { content: string }) {
   );
 }
 
-export default function LessonPlayerPage() {
+function LessonPlayerContent() {
   const params = useParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const language = params.language as Language;
   const lessonId = params.lesson as string;
+  const mode = searchParams.get("mode") || "learn"; // "learn" (Materi > Soal) or "exam" (Langsung Ujian / Soal)
 
   const { user, deductHeart, addXP, completeLesson } = useGamification();
-
   const lesson = getLessonById(lessonId);
 
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
@@ -83,12 +86,19 @@ export default function LessonPlayerPage() {
     );
   }
 
-  const steps = lesson.steps;
-  const currentStep = steps[currentStepIndex];
-  const progressPercentage = Math.round(((currentStepIndex + 1) / steps.length) * 100);
+  // Filter steps based on mode: "exam" mode skips learn steps and takes exercise steps directly
+  const steps =
+    mode === "exam"
+      ? lesson.steps.filter((s) => s.type === "exercise")
+      : lesson.steps;
+
+  const actualSteps = steps.length > 0 ? steps : lesson.steps;
+  const currentStep = actualSteps[currentStepIndex];
+  const progressPercentage = Math.round(((currentStepIndex + 1) / actualSteps.length) * 100);
 
   const handleExerciseAnswer = (isCorrect: boolean, xpReward: number) => {
     if (isCorrect) {
+      soundManager.playCorrectSound();
       setFeedback({
         isCorrect: true,
         message: "Luar biasa! Jawaban kamu tepat!",
@@ -97,6 +107,7 @@ export default function LessonPlayerPage() {
       setEarnedXP((prev) => prev + xpReward);
       addXP(xpReward);
     } else {
+      soundManager.playWrongSound();
       setFeedback({
         isCorrect: false,
         message: "Kurang tepat. Coba periksa kembali logika atau penjelasan materi!",
@@ -106,19 +117,27 @@ export default function LessonPlayerPage() {
   };
 
   const handleNextStep = () => {
+    soundManager.playClickSound();
     setFeedback(null);
-    if (currentStepIndex + 1 < steps.length) {
+    if (currentStepIndex + 1 < actualSteps.length) {
       setCurrentStepIndex((prev) => prev + 1);
     } else {
+      soundManager.playCompleteSound();
+      confetti({
+        particleCount: 120,
+        spread: 80,
+        origin: { y: 0.6 },
+      });
       completeLesson(lesson.id, lesson.language);
       setIsCompleted(true);
     }
   };
 
   const handleModalContinue = () => {
+    soundManager.playClickSound();
     const next = getNextLesson(lesson.id);
     if (next) {
-      router.push(`/learn/${next.language}/${next.id}`);
+      router.push(`/learn/${next.language}/${next.id}?mode=${mode}`);
     } else {
       router.push("/dashboard");
     }
@@ -127,7 +146,7 @@ export default function LessonPlayerPage() {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-between">
       {/* Top Header Bar with Progress Indicator */}
-      <header className="bg-white border-b-2 border-slate-200 px-4 sm:px-8 py-4 sticky top-0 z-30">
+      <header className="bg-white border-b-2 border-slate-200 px-4 sm:px-8 py-4 sticky top-0 z-30 shadow-xs">
         <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
           <button
             onClick={() => router.push("/learn")}
@@ -137,32 +156,47 @@ export default function LessonPlayerPage() {
             <X className="w-6 h-6 stroke-[3]" />
           </button>
 
-          {/* Progress Bar */}
-          <div className="flex-1 max-w-md space-y-1.5">
-            <div className="flex justify-between items-center text-xs font-bold text-slate-400 uppercase tracking-wider">
-              <span>Langkah {currentStepIndex + 1} dari {steps.length}</span>
-              <span>{progressPercentage}%</span>
+          {/* Progress Bar & Mode Label */}
+          <div className="flex-1 max-w-md space-y-1">
+            <div className="flex justify-between items-center text-xs font-bold text-slate-500">
+              <span className="flex items-center gap-1.5 font-extrabold text-[#1cb0f6]">
+                {mode === "exam" ? (
+                  <>
+                    <Flame className="w-3.5 h-3.5 text-amber-500" />
+                    Mode Ujian
+                  </>
+                ) : (
+                  <>
+                    <BookOpen className="w-3.5 h-3.5 text-[#1cb0f6]" />
+                    Mode Belajar
+                  </>
+                )}
+              </span>
+              <span>
+                Langkah {currentStepIndex + 1} dari {actualSteps.length} ({progressPercentage}%)
+              </span>
             </div>
 
             <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
               <div
-                className="h-full bg-[#58cc02] rounded-full transition-all duration-300"
+                className="h-full bg-[#58cc02] rounded-full transition-all duration-500 ease-out"
                 style={{ width: `${progressPercentage}%` }}
               />
             </div>
           </div>
 
-          {/* Hearts Display (Clean Label, NO pill badge) */}
+          {/* Hearts Display */}
           <div className="flex items-center gap-1.5 text-red-500 font-extrabold text-sm">
-            <Heart className="w-5 h-5 fill-red-500 text-red-500" />
+            <Heart className="w-5 h-5 fill-red-500 text-red-500 animate-pulse" />
             <span>{user.hearts}</span>
           </div>
         </div>
       </header>
+
       {/* Main Step Content Area */}
       <main className="flex-1 max-w-3xl mx-auto w-full px-4 py-8 space-y-6">
         {currentStep.type === "learn" ? (
-          <div className="card-duo p-8 bg-white border-2 border-slate-200 rounded-3xl space-y-6">
+          <div className="card-duo p-8 bg-white border-2 border-slate-200 rounded-3xl space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
             <h2 className="text-2xl md:text-3xl font-black text-[#4b4b4b]">
               {currentStep.title}
             </h2>
@@ -179,11 +213,13 @@ export default function LessonPlayerPage() {
           </div>
         ) : (
           currentStep.exercise && (
-            <ExerciseRenderer
-              exercise={currentStep.exercise}
-              onAnswer={handleExerciseAnswer}
-              disabled={feedback !== null && feedback.isCorrect}
-            />
+            <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+              <ExerciseRenderer
+                exercise={currentStep.exercise}
+                onAnswer={handleExerciseAnswer}
+                disabled={feedback !== null && feedback.isCorrect}
+              />
+            </div>
           )
         )}
       </main>
@@ -191,7 +227,7 @@ export default function LessonPlayerPage() {
       {/* Bottom Sticky Feedback Bar */}
       {feedback && (
         <footer
-          className={`sticky bottom-0 z-40 p-6 border-t-4 transition-all ${
+          className={`sticky bottom-0 z-40 p-6 border-t-4 transition-all duration-300 animate-in slide-in-from-bottom-4 ${
             feedback.isCorrect
               ? "bg-emerald-100 border-emerald-500 text-emerald-900"
               : "bg-red-100 border-red-500 text-red-900"
@@ -229,11 +265,25 @@ export default function LessonPlayerPage() {
         <RewardModal
           xpEarned={earnedXP + 30}
           streakDays={user.streak}
-          totalExercises={steps.filter((s) => s.type === "exercise").length}
+          totalExercises={actualSteps.filter((s) => s.type === "exercise").length}
           correctAnswers={correctAnswersCount}
           onContinue={handleModalContinue}
         />
       )}
     </div>
+  );
+}
+
+export default function LessonPlayerPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-[#58cc02]" />
+        </div>
+      }
+    >
+      <LessonPlayerContent />
+    </Suspense>
   );
 }

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useGamification } from "@/lib/application/GamificationContext";
 import { calculateLevelProgress } from "@/lib/domain/gamification/rules";
-import { Play, Flame, Star, Trophy, Award, CheckCircle2, Lock, ArrowRight, Target, Rocket, Tag, Settings, Shuffle, Repeat, Box, Building, Zap, Crown } from "lucide-react";
+import { Play, Flame, Star, Trophy, Award, CheckCircle2, Lock, ArrowRight, Target, Rocket, Tag, Settings, Shuffle, Repeat, Box, Building, Zap, Crown, BookOpen } from "lucide-react";
 
 export default function DashboardPage() {
   const { user } = useGamification();
@@ -80,13 +80,22 @@ export default function DashboardPage() {
               </p>
             </div>
 
-            <Link
-              href="/learn/typescript/ts_lesson_2"
-              className="btn-3d btn-primary-3d w-full py-4 text-base tracking-wider flex items-center justify-center gap-2"
-            >
-              <Play className="w-5 h-5 fill-current" />
-              Lanjutkan Pelajaran (+50 XP)
-            </Link>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              <Link
+                href="/learn/typescript/ts_lesson_2?mode=learn"
+                className="btn-3d btn-primary-3d py-3.5 text-sm tracking-wider flex items-center justify-center gap-2"
+              >
+                <BookOpen className="w-4 h-4" />
+                Mode Belajar (+50 XP)
+              </Link>
+              <Link
+                href="/learn/typescript/ts_lesson_2?mode=exam"
+                className="btn-3d btn-secondary-3d py-3.5 text-sm tracking-wider flex items-center justify-center gap-2"
+              >
+                <Zap className="w-4 h-4" />
+                Mode Ujian (Langsung Soal)
+              </Link>
+            </div>
           </div>
 
           {/* Skill Tree Section */}
