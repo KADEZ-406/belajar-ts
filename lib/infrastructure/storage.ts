@@ -1,4 +1,4 @@
-import { UserEntity, MOCK_INITIAL_USER } from "../domain/user/user.entity";
+import { UserEntity, FRESH_USER_INITIAL_STATE, MOCK_INITIAL_USER } from "../domain/user/user.entity";
 
 const STORAGE_KEY = "codequest_user_v1";
 
@@ -7,10 +7,14 @@ export class StorageRepository {
     if (typeof window === "undefined") return MOCK_INITIAL_USER;
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return MOCK_INITIAL_USER;
-      return JSON.parse(raw) as UserEntity;
+      if (!raw) return FRESH_USER_INITIAL_STATE;
+      // Merge with FRESH_USER_INITIAL_STATE so any fields added in newer schema
+      // versions (e.g. completedSections, checkpointResults) always have a safe
+      // default instead of being undefined in old localStorage payloads.
+      const parsed = JSON.parse(raw) as Partial<UserEntity>;
+      return { ...FRESH_USER_INITIAL_STATE, ...parsed };
     } catch {
-      return MOCK_INITIAL_USER;
+      return FRESH_USER_INITIAL_STATE;
     }
   }
 
