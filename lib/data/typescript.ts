@@ -1419,5 +1419,1048 @@ switch (peran) {
         },
       ],
     },
+    {
+      id: "ts_sec_4",
+      title: "04 Perulangan (7 Lesson)",
+      description: "For Loop, While Loop, Do-While, For-Of, For-In, Break & Continue, dan Nested Loops.",
+      lessons: [
+        {
+          id: "ts_l4_1",
+          language: "typescript",
+          sectionId: "ts_sec_4",
+          sectionTitle: "04 Perulangan",
+          title: "For Loop Standard & Iterasi Angka",
+          description: "Perulangan dengan penjelajah indeks dari nilai awal sampai batas kondisi.",
+          icon: "refresh-cw",
+          xp: 40,
+          prerequisites: ["ts_l3_7"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "For Loop Standard",
+              content: `\`\`\`typescript
+for (let i: number = 1; i <= 3; i++) {
+  console.log("Angka: " + i);
+}
+\`\`\``,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_4_1_mc",
+                type: "multiple_choice",
+                prompt: "Bagian manakah di dalam perulangan for yang bertugas menambahkan nilai variabel counter?",
+                conceptGuide: "Increment seperti i++ menambahkan nilai counter pada setiap putaran.",
+                options: ["Increment (i++)", "Inisialisasi (let i=0)", "Kondisi (i < 5)", "Header"],
+                correctAnswer: 0,
+                explanation: "Tepat! `i++` bertugas menambah nilai counter i di setiap putaran.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_4_1_po",
+                type: "predict_output",
+                prompt: "Berapa kali cetakan console.log dipanggil untuk perulangan for (let i=0; i<2; i++)?",
+                conceptGuide: "i = 0 (dipanggil 1x), i = 1 (dipanggil 1x) -> total 2 kali.",
+                code: `for (let i: number = 0; i < 2; i++) {\n  console.log("Putaran");\n}`,
+                options: ["Putaran\\nPutaran", "Putaran", "Error", "undefined"],
+                correctAnswer: "Putaran\nPutaran",
+                explanation: "Bener! Perulangan berjalan 2 kali untuk i = 0 dan i = 1.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_4_1_cc",
+                type: "code_challenge",
+                prompt: "Gunakan perulangan for i=1 sampai i<=2 untuk mencetak 'Iterasi 1' dan 'Iterasi 2'!",
+                conceptGuide: "Tulis `for (let i: number = 1; i <= 2; i++) { console.log(\"Iterasi \" + i); }`.",
+                starterCode: `for (let i: number = 1; i <= 2; i++) {\n  console.log("Iterasi " + i);\n}\n`,
+                expectedOutput: "Iterasi 1\nIterasi 2",
+                explanation: "Sip! Perulangan for standard berhasil dieksekusi.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l4_2",
+          language: "typescript",
+          sectionId: "ts_sec_4",
+          sectionTitle: "04 Perulangan",
+          title: "While Loop & Kondisi Perhentian",
+          description: "Perulangan berbasis pengecekan kondisi sebelum mengeksekusi blok kode.",
+          icon: "refresh-cw",
+          xp: 40,
+          prerequisites: ["ts_l4_1"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "While Loop",
+              content: `\`\`\`typescript
+let count: number = 1;
+while (count <= 3) {
+  console.log("Count: " + count);
+  count++;
+}
+\`\`\``,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_4_2_tf",
+                type: "true_false",
+                prompt: "Apakah perulangan while memeriksa kondisi di awal sebelum menjalankan blok kodenya?",
+                conceptGuide: "While loop mengecek kondisi sebelum blok kode dijalankan.",
+                statement: "While loop mengecek kondisi di awal perulangan.",
+                correctAnswer: true,
+                explanation: "Mantap! Pengecekan kondisi dilakukan di awal putaran.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_4_2_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan akhir perulangan while berikut?",
+                conceptGuide: "Count bernilai 1.",
+                code: `let c: number = 1;\nwhile (c <= 1) {\n  console.log("Hitung " + c);\n  c++;\n}`,
+                options: ["Hitung 1", "Hitung 2", "Error", "undefined"],
+                correctAnswer: "Hitung 1",
+                explanation: "Bener! c berjalan 1 kali untuk c = 1.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_4_2_cc",
+                type: "code_challenge",
+                prompt: "Gunakan while loop dengan variabel i=1 selama i<=2 untuk mencetak 'Langkah 1' dan 'Langkah 2'!",
+                conceptGuide: "Tulis `let i: number = 1; while (i <= 2) { console.log(\"Langkah \" + i); i++; }`.",
+                starterCode: `let i: number = 1;\nwhile (i <= 2) {\n  console.log("Langkah " + i);\n  i++;\n}\n`,
+                expectedOutput: "Langkah 1\nLangkah 2",
+                explanation: "Super! Perulangan while loop bekerja dengan benar.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l4_3",
+          language: "typescript",
+          sectionId: "ts_sec_4",
+          sectionTitle: "04 Perulangan",
+          title: "Do-While Loop",
+          description: "Perulangan yang dijamin mengeksekusi blok kode minimal 1 kali.",
+          icon: "refresh-cw",
+          xp: 40,
+          prerequisites: ["ts_l4_2"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Do-While Loop",
+              content: `\`\`\`typescript
+let i: number = 1;
+do {
+  console.log("Eksekusi Min 1x");
+  i++;
+} while (i <= 0);
+\`\`\``,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_4_3_mc",
+                type: "multiple_choice",
+                prompt: "Mengapa do-while loop dijamin selalu mengeksekusi blok kodenya minimal 1 kali?",
+                conceptGuide: "Do-while memeriksa kondisi di akhir perulangan.",
+                options: [
+                  "Pengecekan kondisi dilakukan di akhir perulangan",
+                  "Karena tidak memiliki variabel counter",
+                  "Karena kondisi selalu bernilai true",
+                  "Karena di-compile dua kali",
+                ],
+                correctAnswer: 0,
+                explanation: "Tepat! Pengecekan kondisi di akhir membuat blok kode minimal jalan 1x.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_4_3_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan dari do-while berikut meskipun kondisi (5 < 0) false?",
+                conceptGuide: "Blok do berjalan 1x sebelum mengecek 5 < 0.",
+                code: `let x: number = 5;\ndo {\n  console.log("Jalan 1x");\n  x++;\n} while (x < 0);`,
+                options: ["Jalan 1x", "Error", "undefined", "Tidak ada cetakan"],
+                correctAnswer: "Jalan 1x",
+                explanation: "Bener! Blok do berjalan 1 kali terlebih dahulu.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_4_3_cc",
+                type: "code_challenge",
+                prompt: "Buat do-while loop yang mencetak 'Do Once' minimal 1 kali dengan variabel x = 1!",
+                conceptGuide: "Tulis `let x: number = 1; do { console.log(\"Do Once\"); x++; } while (x <= 0);`.",
+                starterCode: `let x: number = 1;\ndo {\n  console.log("Do Once");\n  x++;\n} while (x <= 0);\n`,
+                expectedOutput: "Do Once",
+                explanation: "Keren! Do-while loop minimal 1x berjalan lancar.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l4_4",
+          language: "typescript",
+          sectionId: "ts_sec_4",
+          sectionTitle: "04 Perulangan",
+          title: "For-Of Loop untuk Iterasi Array",
+          description: "Sintaks modern paling bersih untuk menjelajahi elemen-elemen di dalam array.",
+          icon: "refresh-cw",
+          xp: 40,
+          prerequisites: ["ts_l4_3"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "For-Of Loop",
+              content: `\`\`\`typescript
+const buah: string[] = ["Apel", "Jeruk"];
+for (const item of buah) {
+  console.log("Buah: " + item);
+}
+\`\`\``,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_4_4_mc",
+                type: "multiple_choice",
+                prompt: "Jenis perulangan manakah yang dirancang khusus untuk mengiterasi nilai elemen array secara bersih?",
+                conceptGuide: "for-of digunakan untuk mengambil langsung nilai (value) dari iterable/array.",
+                options: ["for-of", "for-in", "while", "do-while"],
+                correctAnswer: 0,
+                explanation: "Tepat! `for-of` mengambil nilai elemen dari array.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_4_4_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan dari perulangan for-of array angka [10, 20] berikut?",
+                conceptGuide: "Mencetak elemen 10 kemudian elemen 20.",
+                code: `const nums: number[] = [10, 20];\nfor (const n of nums) {\n  console.log(n);\n}`,
+                options: ["10\\n20", "10 20", "Error", "undefined"],
+                correctAnswer: "10\n20",
+                explanation: "Bener! Mengiterasi 10 lalu 20 ke konsol.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_4_4_cc",
+                type: "code_challenge",
+                prompt: "Gunakan for-of untuk mengiterasi array ['TS', 'JS'] dan mencetak masing-masing nilainya!",
+                conceptGuide: "Tulis `const list: string[] = [\"TS\", \"JS\"]; for (const item of list) { console.log(item); }`.",
+                starterCode: `const list: string[] = ["TS", "JS"];\nfor (const item of list) {\n  console.log(item);\n}\n`,
+                expectedOutput: "TS\nJS",
+                explanation: "Mantap! For-of loop array berjalan dengan sempurna.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l4_5",
+          language: "typescript",
+          sectionId: "ts_sec_4",
+          sectionTitle: "04 Perulangan",
+          title: "For-In Loop untuk Iterasi Key Objek",
+          description: "Menjelajahi kunci (keys/properti) dari sebuah objek JavaScript.",
+          icon: "refresh-cw",
+          xp: 40,
+          prerequisites: ["ts_l4_4"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "For-In Loop",
+              content: `\`\`\`typescript
+const user = { nama: "Kadez", umur: 25 };
+for (const key in user) {
+  console.log(key);
+}
+\`\`\``,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_4_5_mc",
+                type: "multiple_choice",
+                prompt: "Apakah perbedaan utama antara for-of dan for-in?",
+                conceptGuide: "for-of mengiterasi NILAI, sedangkan for-in mengiterasi KUNCI (key/index).",
+                options: [
+                  "for-of mengiterasi nilai (values), for-in mengiterasi kunci (keys)",
+                  "for-of khusus angka, for-in khusus string",
+                  "for-of lebih lambat dari for-in",
+                  "for-in hanya untuk perulangan while",
+                ],
+                correctAnswer: 0,
+                explanation: "Tepat! `for-of` untuk values, sedangkan `for-in` untuk keys.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_4_5_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan kunci objek { a: 1 } menggunakan for-in?",
+                conceptGuide: "Key dari objek adalah 'a'.",
+                code: `const obj = { a: 1 };\nfor (const k in obj) {\n  console.log(k);\n}`,
+                options: ["a", "1", "Error", "undefined"],
+                correctAnswer: "a",
+                explanation: "Bener! For-in mencetak nama properti 'a'.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_4_5_cc",
+                type: "code_challenge",
+                prompt: "Gunakan for-in untuk mencetak nama kunci dari objek { kota: 'Bandung' }!",
+                conceptGuide: "Tulis `const obj = { kota: \"Bandung\" }; for (const key in obj) { console.log(key); }`.",
+                starterCode: `const obj = { kota: "Bandung" };\nfor (const key in obj) {\n  console.log(key);\n}\n`,
+                expectedOutput: "kota",
+                explanation: "Sip! For-in loop mengiterasi kunci objek secara tepat.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l4_6",
+          language: "typescript",
+          sectionId: "ts_sec_4",
+          sectionTitle: "04 Perulangan",
+          title: "Penggunaan Break & Continue",
+          description: "Menghentikan perulangan (break) atau melompati putaran saat ini (continue).",
+          icon: "refresh-cw",
+          xp: 40,
+          prerequisites: ["ts_l4_5"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Break vs Continue",
+              content: `- **break**: Menghentikan perulangan secara total dan keluar dari loop.
+- **continue**: Melompati sisa kode di putaran saat ini dan langsung lanjut ke putaran berikutnya.`,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_4_6_mc",
+                type: "multiple_choice",
+                prompt: "Kata kunci manakah yang melompati putaran saat ini dan langsung melanjutkan ke iterasi berikutnya?",
+                conceptGuide: "continue melompati sisa baris pada putaran tersebut.",
+                options: ["continue", "break", "return", "exit"],
+                correctAnswer: 0,
+                explanation: "Tepat! `continue` melompati iterasi saat ini.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_4_6_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan perulangan jika i == 2 memanggil break?",
+                conceptGuide: "Loop terhenti saat i == 2.",
+                code: `for (let i = 1; i <= 3; i++) {\n  if (i === 2) break;\n  console.log(i);\n}`,
+                options: ["1", "1\\n2", "1\\n2\\n3", "Error"],
+                correctAnswer: "1",
+                explanation: "Bener! Loop langsung terhenti saat i === 2.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_4_6_cc",
+                type: "code_challenge",
+                prompt: "Jalankan perulangan for i=1..3. Jika i === 2 gunakan continue, sehingga hanya 1 dan 3 yang dicetak!",
+                conceptGuide: "Tulis `for (let i=1; i<=3; i++) { if (i === 2) continue; console.log(i); }`.",
+                starterCode: `for (let i = 1; i <= 3; i++) {\n  if (i === 2) continue;\n  console.log(i);\n}\n`,
+                expectedOutput: "1\n3",
+                explanation: "Super! Break dan continue berjalan dengan sempurna.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l4_7",
+          language: "typescript",
+          sectionId: "ts_sec_4",
+          sectionTitle: "04 Perulangan",
+          title: "Nested Loops (Perulangan Bersarang)",
+          description: "Menjalankan perulangan di dalam perulangan untuk memproses matriks atau data berdimensi.",
+          icon: "refresh-cw",
+          xp: 40,
+          prerequisites: ["ts_l4_6"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Nested Loops",
+              content: `Perulangan bersarang adalah perulangan di dalam perulangan lain.
+
+\`\`\`typescript
+for (let i = 1; i <= 2; i++) {
+  for (let j = 1; j <= 2; j++) {
+    console.log(\`\${i}-\${j}\`);
+  }
+}
+\`\`\``,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_4_7_tf",
+                type: "true_false",
+                prompt: "Apakah perulangan bagian dalam (inner loop) akan diselesaikan sepenuhnya pada setiap 1 putaran perulangan luar (outer loop)?",
+                conceptGuide: "Inner loop berputar penuh di setiap 1 kali putaran outer loop.",
+                statement: "Inner loop diselesaikan penuh di setiap putaran outer loop.",
+                correctAnswer: true,
+                explanation: "Tepat sekali! Inner loop selesai diputar sebelum outer loop lanjut.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_4_7_po",
+                type: "predict_output",
+                prompt: "Berapakah total cetakan yang dihasilkan dari outer loop 2x dan inner loop 2x?",
+                conceptGuide: "2 x 2 = 4 total cetakan.",
+                code: `let count = 0;\nfor (let i=0; i<2; i++) {\n  for (let j=0; j<2; j++) {\n    count++;\n  }\n}\nconsole.log(count);`,
+                options: ["4", "2", "8", "Error"],
+                correctAnswer: "4",
+                explanation: "Bener! 2 putaran x 2 putaran = 4 kali cetakan.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_4_7_cc",
+                type: "code_challenge",
+                prompt: "Buat nested loop i=1..1 dan j=1..2 untuk mencetak '1-1' dan '1-2'!",
+                conceptGuide: "Tulis `for (let i=1; i<=1; i++) { for (let j=1; j<=2; j++) { console.log(\`\${i}-\${j}\`); } }`.",
+                starterCode: `for (let i = 1; i <= 1; i++) {\n  for (let j = 1; j <= 2; j++) {\n    console.log(\`\${i}-\${j}\`);\n  }\n}\n`,
+                expectedOutput: "1-1\n1-2",
+                explanation: "LUAR BIASA! Kamu resmi menuntaskan seluruh 7 Lesson pada Section 04 Perulangan!",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "ts_sec_5",
+      title: "05 Fungsi (8 Lesson)",
+      description: "Deklarasi, Arrow Functions, Default Param, Rest/Optional, Return Types, Scope, Closure, dan Pure Functions.",
+      lessons: [
+        {
+          id: "ts_l5_1",
+          language: "typescript",
+          sectionId: "ts_sec_5",
+          sectionTitle: "05 Fungsi",
+          title: "Deklarasi Fungsi & Return Types",
+          description: "Mendefinisikan fungsi bertipe data parameter dan nilai kembalian eksplisit.",
+          icon: "code",
+          xp: 40,
+          prerequisites: ["ts_l4_7"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Function Signatures",
+              content: `\`\`\`typescript
+function hitungTotal(harga: number, jumlah: number): number {
+  return harga * jumlah;
+}
+\`\`\``,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_1_mc",
+                type: "multiple_choice",
+                prompt: "Di manakah posisi penulisan tipe data return value pada deklarasi fungsi TypeScript?",
+                conceptGuide: "Return type ditulis setelah tanda kurung parameter `): ReturnType`.",
+                options: [
+                  "Setelah tanda kurung parameter (): number",
+                  "Sebelum kata kunci function",
+                  "Di dalam tanda kurung parameter",
+                  "Di akhir baris return",
+                ],
+                correctAnswer: 0,
+                explanation: "Tepat! Return type ditulis setelah tanda kurung parameter.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_1_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan dari pemanggilan fungsi tambah(10, 20)?",
+                conceptGuide: "10 + 20 = 30.",
+                code: `function tambah(a: number, b: number): number {\n  return a + b;\n}\nconsole.log(tambah(10, 20));`,
+                options: ["30", "1020", "Error", "undefined"],
+                correctAnswer: "30",
+                explanation: "Bener! 10 + 20 = 30.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_1_cc",
+                type: "code_challenge",
+                prompt: "Buat fungsi kali(a: number, b: number): number yang mengembalikan perkalian a * b dan cetak kali(5, 5)!",
+                conceptGuide: "Tulis `function kali(a: number, b: number): number { return a * b; } console.log(kali(5, 5));`.",
+                starterCode: `function kali(a: number, b: number): number {\n  return a * b;\n}\nconsole.log(kali(5, 5));\n`,
+                expectedOutput: "25",
+                explanation: "Sip! Deklarasi fungsi bertipe berhasil dijalankan.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l5_2",
+          language: "typescript",
+          sectionId: "ts_sec_5",
+          sectionTitle: "05 Fungsi",
+          title: "Arrow Function Expression",
+          description: "Penulisan fungsi ekspresi modern yang ringkas menggunakan tanda panah (=>).",
+          icon: "code",
+          xp: 40,
+          prerequisites: ["ts_l5_1"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Arrow Function",
+              content: `\`\`\`typescript
+const kuadrat = (x: number): number => x * x;
+console.log(kuadrat(4)); // 16
+\`\`\``,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_2_tf",
+                type: "true_false",
+                prompt: "Apakah arrow function yang terdiri dari satu baris ekspresi dapat mengembalikan nilai secara implisit tanpa kata kunci return?",
+                conceptGuide: "Arrow function 1 baris mengembalikan nilai secara implisit.",
+                statement: "Arrow function 1 baris dapat return nilai secara implisit.",
+                correctAnswer: true,
+                explanation: "Mantap! `(x) => x * x` mengembalikan nilai secara implisit.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_2_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan dari arrow function sapa berikut?",
+                conceptGuide: "Arrow function mengembalikan string salam.",
+                code: `const sapa = (n: string): string => "Halo " + n;\nconsole.log(sapa("Kadez"));`,
+                options: ["Halo Kadez", "Halo ", "Error", "undefined"],
+                correctAnswer: "Halo Kadez",
+                explanation: "Bener! 'Halo ' + 'Kadez' = 'Halo Kadez'.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_2_cc",
+                type: "code_challenge",
+                prompt: "Buat arrow function kurangi = (a: number, b: number): number => a - b dan cetak kurangi(20, 5)!",
+                conceptGuide: "Tulis `const kurangi = (a: number, b: number): number => a - b; console.log(kurangi(20, 5));`.",
+                starterCode: `const kurangi = (a: number, b: number): number => a - b;\nconsole.log(kurangi(20, 5));\n`,
+                expectedOutput: "15",
+                explanation: "Keren! Arrow function expression bekerja dengan sempurna.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l5_3",
+          language: "typescript",
+          sectionId: "ts_sec_5",
+          sectionTitle: "05 Fungsi",
+          title: "Default Parameters dalam Fungsi",
+          description: "Memberikan nilai awal bawaan pada parameter jika argumen tidak diberikan.",
+          icon: "code",
+          xp: 40,
+          prerequisites: ["ts_l5_2"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Default Parameters",
+              content: `\`\`\`typescript
+function sapaPengguna(nama: string = "Tamu"): string {
+  return "Selamat Datang, " + nama;
+}
+console.log(sapaPengguna()); // Selamat Datang, Tamu
+\`\`\``,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_3_mc",
+                type: "multiple_choice",
+                prompt: "Nilai apakah yang digunakan oleh fungsi jika argumen untuk parameter berkategori default tidak diisi saat pemanggilan?",
+                conceptGuide: "Fungsi menggunakan nilai default parameter.",
+                options: ["Nilai default bawaan yang didefinisikan", "undefined", "null", "Error"],
+                correctAnswer: 0,
+                explanation: "Tepat! Nilai default bawaan digunakan jika argumen diabaikan.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_3_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan dari hitungDiskon(100) jika diskon default 10?",
+                conceptGuide: "100 - 10 = 90.",
+                code: `function hitungDiskon(h: number, d: number = 10): number {\n  return h - d;\n}\nconsole.log(hitungDiskon(100));`,
+                options: ["90", "100", "Error", "undefined"],
+                correctAnswer: "90",
+                explanation: "Bener! 100 - 10 = 90.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_3_cc",
+                type: "code_challenge",
+                prompt: "Buat fungsi salam(nama: string = 'User'): string yang mengembalikan 'Halo ' + nama. Cetak salam() tanpa argumen!",
+                conceptGuide: "Tulis `function salam(nama: string = \"User\"): string { return \"Halo \" + nama; } console.log(salam());`.",
+                starterCode: `function salam(nama: string = "User"): string {\n  return "Halo " + nama;\n}\nconsole.log(salam());\n`,
+                expectedOutput: "Halo User",
+                explanation: "Super! Default parameter berjalan dengan lancar.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l5_4",
+          language: "typescript",
+          sectionId: "ts_sec_5",
+          sectionTitle: "05 Fungsi",
+          title: "Optional Parameters (?) & Rest Parameters (...)",
+          description: "Parameter opsional yang boleh tidak diisi (?) dan pengumpulan banyak argumen (...args).",
+          icon: "code",
+          xp: 40,
+          prerequisites: ["ts_l5_3"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Optional & Rest Parameters",
+              content: `- **Optional Parameter (\`?\`)**: Parameter yang tidak wajib diisi (\`pesan?: string\`).
+- **Rest Parameter (\`...args\`)**: Mengumpulkan banyak argumen menjadi satu array bertipe (\`...angka: number[]\`).`,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_4_mc",
+                type: "multiple_choice",
+                prompt: "Simbol apakah yang digunakan untuk menandai parameter opsional pada fungsi TypeScript?",
+                conceptGuide: "Parameter opsional menggunakan tanda tanya (?).",
+                options: ["Tanda tanya (?)", "Tanda seru (!)", "Tanda bintang (*)", "Tanda titiktiga (...)"],
+                correctAnswer: 0,
+                explanation: "Tepat! Tanda tanya (?) menandakan parameter opsional.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_4_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan dari fungsi rest parameter sumAll(1, 2, 3) yang mengembalikan jumlah elemen?",
+                conceptGuide: "Rest parameter menerima array [1, 2, 3] yang panjangnya 3.",
+                code: `function sumAll(...nums: number[]): number {\n  return nums.length;\n}\nconsole.log(sumAll(1, 2, 3));`,
+                options: ["3", "6", "123", "Error"],
+                correctAnswer: "3",
+                explanation: "Bener! Rest parameter menerima 3 argumen.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_4_cc",
+                type: "code_challenge",
+                prompt: "Buat fungsi infoUser(nama: string, umur?: number): string. Jika umur ada cetak 'Kadez - 25', jika tidak cetak nama saja!",
+                conceptGuide: "Tulis `function infoUser(nama: string, umur?: number): string { return umur ? nama + \" - \" + umur : nama; } console.log(infoUser(\"Kadez\", 25));`.",
+                starterCode: `function infoUser(nama: string, umur?: number): string {\n  return umur ? nama + " - " + umur : nama;\n}\nconsole.log(infoUser("Kadez", 25));\n`,
+                expectedOutput: "Kadez - 25",
+                explanation: "Sip! Optional parameter berhasil diproses.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l5_5",
+          language: "typescript",
+          sectionId: "ts_sec_5",
+          sectionTitle: "05 Fungsi",
+          title: "Function Scope & Lexical Scope",
+          description: "Memahami jangkauan aksesibilitas variabel lokal vs global.",
+          icon: "code",
+          xp: 40,
+          prerequisites: ["ts_l5_4"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Function & Lexical Scope",
+              content: `- **Global Scope**: Variabel dideklarasikan di luar fungsi dan bisa diakses di mana saja.
+- **Local Scope**: Variabel dideklarasikan di dalam fungsi dan HANYA bisa diakses di dalam fungsi tersebut.`,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_5_tf",
+                type: "true_false",
+                prompt: "Apakah variabel lokal yang dideklarasikan di dalam sebuah fungsi dapat diakses secara bebas dari luar fungsi tersebut?",
+                conceptGuide: "Variabel lokal terisolasi di dalam scope fungsi.",
+                statement: "Variabel lokal fungsi bisa diakses dari luar fungsi.",
+                correctAnswer: false,
+                explanation: "Tepat! Variabel lokal terisolasi di dalam scope fungsinya sendiri.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_5_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan dari variabel global appName di dalam fungsi?",
+                conceptGuide: "Fungsi dapat membaca variabel global di outer scope.",
+                code: `const appName: string = "CodeQuest";\nfunction test(): void {\n  console.log(appName);\n}\ntest();`,
+                options: ["CodeQuest", "undefined", "Error", "null"],
+                correctAnswer: "CodeQuest",
+                explanation: "Bener! Lexical scope memungkinkan fungsi mengakses variabel outer scope.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_5_cc",
+                type: "code_challenge",
+                prompt: "Buat variabel global prefix = 'ID:' dan fungsi getID(no: number) yang mencetak prefix + no!",
+                conceptGuide: "Tulis `const prefix: string = \"ID:\"; function getID(no: number): void { console.log(prefix + no); } getID(101);`.",
+                starterCode: `const prefix: string = "ID:";\nfunction getID(no: number): void {\n  console.log(prefix + no);\n}\ngetID(101);\n`,
+                expectedOutput: "ID:101",
+                explanation: "Mantap! Function scope & lexical scope dipahami dengan baik.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l5_6",
+          language: "typescript",
+          sectionId: "ts_sec_5",
+          sectionTitle: "05 Fungsi",
+          title: "Closure Konsep & Implementasi",
+          description: "Fungsi yang mengingat dan mempertahankan variabel dari outer scope tempatnya dibuat.",
+          icon: "code",
+          xp: 40,
+          prerequisites: ["ts_l5_5"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Closure di TypeScript",
+              content: `**Closure** adalah fungsi yang dapat mengingat variabel di sekelilingnya (outer lexical environment) meskipun outer function-nya telah selesai dieksekusi.
+
+\`\`\`typescript
+function buatCounter() {
+  let count: number = 0;
+  return function() {
+    count++;
+    return count;
+  };
+}
+const hitung = buatCounter();
+console.log(hitung()); // 1
+console.log(hitung()); // 2
+\`\`\``,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_6_mc",
+                type: "multiple_choice",
+                prompt: "Apakah definisi paling tepat dari konsep Closure dalam pemrograman TypeScript?",
+                conceptGuide: "Closure menyimpan referensi ke outer scope.",
+                options: [
+                  "Fungsi yang mengingat variabel dari outer scope tempat ia diciptakan",
+                  "Fungsi yang tidak memiliki return value",
+                  "Perulangan di dalam fungsi",
+                  "Fungsi yang hanya bisa dipanggil satu kali",
+                ],
+                correctAnswer: 0,
+                explanation: "Tepat! Closure mengingat state variabel dari outer scope.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_6_po",
+                type: "predict_output",
+                prompt: "Apakah hasil panggilan kedua dari fungsi closure penambah berikut?",
+                conceptGuide: "State count dipertahankan dari 0 -> 1 -> 2.",
+                code: `function buatCounter() {\n  let c = 0;\n  return () => { c++; return c; };\n}\nconst counter = buatCounter();\ncounter();\nconsole.log(counter());`,
+                options: ["2", "1", "0", "Error"],
+                correctAnswer: "2",
+                explanation: "Bener! Panggilan pertama mengembalikan 1, panggilan kedua 2.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_6_cc",
+                type: "code_challenge",
+                prompt: "Buat closure penambah nilai yang menambah +10 setiap dipanggil!",
+                conceptGuide: "Tulis `function buatTambah() { let val = 0; return () => { val += 10; return val; }; } const add = buatTambah(); add(); console.log(add());`.",
+                starterCode: `function buatTambah() {\n  let val = 0;\n  return () => {\n    val += 10;\n    return val;\n  };\n}\nconst add = buatTambah();\nadd();\nconsole.log(add());\n`,
+                expectedOutput: "20",
+                explanation: "Super! Closure berhasil mempertahankan nilai state internal.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l5_7",
+          language: "typescript",
+          sectionId: "ts_sec_5",
+          sectionTitle: "05 Fungsi",
+          title: "Pure Functions vs Side Effects",
+          description: "Menulis fungsi murni (pure) tanpa efek samping untuk kemudahan testing dan pemeliharaan.",
+          icon: "code",
+          xp: 40,
+          prerequisites: ["ts_l5_6"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Pure Functions",
+              content: `**Pure Function** memiliki 2 syarat utama:
+1. Memberikan hasil return yang SAMA jika diberi input argumen yang sama.
+2. TIDAK menghasilkan efek samping (**Side Effects**) seperti mengubah variabel global atau bermutasi data di luar fungsi.`,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_7_tf",
+                type: "true_false",
+                prompt: "Apakah fungsi yang mengubah variabel global di luar dirinya dikategorikan sebagai Pure Function?",
+                conceptGuide: "Mengubah variabel luar dinamakan side effect.",
+                statement: "Fungsi yang mengubah variabel luar adalah Pure Function.",
+                correctAnswer: false,
+                explanation: "Tepat! Mengubah variabel luar adalah Side Effect, sehingga bukan Pure Function.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_7_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan dari pure function kuadrat(3)?",
+                conceptGuide: "3 * 3 = 9.",
+                code: `const kuadrat = (n: number): number => n * n;\nconsole.log(kuadrat(3));`,
+                options: ["9", "6", "3", "Error"],
+                correctAnswer: "9",
+                explanation: "Bener! 3 * 3 = 9.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_7_cc",
+                type: "code_challenge",
+                prompt: "Buat pure function murni tambahTiga(x: number): number => x + 3 dan cetak tambahTiga(7)!",
+                conceptGuide: "Tulis `const tambahTiga = (x: number): number => x + 3; console.log(tambahTiga(7));`.",
+                starterCode: `const tambahTiga = (x: number): number => x + 3;\nconsole.log(tambahTiga(7));\n`,
+                expectedOutput: "10",
+                explanation: "Keren! Pure function tanpa side effect berhasil dipraktikkan.",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+        {
+          id: "ts_l5_8",
+          language: "typescript",
+          sectionId: "ts_sec_5",
+          sectionTitle: "05 Fungsi",
+          title: "Higher-Order Functions",
+          description: "Fungsi yang menerima fungsi lain sebagai argumen atau mengembalikan fungsi baru.",
+          icon: "code",
+          xp: 40,
+          prerequisites: ["ts_l5_7"],
+          steps: [
+            {
+              id: "step_1",
+              type: "learn",
+              title: "Higher-Order Functions (HOF)",
+              content: `**Higher-Order Function** adalah fungsi yang dapat:
+- Menerima fungsi lain sebagai parameter (Callback).
+- Atau mengembalikan fungsi baru.
+
+Contoh:
+\`\`\`typescript
+function eksekusi(fn: (x: number) => number, val: number): number {
+  return fn(val);
+}
+console.log(eksekusi((n) => n * 2, 5)); // 10
+\`\`\``,
+            },
+            {
+              id: "step_2",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_8_mc",
+                type: "multiple_choice",
+                prompt: "Apakah syarat sebuah fungsi disebut sebagai Higher-Order Function?",
+                conceptGuide: "HOF menerima callback atau mengembalikan fungsi.",
+                options: [
+                  "Menerima fungsi lain sebagai parameter atau mengembalikan fungsi",
+                  "Memiliki lebih dari 10 parameter",
+                  "Menggunakan perulangan for di dalamnya",
+                  "Hanya mengembalikan nilai boolean",
+                ],
+                correctAnswer: 0,
+                explanation: "Tepat! HOF mengoperasikan fungsi lain sebagai data.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_3",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_8_po",
+                type: "predict_output",
+                prompt: "Apakah cetakan dari HOF eksekusi((n) => n + 5, 10)?",
+                conceptGuide: "10 + 5 = 15.",
+                code: `function eksekusi(fn: (x: number) => number, val: number): number {\n  return fn(val);\n}\nconsole.log(eksekusi((n) => n + 5, 10));`,
+                options: ["15", "10", "5", "Error"],
+                correctAnswer: "15",
+                explanation: "Bener! Callback menambah 10 + 5 = 15.",
+                xpReward: 10,
+              },
+            },
+            {
+              id: "step_4",
+              type: "exercise",
+              exercise: {
+                id: "ts_ex_5_8_cc",
+                type: "code_challenge",
+                prompt: "Buat HOF jalankan(fn: (a: number) => number, val: number): number yang mengembalikan fn(val). Panggil jalankan((x) => x * 3, 4)!",
+                conceptGuide: "Tulis `function jalankan(fn: (a: number) => number, val: number): number { return fn(val); } console.log(jalankan((x) => x * 3, 4));`.",
+                starterCode: `function jalankan(fn: (a: number) => number, val: number): number {\n  return fn(val);\n}\nconsole.log(jalankan((x) => x * 3, 4));\n`,
+                expectedOutput: "12",
+                explanation: "LUAR BIASA! Kamu resmi menuntaskan seluruh 8 Lesson di Section 05 Fungsi!",
+                xpReward: 15,
+              },
+            },
+          ],
+        },
+      ],
+    },
   ],
 };
