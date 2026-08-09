@@ -14,11 +14,38 @@ interface ExerciseRendererProps {
 export function ExerciseRenderer({ exercise, onAnswer, disabled = false }: ExerciseRendererProps) {
   const [selectedOption, setSelectedOption] = useState<any>(null);
   const [showFixHint, setShowFixHint] = useState(false);
+  const [editorState, setEditorState] = useState<{ output: string; code: string } | null>(null);
   const [arrangedItems, setArrangedItems] = useState<string[]>(
     exercise.type === "arrange_code" ? [...exercise.codeSnippets] : []
   );
 
-  const handleSubmit = (answerValue: any, currentCode?: string) => {
+  const checkCodeCorrectness = (output: string, code: string): boolean => {
+    const cleanOutput = output.trim();
+    if (exercise.type === "fix_code") {
+      const hasQuotes = code.includes('"25"') || code.includes("'25'");
+      return !hasQuotes && (cleanOutput === "25" || cleanOutput.includes("25"));
+    }
+    if (exercise.type === "code_challenge") {
+      return cleanOutput === exercise.expectedOutput.trim();
+    }
+    return false;
+  };
+
+  const handleCodeRun = (output: string, code: string) => {
+    setEditorState({ output, code });
+    const isCorrect = checkCodeCorrectness(output, code);
+    if (isCorrect) {
+      onAnswer(true, exercise.xpReward);
+    }
+  };
+
+  const handleCodeSubmit = () => {
+    if (!editorState) return;
+    const isCorrect = checkCodeCorrectness(editorState.output, editorState.code);
+    onAnswer(isCorrect, exercise.xpReward);
+  };
+
+  const handleSubmit = (answerValue: any) => {
     let isCorrect = false;
 
     switch (exercise.type) {
@@ -38,21 +65,8 @@ export function ExerciseRenderer({ exercise, onAnswer, disabled = false }: Exerc
         isCorrect = Boolean(answerValue) === exercise.correctAnswer;
         break;
 
-      case "fix_code":
-        const codeStr = currentCode || "";
-        const hasQuotes = codeStr.includes('"25"') || codeStr.includes("'25'");
-        isCorrect =
-          !hasQuotes &&
-          (String(answerValue).trim() === "25" ||
-            codeStr.replace(/\s+/g, "") === exercise.correctCode.replace(/\s+/g, ""));
-        break;
-
       case "arrange_code":
         isCorrect = JSON.stringify(arrangedItems) === JSON.stringify(exercise.correctOrder);
-        break;
-
-      case "code_challenge":
-        isCorrect = String(answerValue).trim() === exercise.expectedOutput.trim();
         break;
     }
 
@@ -209,8 +223,18 @@ export function ExerciseRenderer({ exercise, onAnswer, disabled = false }: Exerc
           <CodeEditor
             initialCode={exercise.buggyCode}
             language="typescript"
-            onRun={(output: string, code: string) => handleSubmit(output, code)}
+            expectedOutput="25"
+            onRun={(output: string, code: string) => handleCodeRun(output, code)}
           />
+          {editorState && (
+            <button
+              onClick={handleCodeSubmit}
+              disabled={disabled}
+              className="btn-3d btn-primary-3d w-full py-3 text-sm"
+            >
+              Periksa Jawaban
+            </button>
+          )}
         </div>
       )}
 
@@ -286,8 +310,17 @@ export function ExerciseRenderer({ exercise, onAnswer, disabled = false }: Exerc
             initialCode={exercise.starterCode}
             language="typescript"
             expectedOutput={exercise.expectedOutput}
-            onRun={(output) => handleSubmit(output)}
+            onRun={(output: string, code: string) => handleCodeRun(output, code)}
           />
+          {editorState && (
+            <button
+              onClick={handleCodeSubmit}
+              disabled={disabled}
+              className="btn-3d btn-primary-3d w-full py-3 text-sm"
+            >
+              Periksa Jawaban
+            </button>
+          )}
         </div>
       )}
     </div>
