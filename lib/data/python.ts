@@ -3,39 +3,34 @@ import { LearningPath } from "../types";
 export const PYTHON_PATH: LearningPath = {
   language: "python",
   title: "Keahlian Python",
-  description: "Kuasai sintaks Python yang bersih, struktur data List & Dict, dan fungsi modern.",
+  description: "Dari dasar variabel, list, fungsi, hingga level Master backend REST API parser dan pemrosesan data.",
   icon: "file-code",
   sections: [
     {
       id: "py_sec_1",
-      title: "01 Dasar Bahasa Python",
-      description: "Mulai belajar sintaks Python yang super ekspresif dan mudah dipahami.",
+      title: "01 Fondasi Python",
+      description: "Sintaks dasar Python yang bersih, variabel, dan percabangan.",
       lessons: [
         {
           id: "py_lesson_1",
           language: "python",
           sectionId: "py_sec_1",
-          sectionTitle: "01 Dasar Bahasa Python",
+          sectionTitle: "01 Fondasi Python",
           title: "Pengenalan Python",
-          description: "Pelajari sintaks Python yang bersih dan aturan indentasi spasi.",
-          icon: "file-code",
+          description: "Belajar perintah print dan variabel tanpa tanda titik koma.",
+          icon: "rocket",
           xp: 45,
           prerequisites: [],
           steps: [
             {
               id: "step_1",
               type: "learn",
-              title: "Selamat Datang di Python!",
-              content: `Python adalah bahasa pemrograman yang simpel, bersih, dan gampang dibaca.
+              title: "Sintaks Bersih Python",
+              content: `Python terkenal karena kodenya yang sangat mirip bahasa Inggris dan tidak memakai titik koma (;).
 
-Karakteristik unik Python:
-1. Gak pake kurung kurawal {} atau titik koma ; untuk penutup baris.
-2. Indentasi spasi (4 spasi) sangat penting untuk struktur blok kode.
-3. Tipe data variabel langsung terdeteksi secara otomatis!
-
+Contoh:
 nama = "Kadez"
-level = 7
-print(f"Halo {nama}, Level {level}!")`,
+print("Halo " + nama)`,
             },
             {
               id: "step_2",
@@ -43,12 +38,12 @@ print(f"Halo {nama}, Level {level}!")`,
               exercise: {
                 id: "py_ex_1",
                 type: "true_false",
-                prompt: "Apakah Python memakai kurung kurawal {} untuk menandai blok kode fungsi dan perulangan?",
-                conceptGuide: "Berbeda dari bahasa lain, Python tidak menggunakan kurung kurawal `{}`. Python memakai indentasi spasi dan tanda titik dua `:` untuk menentukan blok kode.",
-                statement: "Python menggunakan kurung kurawal {} untuk blok kode.",
+                prompt: "Apakah Python memerlukan tanda titik koma (;) di setiap akhir baris kode?",
+                conceptGuide: "Di Python, setiap instruksi kode cukup dipisahkan oleh baris baru (enter), tanpa titik koma.",
+                statement: "Python memerlukan titik koma di akhir baris.",
                 correctAnswer: false,
-                explanation: "Tepat sekali! Python memakai indentasi spasi dan titik dua (:) sebagai penanda blok kode.",
-                xpReward: 5,
+                explanation: "Tepat! Python tidak memerlukan titik koma di akhir baris.",
+                xpReward: 10,
               },
             },
             {
@@ -57,67 +52,69 @@ print(f"Halo {nama}, Level {level}!")`,
               exercise: {
                 id: "py_ex_2",
                 type: "predict_output",
-                prompt: "Kira-kira apa hasil cetakan dari kode Python berikut?",
-                conceptGuide: "Operator `+` pada dua variabel angka di Python akan melakukan penjumlahan matematika murni.",
-                code: `x = 10\ny = 5\nprint(x + y)`,
-                options: ["15", "105", "x + y", "SyntaxError"],
+                prompt: "Apa hasil cetakan dari perintah Python berikut?",
+                conceptGuide: "Perintah `print(5 + 10)` di Python akan menjumlahkan kedua nilai angka.",
+                code: `print(5 + 10)`,
+                options: ["15", "510", "Error", "None"],
                 correctAnswer: "15",
-                explanation: "Mantap! 10 ditambah 5 menghasilkan angka 15.",
-                xpReward: 5,
-              },
-            },
-            {
-              id: "step_4",
-              type: "exercise",
-              exercise: {
-                id: "py_ex_3",
-                type: "code_challenge",
-                prompt: "Tulis perintah print di Python untuk mencetak kalimat 'Python CodeQuest'",
-                conceptGuide: "Di Python, fungsi `print(\"Teks Kamu\")` digunakan untuk mencetak keluaran ke layar konsol.",
-                starterCode: `# Tulis kode kamu di bawah ini\n`,
-                expectedOutput: "Python CodeQuest",
-                explanation: "Keren! Perintah print() berhasil menampilkan keluaran teks ke konsol.",
+                explanation: "Bener banget! Hasilnya adalah 15.",
                 xpReward: 15,
               },
             },
           ],
         },
+      ],
+    },
+    {
+      id: "py_sec_2",
+      title: "02 MASTER LEVEL: Backend REST API & Data Parser",
+      description: "Level Master: Pemrosesan Data Kompleks, List Comprehension, dan Parser JSON.",
+      lessons: [
         {
           id: "py_lesson_2",
           language: "python",
-          sectionId: "py_sec_1",
-          sectionTitle: "01 Dasar Bahasa Python",
-          title: "List dan Dictionary",
-          description: "Simpan kumpulan data di List dan Dictionary pasangan Key-Value.",
-          icon: "box",
-          xp: 50,
+          sectionId: "py_sec_2",
+          sectionTitle: "02 MASTER LEVEL: Backend REST API & Data Parser",
+          title: "Master Challenge: Fast Data Filter & REST API Parser",
+          description: "Level Master: Membangun mesin filter data berkecepatan tinggi dengan Python.",
+          icon: "zap",
+          xp: 100,
           prerequisites: ["py_lesson_1"],
           steps: [
             {
               id: "step_1",
               type: "learn",
-              title: "List dan Dictionary",
-              content: `List menyimpan kumpulan data berurutan, sedangkan Dictionary menyimpan pasangan Key dan Value:
+              title: "Pemrosesan Data Kompleks & List Comprehension",
+              content: `Di level Master Python, kamu akan sering mengolah data dari REST API atau Database:
+1. List Comprehension ('[x for x in data if condition]')
+2. Dictionary Filtering
+3. Data Aggregation
 
-keahlian = ["Python", "TypeScript", "SQL"]
-pengguna = {"nama": "Kadez", "xp": 2450}
-
-print(keahlian[0])      # Hasil: Python
-print(pengguna["xp"])   # Hasil: 2450`,
+Mari buat simulasi parser data transaksi API!`,
             },
             {
               id: "step_2",
               type: "exercise",
               exercise: {
-                id: "py_ex_4",
-                type: "predict_output",
-                prompt: "Kira-kira apa hasil cetakan dari pengaksesan dictionary berikut?",
-                conceptGuide: "Untuk mengambil nilai di Dictionary Python, gunakan nama key di dalam kurung siku `dict[\"key\"]`.",
-                code: `pahlawan = {"nama": "Alex", "level": 5}\nprint(pahlawan["level"])`,
-                options: ["5", "level", "Alex", "KeyError"],
-                correctAnswer: "5",
-                explanation: "Mantap! `pahlawan[\"level\"]` mengembalikan angka 5.",
-                xpReward: 5,
+                id: "py_ex_master_api",
+                type: "code_challenge",
+                prompt: "Level Master Python: Tulis fungsi filter_transaksi_lunas(data) yang memfilter transaksi dengan status 'LUNAS'!",
+                conceptGuide: "Gunakan list comprehension Python `[item for item in data if item['status'] == 'LUNAS']`.",
+                starterCode: `transaksi = [
+    {"id": 1, "total": 50000, "status": "LUNAS"},
+    {"id": 2, "total": 75000, "status": "PENDING"},
+    {"id": 3, "total": 100000, "status": "LUNAS"}
+]
+
+def filter_transaksi_lunas(data):
+    return [t for t in data if t["status"] == "LUNAS"]
+
+lunas = filter_transaksi_lunas(transaksi)
+print(len(lunas))
+`,
+                expectedOutput: "2",
+                explanation: "LUAR BIASA! Kamu resmi menuntaskan Tantangan Level Master Data Processing Python!",
+                xpReward: 50,
               },
             },
           ],

@@ -2,43 +2,36 @@ import { LearningPath } from "../types";
 
 export const TSX_PATH: LearningPath = {
   language: "tsx",
-  title: "Inti TSX dan React",
-  description: "Bikin komponen React yang aman dengan Props interface, State bertipe, dan Hooks di TSX.",
+  title: "Keahlian TSX / React",
+  description: "Bikin komponen web interaktif, animasi scroll, modal dialog, hingga Form CRUD kompleks pakai TSX & React.",
   icon: "atom",
   sections: [
     {
       id: "tsx_sec_1",
-      title: "01 Komponen dan Sintaks JSX",
-      description: "Yuk kuasai komponen fungsi React dan penulisan Props di TSX.",
+      title: "01 Fondasi Komponen TSX",
+      description: "Pahami sintaks JSX dalam TypeScript dan pembuatan Props Interface.",
       lessons: [
         {
           id: "tsx_lesson_1",
           language: "tsx",
           sectionId: "tsx_sec_1",
-          sectionTitle: "01 Komponen dan Sintaks JSX",
-          title: "Pengenalan Komponen TSX",
-          description: "Gabungkan tampilan JSX dengan kemudahan tipe data TypeScript.",
-          icon: "zap",
-          xp: 45,
+          sectionTitle: "01 Fondasi Komponen TSX",
+          title: "Pengenalan Komponen React TSX",
+          description: "Belajar membuat komponen functional dengan Props bertipe.",
+          icon: "rocket",
+          xp: 50,
           prerequisites: [],
           steps: [
             {
               id: "step_1",
               type: "learn",
-              title: "Apa itu TSX?",
-              content: `TSX adalah gabungan antara TypeScript dan sintaks JSX. Di TSX, kita bisa nulis komponen React lengkap dengan Props interface biar kodenya makin rapi dan aman!
+              title: "Interface Props pada TSX",
+              content: `Di React TSX, setiap properti komponen (Props) wajib didefinisikan antarmuka tipe datanya.
 
-interface BadgeProps {
+Contoh:
+interface ButtonProps {
   label: string;
-  count: number;
-}
-
-export function Badge({ label, count }: BadgeProps) {
-  return (
-    <div className="badge">
-      <span>{label}</span>: {count}
-    </div>
-  );
+  onClick: () => void;
 }`,
             },
             {
@@ -47,73 +40,66 @@ export function Badge({ label, count }: BadgeProps) {
               exercise: {
                 id: "tsx_ex_1",
                 type: "code_completion",
-                prompt: "Lengkapi tipe data untuk properti 'judul' di Props ButtonProps.",
-                conceptGuide: "Di React TSX, properti berupa teks (seperti judul tombol atau label) selalu menggunakan tipe data `string`.",
-                template: "interface ButtonProps {\n  judul: ____;\n  nonaktif?: boolean;\n}",
-                options: ["string", "number", "void", "any"],
+                prompt: "Lengkapi tipe data untuk properti judul pada interface CardProps!",
+                conceptGuide: "Interface props untuk teks judul biasanya menggunakan kata kunci `string`.",
+                template: "interface CardProps {\n  judul: ___\n}",
+                options: ["string", "number", "boolean", "any"],
                 correctAnswer: "string",
-                explanation: "Mantap! Properti teks seperti judul tombol selalu bertipe string.",
-                xpReward: 5,
-              },
-            },
-            {
-              id: "step_3",
-              type: "exercise",
-              exercise: {
-                id: "tsx_ex_2",
-                type: "code_challenge",
-                prompt: "Buat fungsi komponen Header yang mengembalikan teks 'React TSX Siap'.",
-                conceptGuide: "Komponen fungsi React sederhana akan mengembalikan teks atau elemen JSX saat dipanggil.",
-                starterCode: `function Header() {
-  // Tulis kode kamu di sini untuk mengembalikan "React TSX Siap"
-  return "";
-}
-
-console.log(Header());`,
-                expectedOutput: "React TSX Siap",
-                explanation: "Kerja bagus! Komponen fungsi berhasil mengembalikan teks tampilan.",
-                xpReward: 15,
+                explanation: "Tepat sekali! Properti judul bertipe string.",
+                xpReward: 20,
               },
             },
           ],
         },
+      ],
+    },
+    {
+      id: "tsx_sec_2",
+      title: "02 MASTER LEVEL: Animasi UI, Modal, & Full Form CRUD",
+      description: "Level Master: Membangun Modal Dialog, Animasi Scroll Interaktif, dan Form Handling.",
+      lessons: [
         {
           id: "tsx_lesson_2",
           language: "tsx",
-          sectionId: "tsx_sec_1",
-          sectionTitle: "01 Komponen dan Sintaks JSX",
-          title: "useState Bertipe",
-          description: "Kelola State React dengan tipe data generik yang aman.",
-          icon: "repeat",
-          xp: 50,
+          sectionId: "tsx_sec_2",
+          sectionTitle: "02 MASTER LEVEL: Animasi UI, Modal, & Full Form CRUD",
+          title: "Master Challenge: Modal Dialog & State",
+          description: "Level Master: Membuat komponen Modal Pop-up bertipe interaktif.",
+          icon: "box",
+          xp: 100,
           prerequisites: ["tsx_lesson_1"],
           steps: [
             {
               id: "step_1",
               type: "learn",
-              title: "Tipe Data pada Hook useState",
-              content: `Di React TSX, kita bisa menentukan tipe data State secara jelas pakai kurung sudut <Tipe>:
+              title: "Komponen Modal Dialog & Scroll State",
+              content: `Di level Master UI, kamu akan membangun komponen kompleks seperti Modal Dialog dan Animasi Scroll:
+1. Modal State ('isOpen: boolean')
+2. Event Handler ('onClose: () => void')
+3. Children ReactNode Types
 
-const [jumlah, setJumlah] = useState<number>(0);
-const [pengguna, setPengguna] = useState<User | null>(null);`,
+Mari kita buat simulasi komponen Modal Dialog!`,
             },
             {
               id: "step_2",
               type: "exercise",
               exercise: {
-                id: "tsx_ex_3",
-                type: "multiple_choice",
-                prompt: "Gimana cara nulis tipe data angka secara eksplisit pada hook useState?",
-                conceptGuide: "Tipe data generik pada TypeScript ditulis di dalam tanda kurung sudut `<Tipe>` tepat sebelum tanda kurung nilai awal `(nilai)`. Contoh: `useState<number>(0)`.",
-                options: [
-                  "useState<number>(0)",
-                  "useState(0): number",
-                  "useState[number](0)",
-                  "useState.type(number)",
-                ],
-                correctAnswer: 0,
-                explanation: "Tepat sekali! Tipe data generik selalu ditulis pakai tanda kurung sudut <Tipe>.",
-                xpReward: 5,
+                id: "tsx_ex_master_modal",
+                type: "code_challenge",
+                prompt: "Level Master: Buat fungsi renderModal(isOpen: boolean, title: string) yang mengembalikan pesan status modal!",
+                conceptGuide: "Di TSX Master Level, kembalikan teks 'Modal Terbuka: ' + title jika isOpen true.",
+                starterCode: `function renderModal(isOpen: boolean, title: string): string {
+  if (isOpen) {
+    return "Modal Terbuka: " + title;
+  }
+  return "Modal Tertutup";
+}
+
+console.log(renderModal(true, "Konfirmasi Hapus"));
+`,
+                expectedOutput: "Modal Terbuka: Konfirmasi Hapus",
+                explanation: "Luar biasa! Komponen Modal State Master Level berhasil dijalankan!",
+                xpReward: 50,
               },
             },
           ],

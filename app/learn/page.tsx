@@ -59,7 +59,7 @@ function LearnPathContent() {
 
   // Alternating offsets to create a winding Duolingo-style quest map path
   const getWindingOffset = (idx: number) => {
-    const pattern = ["items-center", "items-start pl-8 sm:pl-24", "items-center", "items-end pr-8 sm:pr-24"];
+    const pattern = ["items-center", "items-start pl-8 sm:pl-28", "items-center", "items-end pr-8 sm:pr-28"];
     return pattern[idx % pattern.length];
   };
 
@@ -68,10 +68,10 @@ function LearnPathContent() {
       {/* Page Header */}
       <div className="text-center space-y-2">
         <h1 className="text-3xl sm:text-4xl font-black text-[#4b4b4b] uppercase tracking-tight">
-          Peta Petualangan Koding
+          Peta Petualangan Koding (Level Master)
         </h1>
         <p className="text-slate-500 font-bold text-sm">
-          Selesaikan setiap node tantangan untuk membuka section baru dan mengumpulkan XP!
+          Selesaikan alur petualangan dari dasar hingga Level Master (Projek Fullstack, Modal, Animasi Scroll, & CRUD Engine)!
         </p>
       </div>
 
@@ -98,12 +98,12 @@ function LearnPathContent() {
         })}
       </div>
 
-      {/* Winding Quest Map Section */}
+      {/* Winding Quest Map Container */}
       <div className="space-y-16 py-6 relative">
         {currentPath.sections.map((section, secIdx) => (
           <div key={section.id} className="space-y-10 relative">
             {/* Section Header Card */}
-            <div className="card-duo p-6 bg-white border-2 border-slate-200 rounded-3xl shadow-sm text-center max-w-xl mx-auto space-y-2">
+            <div className="card-duo p-6 bg-white border-2 border-slate-200 rounded-3xl shadow-sm text-center max-w-xl mx-auto space-y-2 relative z-10">
               <span className="text-xs font-black uppercase tracking-wider text-[#1cb0f6] bg-sky-50 px-3 py-1 rounded-full">
                 SECTION {secIdx + 1}
               </span>
@@ -113,8 +113,11 @@ function LearnPathContent() {
               <p className="text-xs font-bold text-slate-400">{section.description}</p>
             </div>
 
-            {/* Winding Map Nodes */}
-            <div className="flex flex-col space-y-12 items-center relative">
+            {/* Winding Map Nodes Container with Dotted Connecting Path Line */}
+            <div className="flex flex-col space-y-14 items-center relative py-4">
+              {/* Visible Connecting Dotted Trail Line */}
+              <div className="absolute left-1/2 -translate-x-1/2 top-4 bottom-4 w-1 border-r-4 border-dashed border-sky-300 pointer-events-none z-0 opacity-70" />
+
               {section.lessons.map((lesson, lessonIdx) => {
                 const status = getLessonStatus(lesson.id, lesson.prerequisites, lessonIdx);
                 const isCompleted = status === "COMPLETED";
@@ -123,10 +126,10 @@ function LearnPathContent() {
                 const alignmentClass = getWindingOffset(lessonIdx);
 
                 return (
-                  <div key={lesson.id} className={`w-full flex flex-col ${alignmentClass} relative group`}>
+                  <div key={lesson.id} className={`w-full flex flex-col ${alignmentClass} relative z-10 group`}>
                     {/* Floating Tooltip for Active Node */}
                     {isAvailable && (
-                      <div className="mb-2 animate-bounce bg-[#58cc02] text-white px-3 py-1 rounded-xl text-[10px] font-black uppercase tracking-wider shadow-md">
+                      <div className="mb-2 animate-bounce bg-[#58cc02] text-white px-3.5 py-1 rounded-xl text-[10px] font-black uppercase tracking-wider shadow-md">
                         MULAI SINI!
                       </div>
                     )}
@@ -139,7 +142,7 @@ function LearnPathContent() {
                         }
                       }}
                       disabled={isLocked}
-                      className={`w-20 h-20 rounded-full border-b-8 flex flex-col items-center justify-center transition-all duration-300 shadow-lg relative ${
+                      className={`w-20 h-20 rounded-full border-b-8 flex flex-col items-center justify-center transition-all duration-300 shadow-xl relative ${
                         isCompleted
                           ? "bg-[#58cc02] border-[#46a302] text-white hover:scale-110"
                           : isAvailable
@@ -157,7 +160,7 @@ function LearnPathContent() {
                     </button>
 
                     {/* Node Title & XP Badge */}
-                    <div className="mt-3 text-center max-w-[160px] space-y-0.5">
+                    <div className="mt-3 text-center max-w-[170px] space-y-0.5 bg-white/80 backdrop-blur-xs p-2 rounded-2xl border border-slate-100 shadow-2xs">
                       <h4 className="font-extrabold text-sm text-[#4b4b4b] leading-tight">
                         {lesson.title}
                       </h4>
@@ -170,7 +173,7 @@ function LearnPathContent() {
               })}
 
               {/* Section Checkpoint Chest Node */}
-              <div className="pt-6 text-center">
+              <div className="pt-6 text-center relative z-10">
                 <Link
                   href={`/checkpoint/${section.id}`}
                   className="card-duo px-6 py-4 bg-amber-50 border-2 border-amber-300 hover:border-amber-400 rounded-3xl flex items-center gap-3 transition-all hover:scale-105 shadow-md"
