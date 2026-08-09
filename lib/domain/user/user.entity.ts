@@ -139,9 +139,10 @@ export function markLessonCompleted(
   const completed = new Set(userWithStreak.completedLessons);
   completed.add(lessonId);
 
-  // Update progress percentage
-  const prevProgress = userWithStreak.languageProgress[language] || 0;
-  const newProgress = Math.min(100, prevProgress + 15);
+  const langPrefixes: Record<Language, string> = { typescript: "ts_", tsx: "tsx_", python: "py_" };
+  const totalLessons: Record<Language, number> = { typescript: 65, tsx: 65, python: 65 };
+  const completedInLang = Array.from(completed).filter((id) => id.startsWith(langPrefixes[language])).length;
+  const newProgress = Math.min(100, Math.round((completedInLang / (totalLessons[language] || 65)) * 100));
 
   return {
     ...userWithStreak,

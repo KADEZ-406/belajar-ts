@@ -17,12 +17,15 @@ function LearnPathContent() {
 
   const currentPath = LEARNING_PATHS[selectedLang] || LEARNING_PATHS.typescript;
 
-  const getLessonStatus = (lessonId: string, prerequisites: string[], index: number): LessonStatus => {
+  const getLessonStatus = (lessonId: string, prerequisites: string[], index: number, secIdx: number): LessonStatus => {
     if (user.completedLessons.includes(lessonId)) {
       return "COMPLETED";
     }
-    if (prerequisites.length === 0 || prerequisites.every((p) => user.completedLessons.includes(p))) {
-      return index === 0 || user.completedLessons.length > 0 ? "AVAILABLE" : "IN_PROGRESS";
+    const prerequisitesMet = prerequisites.length === 0 || prerequisites.every((p) => user.completedLessons.includes(p));
+    const isFirstInCourse = index === 0 && secIdx === 0;
+
+    if (isFirstInCourse || (prerequisites.length > 0 && prerequisitesMet)) {
+      return "AVAILABLE";
     }
     return "LOCKED";
   };
@@ -119,7 +122,7 @@ function LearnPathContent() {
               <div className="absolute left-1/2 -translate-x-1/2 top-4 bottom-4 w-1 border-r-4 border-dashed border-sky-300 pointer-events-none z-0 opacity-70" />
 
               {section.lessons.map((lesson, lessonIdx) => {
-                const status = getLessonStatus(lesson.id, lesson.prerequisites, lessonIdx);
+                const status = getLessonStatus(lesson.id, lesson.prerequisites, lessonIdx, secIdx);
                 const isCompleted = status === "COMPLETED";
                 const isAvailable = status === "AVAILABLE" || status === "IN_PROGRESS";
                 const isLocked = status === "LOCKED";

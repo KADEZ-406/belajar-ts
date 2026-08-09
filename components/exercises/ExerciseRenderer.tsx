@@ -22,9 +22,13 @@ export function ExerciseRenderer({
   const [showFixHint, setShowFixHint] = useState(false);
   const [showConceptGuide, setShowConceptGuide] = useState(false);
   const [editorState, setEditorState] = useState<{ output: string; code: string } | null>(null);
-  const [arrangedItems, setArrangedItems] = useState<string[]>(
-    exercise.type === "arrange_code" ? [...exercise.codeSnippets] : []
-  );
+  const [arrangedItems, setArrangedItems] = useState<string[]>(() => {
+    if (exercise.type === "arrange_code") {
+      // Reverse or shuffle snippets so they are not pre-solved
+      return [...exercise.codeSnippets].reverse();
+    }
+    return [];
+  });
 
   const checkCodeCorrectness = (output: string, code: string): boolean => {
     const cleanOutput = output.trim();
