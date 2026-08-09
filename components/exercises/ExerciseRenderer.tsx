@@ -112,8 +112,25 @@ export function ExerciseRenderer({
 
   return (
     <div className="space-y-6">
+      {/* Pelajari Dulu (Guided explanation before challenge in Learn Mode) */}
+      {!isExamMode && (
+        <div className="card-duo p-6 bg-sky-50 border-2 border-sky-200 rounded-2xl space-y-2 shadow-xs">
+          <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#1cb0f6]">
+            <BookOpen className="w-4 h-4" /> Pelajari Dulu:
+          </div>
+          <p className="text-base font-semibold text-slate-800 leading-relaxed">
+            {exercise.conceptGuide || "Perhatikan aturan sintaks dan tata cara penulisan kode di bawah sebelum kamu mencoba kuis."}
+          </p>
+        </div>
+      )}
+
       {/* Exercise Question Prompt Header */}
-      <div className="card-duo p-6 bg-white border-2 border-slate-200 rounded-2xl shadow-xs">
+      <div className="card-duo p-6 bg-white border-2 border-slate-200 rounded-2xl shadow-xs space-y-2">
+        {isExamMode && (
+          <div className="text-[10px] font-black uppercase tracking-wider text-amber-600 bg-amber-100 px-3 py-1 rounded-full w-max">
+            ⚡ Soal Ujian: Tanpa Bimbingan (Bonus 2x XP)
+          </div>
+        )}
         <h3 className="text-xl md:text-2xl font-extrabold text-[#4b4b4b] leading-tight">
           {exercise.prompt}
         </h3>
